@@ -1,0 +1,206 @@
+/* Estilos Generales */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Header */
+header {
+    background: #333;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #007bff 3px solid;
+}
+
+header h1 {
+    text-align: center;
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+header p {
+    text-align: center;
+    font-size: 1.1em;
+}
+
+header nav ul {
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+header nav ul li {
+    display: inline;
+    padding: 0 15px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+header nav ul li a:hover {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Hero Section (About Me) */
+.hero {
+    padding: 40px 0;
+    background: #e7e7e7;
+    text-align: center;
+}
+
+.hero h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Sections */
+section {
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+section h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    height: 3px;
+    width: 50px;
+    background-color: #007bff;
+}
+
+.section-alt {
+    background-color: #fff;
+}
+
+/* Experience */
+.job-item {
+    margin-bottom: 30px;
+    border-left: 4px solid #007bff;
+    padding-left: 15px;
+}
+
+.job-item h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.job-item h4 {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.job-item ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+/* Education */
+.education-item {
+    margin-bottom: 20px;
+    border-left: 4px solid #007bff;
+    padding-left: 15px;
+}
+
+.education-item h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.education-item h4 {
+    color: #555;
+}
+
+/* Skills */
+.skills-category {
+    margin-bottom: 20px;
+}
+
+.skills-category h3 {
+    color: #007bff;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.skills-category ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skills-category ul li {
+    background: #007bff;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+/* Contact */
+#contact p {
+    text-align: center;
+    font-size: 1.1em;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+}
+
+footer p {
+    margin: 0;
+}
+
+.skills-chart {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.skills-chart img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}

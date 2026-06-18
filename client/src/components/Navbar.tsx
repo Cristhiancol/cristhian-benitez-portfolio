@@ -55,12 +55,12 @@ export default function Navbar() {
             className="text-lg md:text-xl font-bold tracking-tight"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
-            <span className="text-[#00f0ff]">C</span>
+            <span className="text-[#5EEAD4]">C</span>
             <span className="text-white">B</span>
-            <span className="text-[#39ff14]">R</span>
+            <span className="text-[#F5A623]">R</span>
           </span>
           <span className="hidden sm:inline text-xs text-gray-500 font-mono border-l border-gray-700 pl-2 ml-1">
-            portfolio.v2
+            procurement.v2
           </span>
         </button>
 
@@ -71,7 +71,7 @@ export default function Navbar() {
               onClick={() => handleClick(link.href)}
               className={`px-3 py-2 text-sm font-medium rounded-md transition-all duration-300 ${
                 activeSection === link.href.slice(1)
-                  ? "text-[#00f0ff] bg-[#00f0ff]/10"
+                  ? "text-[#5EEAD4] bg-[#5EEAD4]/10"
                   : "text-gray-400 hover:text-white hover:bg-white/5"
               }`}
               style={{ fontFamily: "'DM Sans', sans-serif" }}
@@ -87,7 +87,7 @@ export default function Navbar() {
           <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="text-gray-400 hover:text-[#00f0ff] transition-colors"
+            className="text-gray-400 hover:text-[#5EEAD4] transition-colors"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -95,14 +95,14 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-[#0a0a0f]/95 backdrop-blur-xl border-t border-[#00f0ff]/10 pb-4">
+        <div className="md:hidden bg-[#0B1215]/95 backdrop-blur-xl border-t border-[#5EEAD4]/10 pb-4">
           {navLinks.map((link) => (
             <button
               key={link.href}
               onClick={() => handleClick(link.href)}
               className={`block w-full text-left px-6 py-3 text-sm font-medium transition-colors ${
                 activeSection === link.href.slice(1)
-                  ? "text-[#00f0ff] bg-[#00f0ff]/5"
+                  ? "text-[#5EEAD4] bg-[#5EEAD4]/5"
                   : "text-gray-400 hover:text-white"
               }`}
               style={{ fontFamily: "'DM Sans', sans-serif" }}

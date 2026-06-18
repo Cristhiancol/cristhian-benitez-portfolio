@@ -47,12 +47,12 @@ export default function TimelineItem({
     >
       {/* Timeline dot and line */}
       <div className="flex flex-col items-center flex-shrink-0">
-        <div className="w-4 h-4 rounded-full bg-[#0a0a0f] border-2 border-[#00f0ff] shadow-[0_0_10px_#00f0ff60] z-10" />
-        <div className="w-0.5 flex-1 bg-gradient-to-b from-[#00f0ff40] to-transparent min-h-[40px]" />
+        <div className="w-4 h-4 rounded-full bg-[#0B1215] border-2 border-[#5EEAD4] shadow-[0_0_10px_rgba(94,234,212,0.3)] z-10" />
+        <div className="w-0.5 flex-1 bg-gradient-to-b from-[#5EEAD4]/40 to-transparent min-h-[40px]" />
       </div>
 
       {/* Content */}
-      <div className="glass-card rounded-lg p-5 md:p-6 border border-[#00f0ff]/15 hover:border-[#00f0ff]/40 transition-all duration-500 flex-1 mb-8 group">
+      <div className="glass-card rounded-lg p-5 md:p-6 border border-[#5EEAD4]/15 hover:border-[#5EEAD4]/40 transition-all duration-500 flex-1 mb-8 group">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-3">
           <div>
             <h3
@@ -61,10 +61,10 @@ export default function TimelineItem({
             >
               {title}
             </h3>
-            <p className="text-[#00f0ff] font-medium text-sm md:text-base">{company}</p>
+            <p className="text-[#5EEAD4] font-medium text-sm md:text-base">{company}</p>
           </div>
           <span
-            className="text-xs md:text-sm text-[#39ff14] font-mono bg-[#39ff14]/10 px-3 py-1 rounded-full border border-[#39ff14]/20 self-start"
+            className="text-xs md:text-sm text-[#F5A623] font-mono bg-[#F5A623]/10 px-3 py-1 rounded-full border border-[#F5A623]/20 self-start"
             style={{ fontFamily: "'JetBrains Mono', monospace" }}
           >
             {period}
@@ -74,21 +74,21 @@ export default function TimelineItem({
         <ul className="space-y-1.5 mb-4">
           {description.map((item, i) => (
             <li key={i} className="text-gray-400 text-sm flex items-start gap-2">
-              <span className="text-[#00f0ff] mt-1 text-xs">&#9654;</span>
+              <span className="text-[#5EEAD4] mt-1 text-xs">&#9654;</span>
               <span>{item}</span>
             </li>
           ))}
         </ul>
 
         {achievements.length > 0 && (
-          <div className="border-t border-[#00f0ff]/10 pt-3 mt-3">
-            <p className="text-xs uppercase tracking-widest text-[#ffd700] mb-2 font-semibold" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+          <div className="border-t border-[#5EEAD4]/10 pt-3 mt-3">
+            <p className="text-xs uppercase tracking-widest text-[#F5A623] mb-2 font-semibold" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
               Logros Destacados
             </p>
             <ul className="space-y-1.5">
               {achievements.map((a, i) => (
                 <li key={i} className="text-gray-300 text-sm flex items-start gap-2">
-                  <span className="text-[#ffd700] mt-1 text-xs">&#9733;</span>
+                  <span className="text-[#F5A623] mt-1 text-xs">&#9733;</span>
                   <span>{a}</span>
                 </li>
               ))}

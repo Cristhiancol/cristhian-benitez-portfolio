@@ -46,7 +46,7 @@ const quickInfo = [
   { icon: <TrendingUp size={16} />,label: "Mayor logro",  value: "Hasta 11 % de ahorro en insumos anuales" },
   { icon: <Globe size={16} />,     label: "Especialidad", value: "Comercio Exterior & Importaciones UAP" },
   { icon: <Database size={16} />,  label: "Stack",        value: "Python · Pandas · Tableau · SQL · SAP" },
-  { icon: <Award size={16} />,     label: "Formación",    value: "Finanzas & Neg. Internacionales — Unipanamericana 2023" },
+  { icon: <Award size={16} />,     label: "Formación",    value: "Finanzas & Neg. Internacionales — F.U. Monserrate 2023" },
 ];
 
 const highlights = [
@@ -584,7 +584,7 @@ export default function Home() {
             <Award size={13} style={{ display: "inline", verticalAlign: "middle", marginRight: 6, color: "var(--teal)" }} />
             <strong>Certificaciones:</strong> IA aplicada a Negocios (Certiplus) ·
             SAP Business One Cero a Experto · Java Básico a Avanzado ·
-            Diseño Web & Front-End · Finanzas y Negocios Internacionales (Unipanamericana 2023) ·
+            Diseño Web & Front-End · Finanzas y Negocios Internacionales — Fundación Universitaria Monserrate (2023) ·
             Tecnólogo en Negocios Internacionales (SENA 2016).
           </p>
         </div>

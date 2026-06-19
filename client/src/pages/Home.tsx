@@ -189,7 +189,7 @@ const toolGroups = [
 ];
 
 const contactLinks = [
-  { icon: <Mail size={20} />,      label: "Email",               value: "cristianbenitez50@hotmail.com", href: "mailto:cristianbenitez50@hotmail.com" },
+  { icon: <Mail size={20} />,      label: "Email",               value: "cristiancoli50@gmail.com", href: "mailto:cristiancoli50@gmail.com" },
   { icon: <Phone size={20} />,     label: "Teléfono / WhatsApp", value: "(+57) 301 374 8901",            href: "tel:+573013748901" },
   { icon: <Linkedin size={20} />,  label: "LinkedIn",            value: "Cristhian Benitez Rodríguez",  href: "https://www.linkedin.com/in/cristhian-hernando-benitez-rodriguez/" },
   { icon: <Github size={20} />,    label: "GitHub",              value: "Cristhiancol",                  href: "https://github.com/Cristhiancol/cristhian-benitez-portfolio" },
@@ -206,32 +206,63 @@ const interestOptions = [
 ];
 
 /* ── CONTACT FORM ─────────────────────────────────────────────── */
+// Destination inbox — all form submissions go here
+const CONTACT_EMAIL = "cristiancoli50@gmail.com";
+
 function ContactForm() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [form, setForm] = useState({ name: "", email: "", company: "", interest: "", message: "" });
   const { addNotification } = useNotification();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Contacto portafolio — ${form.name}${form.company ? ` (${form.company})` : ""}`);
-    const body = encodeURIComponent(
-      `Nombre: ${form.name}\nEmail: ${form.email}\nEmpresa: ${form.company}\nInterés: ${form.interest}\n\nMensaje:\n${form.message}`
-    );
-    window.location.href = `mailto:cristianbenitez50@hotmail.com?subject=${subject}&body=${body}`;
-    setSent(true);
-    addNotification({ type: "success", title: "Mensaje preparado", message: "Tu cliente de correo abrirá el mensaje listo para enviar.", duration: 4000 });
+    setStatus("sending");
+
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          // Extra fields sent as part of the message body
+          message: [
+            `Empresa / Org: ${form.company || "(no indicada)"}`,
+            `Interés: ${form.interest || "(no indicado)"}`,
+            "",
+            form.message,
+          ].join("\n"),
+          _subject: `Portafolio — ${form.name}${form.company ? ` · ${form.company}` : ""}`,
+          _replyto: form.email,
+          _captcha: "false",
+          _template: "table",
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success === "true" || data.success === true) {
+        setStatus("sent");
+        addNotification({ type: "success", title: "Mensaje enviado", message: "Tu mensaje llegó a la bandeja de Cristhian. Te responderá pronto.", duration: 5000 });
+      } else {
+        throw new Error("Formsubmit response not ok");
+      }
+    } catch {
+      setStatus("error");
+      addNotification({ type: "error", title: "Error al enviar", message: "Intenta de nuevo o escribe directamente a cristiancoli50@gmail.com", duration: 6000 });
+    }
   };
 
-  if (sent) {
+  if (status === "sent") {
     return (
       <div className="form-success show">
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
           <CheckCircle2 size={52} color="var(--teal)" strokeWidth={1.5} />
         </div>
-        <h3 className="form-success-title">¡Mensaje preparado!</h3>
-        <p className="form-success-sub">Tu cliente de correo abrió el mensaje. Revísalo y haz clic en Enviar.</p>
-        <button onClick={() => setSent(false)} style={{ marginTop: 20, color: "var(--teal)", background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: "0.05em" }}>
-          ← VOLVER AL FORMULARIO
+        <h3 className="form-success-title">¡Mensaje enviado!</h3>
+        <p className="form-success-sub">Tu mensaje llegó directamente a la bandeja de Cristhian. Te responderá en menos de 24 horas hábiles.</p>
+        <button onClick={() => { setStatus("idle"); setForm({ name: "", email: "", company: "", interest: "", message: "" }); }} style={{ marginTop: 20, color: "var(--teal)", background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: "0.05em" }}>
+          ← ENVIAR OTRO MENSAJE
         </button>
       </div>
     );
@@ -276,10 +307,23 @@ function ContactForm() {
         <textarea id="cf-msg" placeholder="Cuéntame de qué se trata…" required value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} />
       </div>
 
-      <button type="submit" className="form-submit">
+      <button
+        type="submit"
+        className="form-submit"
+        disabled={status === "sending"}
+        style={{ opacity: status === "sending" ? 0.7 : 1, cursor: status === "sending" ? "not-allowed" : "pointer" }}
+      >
         <Send size={16} style={{ marginRight: 8 }} />
-        Enviar mensaje
+        {status === "sending" ? "Enviando…" : "Enviar mensaje"}
       </button>
+      {status === "error" && (
+        <p style={{ color: "var(--amber)", fontSize: 13, marginTop: 10, textAlign: "center" }}>
+          No se pudo enviar. Escríbenos a{" "}
+          <a href="mailto:cristiancoli50@gmail.com" style={{ color: "var(--teal)" }}>
+            cristiancoli50@gmail.com
+          </a>
+        </p>
+      )}
       <p className="form-note">
         <ShieldCheck size={11} style={{ verticalAlign: "middle", marginRight: 4 }} />
         Tus datos solo se usan para responderte
@@ -287,6 +331,7 @@ function ContactForm() {
     </form>
   );
 }
+
 
 /* ── MAIN ─────────────────────────────────────────────────────── */
 export default function Home() {

@@ -206,9 +206,6 @@ const interestOptions = [
 ];
 
 /* ── CONTACT FORM ─────────────────────────────────────────────── */
-// Destination inbox — all form submissions go here
-const CONTACT_EMAIL = "cristiancoli50@gmail.com";
-
 function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [form, setForm] = useState({ name: "", email: "", company: "", interest: "", message: "" });
@@ -219,39 +216,26 @@ function ContactForm() {
     setStatus("sending");
 
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          // Extra fields sent as part of the message body
-          message: [
-            `Empresa / Org: ${form.company || "(no indicada)"}`,
-            `Interés: ${form.interest || "(no indicado)"}`,
-            "",
-            form.message,
-          ].join("\n"),
-          _subject: `Portafolio — ${form.name}${form.company ? ` · ${form.company}` : ""}`,
-          _replyto: form.email,
-          _captcha: "false",
-          _template: "table",
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
 
       const data = await res.json();
 
-      if (data.success === "true" || data.success === true) {
+      if (data.ok) {
         setStatus("sent");
-        addNotification({ type: "success", title: "Mensaje enviado", message: "Tu mensaje llegó a la bandeja de Cristhian. Te responderá pronto.", duration: 5000 });
+        addNotification({ type: "success", title: "Mensaje enviado", message: "Cristhian recibirá tu mensaje. Te responderá pronto.", duration: 5000 });
       } else {
-        throw new Error("Formsubmit response not ok");
+        throw new Error(data.error || "Error del servidor");
       }
     } catch {
       setStatus("error");
-      addNotification({ type: "error", title: "Error al enviar", message: "Intenta de nuevo o escribe directamente a cristiancoli50@gmail.com", duration: 6000 });
+      addNotification({ type: "error", title: "Error al enviar", message: "Intenta de nuevo o escríbenos a cristiancoli50@gmail.com", duration: 6000 });
     }
   };
+
 
   if (status === "sent") {
     return (

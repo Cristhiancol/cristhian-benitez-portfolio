@@ -3,6 +3,8 @@ import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+import axios from "axios";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -70,6 +72,21 @@ async function startServer() {
     saveMessages(msgs);
 
     console.log(`[CONTACTO] ${entry.receivedAt} | ${entry.name} <${entry.email}>`);
+
+    // Enviar notificación de correo en segundo plano
+    axios.post("https://formsubmit.co/ajax/cristiancoli50@gmail.com", {
+      name: entry.name,
+      email: entry.email,
+      company: entry.company,
+      interest: entry.interest,
+      message: entry.message,
+      _subject: `[Portafolio] Nuevo mensaje de ${entry.name}`,
+    }).then(() => {
+      console.log(`[EMAIL] Notificación enviada a cristiancoli50@gmail.com para ${entry.name}`);
+    }).catch((err: any) => {
+      console.error("[EMAIL ERROR] Error al enviar notificación a FormSubmit:", err?.message || err);
+    });
+
     return res.json({ ok: true, id: entry.id });
   });
 

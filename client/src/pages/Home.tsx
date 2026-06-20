@@ -237,7 +237,7 @@ function ContactForm() {
 
       // 2. Fallback: Enviar directamente a FormSubmit desde el navegador
       try {
-        const fsRes = await fetch("https://formsubmit.co/ajax/cristiancoli50@gmail.com", {
+        const fsRes = await fetch("https://formsubmit.co/ajax/ffa2b23738a41a60b7b1da7a15e9d88e", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

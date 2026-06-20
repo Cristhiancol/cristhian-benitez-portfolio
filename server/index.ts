@@ -74,7 +74,7 @@ async function startServer() {
     console.log(`[CONTACTO] ${entry.receivedAt} | ${entry.name} <${entry.email}>`);
 
     // Enviar notificación de correo en segundo plano
-    axios.post("https://formsubmit.co/ajax/cristiancoli50@gmail.com", {
+    axios.post("https://formsubmit.co/ajax/ffa2b23738a41a60b7b1da7a15e9d88e", {
       name: entry.name,
       email: entry.email,
       company: entry.company,
@@ -82,7 +82,7 @@ async function startServer() {
       message: entry.message,
       _subject: `[Portafolio] Nuevo mensaje de ${entry.name}`,
     }).then(() => {
-      console.log(`[EMAIL] Notificación enviada a cristiancoli50@gmail.com para ${entry.name}`);
+      console.log(`[EMAIL] Notificación enviada a ffa2b23738a41a60b7b1da7a15e9d88e para ${entry.name}`);
     }).catch((err: any) => {
       console.error("[EMAIL ERROR] Error al enviar notificación a FormSubmit:", err?.message || err);
     });

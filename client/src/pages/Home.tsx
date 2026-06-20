@@ -216,23 +216,54 @@ function ContactForm() {
     setStatus("sending");
 
     try {
+      // 1. Intentar enviar al backend local primero
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
-      const data = await res.json();
-
-      if (data.ok) {
-        setStatus("sent");
-        addNotification({ type: "success", title: "Mensaje enviado", message: "Cristhian recibirá tu mensaje. Te responderá pronto.", duration: 5000 });
-      } else {
-        throw new Error(data.error || "Error del servidor");
+      if (res.ok) {
+        const data = await res.json();
+        if (data.ok) {
+          setStatus("sent");
+          addNotification({ type: "success", title: "Mensaje enviado", message: "Cristhian recibirá tu mensaje. Te responderá pronto.", duration: 5000 });
+          return;
+        }
       }
-    } catch {
-      setStatus("error");
-      addNotification({ type: "error", title: "Error al enviar", message: "Intenta de nuevo o escríbenos a cristiancoli50@gmail.com", duration: 6000 });
+      throw new Error("Backend offline o error");
+    } catch (backendError) {
+      console.warn("Backend local no disponible, usando fallback directo a FormSubmit...", backendError);
+
+      // 2. Fallback: Enviar directamente a FormSubmit desde el navegador
+      try {
+        const fsRes = await fetch("https://formsubmit.co/ajax/cristiancoli50@gmail.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            company: form.company,
+            interest: form.interest,
+            message: form.message,
+            _subject: `[Portafolio] Nuevo mensaje de ${form.name}`,
+          }),
+        });
+
+        if (fsRes.ok) {
+          const fsData = await fsRes.json();
+          if (fsData.success === "true" || fsRes.status === 200) {
+            setStatus("sent");
+            addNotification({ type: "success", title: "Mensaje enviado", message: "Cristhian recibirá tu mensaje. Te responderá pronto.", duration: 5000 });
+            return;
+          }
+        }
+        throw new Error("Fallback failed");
+      } catch (fallbackError) {
+        console.error("Error en ambos métodos de envío:", fallbackError);
+        setStatus("error");
+        addNotification({ type: "error", title: "Error al enviar", message: "Intenta de nuevo o escríbenos a cristiancoli50@gmail.com", duration: 6000 });
+      }
     }
   };
 

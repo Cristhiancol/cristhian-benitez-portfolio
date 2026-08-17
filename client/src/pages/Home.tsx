@@ -240,6 +240,26 @@ const interestOptions = [
   { icon: <Layers size={14} />,       label: "Networking / Colaboración" },
 ];
 
+function saveLocalMessage(msg: { name: string; email: string; company?: string; interest?: string; message: string }) {
+  try {
+    const list = JSON.parse(localStorage.getItem("cristhian_messages") || "[]");
+    const newEntry = {
+      id: `${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+      name: msg.name,
+      email: msg.email,
+      company: msg.company || "",
+      interest: msg.interest || "",
+      message: msg.message,
+      receivedAt: new Date().toISOString(),
+      read: false,
+    };
+    list.unshift(newEntry);
+    localStorage.setItem("cristhian_messages", JSON.stringify(list));
+  } catch (err) {
+    console.warn("Error al guardar mensaje en localStorage:", err);
+  }
+}
+
 /* ── CONTACT FORM ─────────────────────────────────────────────── */
 function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -249,6 +269,9 @@ function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
+
+    // Guardar copia local siempre para sincronización inmediata con /admin en hosting estático
+    saveLocalMessage(form);
 
     try {
       // 1. Intentar enviar al backend local primero

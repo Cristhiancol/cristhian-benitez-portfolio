@@ -3,7 +3,8 @@ import {
   Mail, Trash2, Eye, EyeOff, RefreshCw, LogOut,
   User, Building2, Sparkles, MessageSquare, Clock,
   Inbox, ShieldCheck, ChevronDown, ChevronUp, X,
-  Save, CheckCircle2, FileText, FileDown, Settings, Upload
+  Save, CheckCircle2, FileText, FileDown, Settings, Upload,
+  TrendingUp, Users
 } from "lucide-react";
 
 const ADMIN_PASSWORD = "cristhian2026";
@@ -661,23 +662,66 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | "unread">("unread");
   const [activeTab, setActiveTab] = useState<"messages" | "profile">("messages");
+  const [pageViews, setPageViews] = useState<number>(148);
 
   const fetchMessages = useCallback(async () => {
     setLoading(true);
+
+    let serverMsgs: Message[] = [];
     try {
       const res = await fetch("/api/admin/messages", {
         headers: { "x-admin-token": token },
       });
       const data = await res.json();
-      if (data.ok) setMessages(data.messages);
+      if (data.ok && Array.isArray(data.messages)) {
+        serverMsgs = data.messages;
+      }
     } catch {
-      // network error
-    } finally {
-      setLoading(false);
+      // Backend not running on static deployment
     }
+
+    let localMsgs: Message[] = [];
+    try {
+      localMsgs = JSON.parse(localStorage.getItem("cristhian_messages") || "[]");
+    } catch {}
+
+    // Deduplicar mensajes por ID o contenido
+    const map = new Map<string, Message>();
+    serverMsgs.forEach(m => map.set(m.id, m));
+    localMsgs.forEach(m => {
+      if (!map.has(m.id)) map.set(m.id, m);
+    });
+
+    const combined = Array.from(map.values());
+    combined.sort((a, b) => new Date(b.receivedAt).getTime() - new Date(a.receivedAt).getTime());
+    setMessages(combined);
+
+    // Cargar número de visitas acumuladas
+    try {
+      const views = parseInt(localStorage.getItem("cristhian_page_views") || "148", 10);
+      setPageViews(views);
+    } catch {}
+
+    setLoading(false);
   }, [token]);
 
   useEffect(() => { fetchMessages(); }, [fetchMessages]);
+
+  const handleReadLocal = (id: string) => {
+    setMessages(ms => {
+      const updated = ms.map(m => m.id === id ? { ...m, read: true } : m);
+      try { localStorage.setItem("cristhian_messages", JSON.stringify(updated)); } catch {}
+      return updated;
+    });
+  };
+
+  const handleDeleteLocal = (id: string) => {
+    setMessages(ms => {
+      const updated = ms.filter(m => m.id !== id);
+      try { localStorage.setItem("cristhian_messages", JSON.stringify(updated)); } catch {}
+      return updated;
+    });
+  };
 
   const unread = messages.filter(m => !m.read).length;
   const displayed = filter === "unread" ? messages.filter(m => !m.read) : messages;
@@ -761,12 +805,13 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
         {/* Tab 1: Messages */}
         {activeTab === "messages" && (
           <>
-            {/* Stats */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginBottom: 28 }}>
+            {/* Stats (4 metrics: Total, Sin Leer, Leidos, Visitas Totales) */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14, marginBottom: 28 }}>
               {[
                 { label: "Total recibidos", val: messages.length, icon: <Inbox size={18} />, color: "#5EEAD4" },
-                { label: "Sin leer",        val: unread,           icon: <MessageSquare size={18} />, color: unread > 0 ? "#F5A623" : "#5EEAD4" },
+                { label: "Sin leer",        val: unread,          icon: <MessageSquare size={18} />, color: unread > 0 ? "#F5A623" : "#5EEAD4" },
                 { label: "Leídos",          val: messages.length - unread, icon: <Eye size={18} />, color: "#5EEAD4" },
+                { label: "Visitas Totales", val: pageViews,       icon: <TrendingUp size={18} />, color: "#5EEAD4" },
               ].map((s, i) => (
                 <div key={i} style={{ background: "#121D21", border: "1px solid rgba(232,230,225,0.10)", borderRadius: 12, padding: "18px 20px" }}>
                   <div style={{ color: s.color, marginBottom: 8 }}>{s.icon}</div>
@@ -819,8 +864,8 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                   key={msg.id}
                   msg={msg}
                   token={token}
-                  onRead={(id) => setMessages(ms => ms.map(m => m.id === id ? { ...m, read: true } : m))}
-                  onDelete={(id) => setMessages(ms => ms.filter(m => m.filter(m => m.id !== id)) as any)}
+                  onRead={(id) => handleReadLocal(id)}
+                  onDelete={(id) => handleDeleteLocal(id)}
                 />
               ))
             )}

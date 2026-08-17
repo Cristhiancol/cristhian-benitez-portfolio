@@ -24,36 +24,36 @@ const PROFILE_IMG =
 
 /* ── DATA ───────────────────────────────────────────────────────── */
 const heroTags = [
-  { icon: <Code2 size={13} />, label: "Python · Pandas" },
-  { icon: <BarChart3 size={13} />, label: "Tableau · Power BI" },
-  { icon: <Package size={13} />, label: "SAP Business One" },
-  { icon: <TrendingUp size={13} />, label: "Negociación Estratégica" },
-  { icon: <BrainCircuit size={13} />, label: "IA Aplicada" },
-  { icon: <Globe size={13} />, label: "Comercio Exterior" },
+  { icon: <Code2 size={13} />, label: "Python · Pandas · Scikit-Learn" },
+  { icon: <BarChart3 size={13} />, label: "SQL · Power BI · Tableau" },
+  { icon: <Package size={13} />, label: "SAP (MM, B1) · SIESA" },
+  { icon: <TrendingUp size={13} />, label: "Abastecimiento Estratégico" },
+  { icon: <BrainCircuit size={13} />, label: "IA Predictiva (Gemini AI)" },
+  { icon: <Globe size={13} />, label: "Comercio Exterior & SLAs" },
 ];
 
 const kpis = [
-  { num: "11", unit: "%", label: "Ahorros anuales en insumos" },
-  { num: "260", unit: "",  label: "Buses articulados bajo suministro" },
+  { num: "11", unit: "%", label: "Ahorros constantes en compras" },
+  { num: "260", unit: "",  label: "Buses bajo suministro e infraestructura" },
   { num: "40", unit: "%",  label: "Reducción costos aduaneros" },
-  { num: "20", unit: "%",  label: "Reducción lead time técnico" },
-  { num: "100", unit: "%", label: "Cumplimiento DIAN sin multas" },
+  { num: "60", unit: "%",  label: "Disminución tiempos de entrega" },
+  { num: "100", unit: "%", label: "Cumplimiento DIAN sin sanciones" },
 ];
 
 const quickInfo = [
-  { icon: <MapPin size={16} />,    label: "Ubicación",    value: "Bogotá, Colombia" },
-  { icon: <Clock size={16} />,     label: "Experiencia",  value: "+8 años en Procurement & Supply Chain" },
-  { icon: <TrendingUp size={16} />,label: "Mayor logro",  value: "Hasta 11 % de ahorro en insumos anuales" },
-  { icon: <Globe size={16} />,     label: "Especialidad", value: "Comercio Exterior & Importaciones UAP" },
-  { icon: <Database size={16} />,  label: "Stack",        value: "Python · Pandas · Tableau · SQL · SAP" },
-  { icon: <Award size={16} />,     label: "Formación",    value: "Finanzas & Neg. Internacionales — F.U. Monserrate 2023" },
+  { icon: <MapPin size={16} />,    label: "Ubicación",    value: "Bogotá, D.C., Colombia" },
+  { icon: <Clock size={16} />,     label: "Experiencia",  value: "+8 años en Compras, Comercio Exterior & Abastecimiento" },
+  { icon: <TrendingUp size={16} />,label: "Ahorros",      value: "Del 7% al 11% en adquisición de bienes y servicios" },
+  { icon: <Globe size={16} />,     label: "Especialidad", value: "Abastecimiento Estratégico, Contratación & SLAs" },
+  { icon: <Database size={16} />,  label: "Stack Data",   value: "Python (Pandas) · SQL · Excel Avanzado (VBA) · Power BI" },
+  { icon: <Award size={16} />,     label: "Formación",    value: "Finanzas & Negocios Int. — F.U. Unimonserrate (2023)" },
 ];
 
 const highlights = [
-  { text: <>Diseñé <strong>SMART</strong>, sistema en Excel con macros VBA que se convirtió en el core de inventarios — controlando OC, stock y facturación en tiempo real.</> },
-  { text: <>Lideré el proyecto <strong>UAP</strong> de nacionalización que redujo el gasto en agencia de aduanas en un 40 % y los tiempos de entrega en un 60 %.</> },
-  { text: <>Construyo <strong>modelos predictivos de costos logísticos</strong> con Python · Pandas · Scikit-Learn para anticipar variaciones de precio antes de que impacten la operación.</> },
-  { text: <>Certificado en <strong>IA aplicada a negocios</strong> (Certiplus) y desarrollo web — cada herramienta nueva la pruebo primero en mi trabajo real.</> },
+  { text: <>Lideré la gestión estratégica de repuestos e infraestructura para <strong>260 buses</strong>, administrando contratos complejos de lubricantes (Terpel), combustible y reparaciones técnicas.</> },
+  { text: <>Diseñé e implementé el <strong>Proyecto SMART</strong> para control y seguimiento integral de órdenes de compra, stock y facturación.</> },
+  { text: <>Implementé <strong>análisis predictivos de inventarios con IA</strong> (Gemini AI) y modelos en Python (Pandas/Scikit-learn) para prevenir desabastecimientos.</> },
+  { text: <>Lideré el proyecto <strong>UAP</strong> de comercio exterior que redujo gastos aduaneros en un 40% y tiempos de entrega en un 60% con 100% cumplimiento DIAN.</> },
 ];
 
 const experience = [
@@ -63,11 +63,12 @@ const experience = [
     role: "Gestor de Compras",
     org: "Somos Bogotá Usme S.A.S.",
     summary:
-      "Abastecimiento estratégico de lubricantes y repuestos para una flota de 260 buses articulados. Dashboards analíticos, negociaciones de gran escala y control de facturación PETROMIL.",
+      "Liderazgo estratégico en el suministro de repuestos e infraestructura para una flota de 260 buses. Gestión integral de contratos de alta complejidad para infraestructura y servicios (Terpel, mantenimiento de estaciones de combustible, reparaciones técnicas de culatas y cajas de dirección, suministro y seguimiento de combustible). Desarrollo de KPIs, cuadros comparativos e inventarios predictivos con IA.",
     results: [
-      "Ahorros del <strong>7 % – 11 %</strong> en presupuesto anual de insumos",
-      "Proyecto <strong>SMART</strong>: Excel + VBA → core de inventarios del área",
-      "Control dinámico de stock en tiempo real para 260 unidades",
+      "Ahorros constantes del <strong>7 % al 11 %</strong> mediante negociación estratégica y optimización de esquemas de contratación",
+      "Proyecto <strong>SMART</strong>: Control y seguimiento integral de órdenes de compra, fluctuaciones, stock y facturación",
+      "Análisis predictivo de inventarios mediante herramientas de <strong>IA</strong> para mantener stock óptimo y prevenir desabastecimientos",
+      "Elaboración de cuadros comparativos y sustentación de informes ejecutivos ante instancias de gasto",
     ],
   },
   {
@@ -76,11 +77,11 @@ const experience = [
     role: "Analista de Compras Técnicas",
     org: "Helicentro S.A.S.",
     summary:
-      "Cotizaciones técnicas aeronáuticas e industriales, cuadros comparativos paramétricos y automatización de verificaciones de inventario.",
+      "Gestión de cotizaciones para órdenes de compra y servicios técnicos aeronáuticos e industriales. Estrategias para sobre-stock y análisis de cuadros comparativos para decisiones informadas.",
     results: [
-      "Reducción del <strong>20 %</strong> en lead time de solicitudes críticas",
-      "Optimización del <strong>30 %</strong> en verificaciones de stock con algoritmos Excel",
-      "Sistema centralizado de OC abiertas y memorandos de servicio",
+      "Disminución del <strong>20 %</strong> en tiempo de respuesta de requerimientos técnicos",
+      "Mejora del <strong>30 %</strong> en verificaciones de stock mediante fórmulas avanzadas en Excel",
+      "Construcción de cuadros de seguimiento a órdenes de compra y memorandos pendientes",
     ],
   },
   {
@@ -89,11 +90,11 @@ const experience = [
     role: "Auxiliar Técnico — Comercio Exterior",
     org: "Helicentro S.A.S.",
     summary:
-      "Coordinación de aduanas e importaciones con Fedex, UPS, Tampa y Centurion. Prorrateo de aranceles, liquidación en SIESA y control documental DIAN.",
+      "Verificación de arribo de mercancías, gestión de valores de liberación, liquidación en SIESA y prorrateo manual. Gestión de OC, negociación con proveedores internacionales y reporte mensual UAP.",
     results: [
-      "Proyecto <strong>UAP</strong>: ahorro del <strong>40 %</strong> en agencias de aduanas",
-      "Reducción del <strong>60 %</strong> en tiempos de entrega y nacionalización",
-      "<strong>100 %</strong> cumplimiento en auditorías DIAN — cero multas",
+      "Reducción del <strong>40 %</strong> en gastos con agencia de aduanas mediante optimización de importaciones UAP",
+      "Disminución del <strong>60 %</strong> en tiempos de entrega de mercancías",
+      "<strong>100 %</strong> de cumplimiento de requerimientos DIAN, evitando sanciones",
     ],
   },
   {
@@ -102,11 +103,11 @@ const experience = [
     role: "Auxiliar de Aduanas — Compras",
     org: "Agencia de Aduanas Ceva Logistics",
     summary:
-      "Control de inventarios en depósitos aduaneros autorizados, auditoría física, SAP intensivo y coordinación con transportadores internacionales.",
+      "Análisis de inventarios y gestión de servicios de recepción, almacenamiento y entrega de carga en depósito aduanero. Inspección de carga, asistencia a aforos y alistamiento documental.",
     results: [
-      "Reducción del <strong>20 %</strong> en tiempo de inspección en puerto seco",
-      "<strong>+40 %</strong> productividad con verificaciones cruzadas en SAP",
-      "Automatización al <strong>100 %</strong> de actas de inspección virtual",
+      "Reducción del <strong>20 %</strong> en tiempos de inspección de mercancía",
+      "Aumento del <strong>40 %</strong> en productividad mediante método en verificación de archivo SAP",
+      "Implementación del <strong>acta de inspección virtual automatizada al 100 %</strong>",
     ],
   },
 ];
@@ -114,6 +115,74 @@ const experience = [
 const projects = [
   {
     id: "PRJ-001",
+    status: "status-live",
+    statusLabel: "ACTIVO / IA",
+    icon: <BrainCircuit size={20} />,
+    title: "StockFlow — Sistema de IA para Inventarios",
+    from: "STOCK REACTIVO",
+    to: "PREDICCIÓN IA",
+    description:
+      "Sistema inteligente con IA (Gemini AI) para optimización de inventarios y prevención proactiva de desabastecimiento en operaciones críticas.",
+    results: [
+      "Mantenimiento de niveles óptimos de stock",
+      "Prevención de desabastecimientos críticos",
+      "Alertas automáticas de reorden predictivo",
+    ],
+    stack: ["Python", "Gemini AI", "Pandas", "Scikit-learn"],
+  },
+  {
+    id: "PRJ-002",
+    status: "status-live",
+    statusLabel: "EN USO",
+    icon: <BarChart3 size={20} />,
+    title: "Análisis Predictivo de Costos Logísticos",
+    from: "DATOS HISTÓRICOS",
+    to: "92% PRECISIÓN",
+    description:
+      "Modelos en Python para anticipar variaciones de precio en insumos, fletes y servicios antes de que afecten el presupuesto.",
+    results: [
+      "Modelos con 92% de precisión predictiva",
+      "Mitigación de variaciones presupuestales",
+      "Sustentación sólida en comités de gasto",
+    ],
+    stack: ["Python", "Pandas", "Scikit-learn", "Power BI", "SQL"],
+  },
+  {
+    id: "PRJ-003",
+    status: "status-live",
+    statusLabel: "ACTIVO",
+    icon: <Boxes size={20} />,
+    title: "Asset Tracker — Dashboard IA & Drive",
+    from: "GOOGLE DRIVE",
+    to: "DASHBOARD IA",
+    description:
+      "Dashboard interactivo de inventario y cadena de suministro con IA y sincronización automática con archivos en Google Drive.",
+    results: [
+      "Sincronización automatizada con Google Drive",
+      "Monitoreo continuo de activos e insumos",
+      "Alertas de stock y KPIs dinámicos",
+    ],
+    stack: ["React", "TypeScript", "Node.js", "Gemini AI", "Google Drive API"],
+  },
+  {
+    id: "PRJ-004",
+    status: "status-done",
+    statusLabel: "COMPLETADO",
+    icon: <Layers size={20} />,
+    title: "Proyecto SMART — Control de OC y Stock",
+    from: "ÓRDENES COMPRA",
+    to: "CONTROL 260 BUSES",
+    description:
+      "Sistema de control y seguimiento de órdenes de compra, stock y facturación para la operación de 260 buses articulados.",
+    results: [
+      "Ahorros del 7% al 11% en insumos anuales",
+      "Monitoreo de fluctuaciones y facturación",
+      "Optimización del tiempo de respuesta del área",
+    ],
+    stack: ["Excel / VBA", "Macros", "Power Query", "Dashboards"],
+  },
+  {
+    id: "PRJ-005",
     status: "status-done",
     statusLabel: "COMPLETADO",
     icon: <Globe size={20} />,
@@ -121,80 +190,46 @@ const projects = [
     from: "IMPORTACIÓN",
     to: "DIAN",
     description:
-      "Reestructuración y digitalización de los procesos de importación y nacionalización de carga aeronáutica, logrando la calidad de Usuario Altamente Exportador.",
+      "Optimización de procesos de importación y nacionalización bajo régimen UAP en el sector aeronáutico y de comercio exterior.",
     results: [
-      "Ahorro del 40 % en gastos de agencia aduanal",
-      "60 % de mejora en tiempos puerta a puerta",
-      "Cero multas — cumplimiento DIAN 100 %",
+      "40% reducción en gastos de agencia aduanera",
+      "60% disminución en tiempos de entrega",
+      "100% cumplimiento de requerimientos DIAN",
     ],
     stack: ["SIESA ERP", "Excel Avanzado", "Regulación DIAN", "SAP"],
-  },
-  {
-    id: "PRJ-002",
-    status: "status-live",
-    statusLabel: "ACTIVO",
-    icon: <BarChart3 size={20} />,
-    title: "Sistema SMART — Control de Inventario",
-    from: "STOCK",
-    to: "ANALÍTICA",
-    description:
-      "Plataforma en Excel con macros VBA y dashboards para controlar OC, inventario y facturación de 260 buses articulados en tiempo real.",
-    results: [
-      "7 % – 11 % de ahorro en lubricantes y repuestos",
-      "Control de stock dinámico en tiempo real",
-      "Consolidación automatizada de facturación",
-    ],
-    stack: ["Excel / VBA", "Dashboards", "SQL", "Power Query"],
-  },
-  {
-    id: "PRJ-003",
-    status: "status-progress",
-    statusLabel: "EN CURSO",
-    icon: <BrainCircuit size={20} />,
-    title: "Modelación Predictiva de Costos",
-    from: "DATOS",
-    to: "PREDICCIÓN",
-    description:
-      "Modelos en Python para anticipar variaciones de precio en insumos y fletes internacionales antes de que impacten el presupuesto.",
-    results: [
-      "Predicción de costos con varianza controlada",
-      "Optimización de reorden y stock de seguridad",
-      "Análisis automatizado de cotizaciones con Pandas",
-    ],
-    stack: ["Python", "Pandas", "Scikit-Learn", "Tableau", "Jupyter"],
   },
 ];
 
 const toolGroups = [
   {
+    icon: <Boxes size={15} />,
+    group: "Régimen & Abastecimiento",
+    items: ["Abastecimiento Estratégico", "Normatividad (BanRep, DIAN, Comercio Exterior)", "Esquemas de Contratación & SLAs", "Gestión de Proveedores", "Costeo Logístico"],
+  },
+  {
     icon: <Layers size={15} />,
-    group: "ERP & Operaciones",
-    items: ["Excel Avanzado (VBA · Macros)", "SAP Business One", "SIESA ERP", "NEO System", "Power Query"],
+    group: "Herramientas de Gestión & ERP",
+    items: ["SAP (Business One, MM)", "SIESA ERP", "NEO System", "Jira", "Power Query"],
   },
   {
     icon: <Code2 size={15} />,
-    group: "Programación & Datos",
-    items: ["Python", "Pandas · NumPy", "SQL", "Java", "JavaScript / React"],
+    group: "Análisis de Datos & Programación",
+    items: ["Excel Avanzado (Macros, VBA)", "Python (Pandas, Scikit-learn)", "SQL", "Tableau", "Power BI"],
   },
   {
-    icon: <BarChart3 size={15} />,
-    group: "Analítica & Visualización",
-    items: ["Tableau", "Power BI", "Dashboards Dinámicos", "Machine Learning Predictivo", "Jupyter Notebooks"],
-  },
-  {
-    icon: <Boxes size={15} />,
-    group: "Procurement & Logística",
-    items: ["Negociación Estratégica", "Comercio Exterior (DIAN)", "Gestión de Proveedores", "Control de Inventario", "Costeo Logístico"],
+    icon: <BrainCircuit size={15} />,
+    group: "Inteligencia Artificial & Tech",
+    items: ["IA Predictiva (Gemini AI)", "JavaScript (React)", "Next.js", "TypeScript", "tRPC · MySQL · S3"],
   },
 ];
 
 const contactLinks = [
-  { icon: <Mail size={20} />,      label: "Email",               value: "cristiancoli50@gmail.com", href: "mailto:cristiancoli50@gmail.com" },
+  { icon: <Mail size={20} />,      label: "Email Directo",       value: "cristianbenitez50@hotmail.com", href: "mailto:cristianbenitez50@hotmail.com" },
   { icon: <Phone size={20} />,     label: "Teléfono / WhatsApp", value: "(+57) 301 374 8901",            href: "tel:+573013748901" },
-  { icon: <Linkedin size={20} />,  label: "LinkedIn",            value: "Cristhian Benitez Rodríguez",  href: "https://www.linkedin.com/in/cristhian-hernando-benitez-rodriguez/" },
+  { icon: <Linkedin size={20} />,  label: "LinkedIn",            value: "Cristhian Hernando Benítez Rodríguez", href: "https://www.linkedin.com/in/cristhian-hernando-benitez-rodriguez/" },
   { icon: <Github size={20} />,    label: "GitHub",              value: "Cristhiancol",                  href: "https://github.com/Cristhiancol/cristhian-benitez-portfolio" },
   { icon: <BookOpen size={20} />,  label: "Notion CV",           value: "Portafolio completo",           href: "https://rare-plume-e37.notion.site/Cristhian-Hernando-Benitez-Rodriguez-Portafolio-Profesional-337952d8da288166b76ce48b450aa0fc" },
-  { icon: <MapPin size={20} />,    label: "Ubicación",           value: "Bogotá, Colombia",              href: null },
+  { icon: <MapPin size={20} />,    label: "Ubicación",           value: "Bogotá, D.C., Colombia",        href: null },
 ];
 
 const interestOptions = [
@@ -484,17 +519,13 @@ export default function Home() {
                 HISTORIA
               </p>
               <p className="bento-lede">
-                Empecé en comercio exterior entre aforos, aranceles y hojas de Excel.
+                Profesional en Finanzas y Negocios Internacionales con +8 años en gestión de cadena de suministro, compras, comercio exterior y abastecimiento estratégico.
               </p>
               <p className="bento-body">
-                Hoy lidero el abastecimiento de una flota de{" "}
-                <em>260 buses articulados</em> — y lo hago combinando negociación
-                estratégica con modelos en Python, dashboards y, desde hace poco, IA aplicada.
+                Mi enfoque se centra en la <strong>transformación digital del abastecimiento</strong>, integrando Ciencia de Datos, Python, Excel avanzado e Inteligencia Artificial (IA) para pasar de la gestión reactiva a la anticipación y optimización predictiva de los procesos.
               </p>
               <p className="bento-body">
-                No vine del mundo tech. Vine de Compras, y fueron los problemas reales
-                de la cadena de suministro los que me empujaron a programar y analizar
-                datos para resolver cuellos de botella operativos.
+                Especializado en la optimización de procesos de adquisición de bienes y servicios bajo marcos normativos rigurosos, con sólida capacidad para asesorar en la definición de esquemas de contratación complejos (nacional e internacional), gestión de acuerdos de servicio (SLA) y contratos de infraestructura de alta criticidad.
               </p>
               <span className="avail-badge">
                 <CircleDot size={10} />
@@ -642,10 +673,12 @@ export default function Home() {
 
           <p className="tool-note">
             <Award size={13} style={{ display: "inline", verticalAlign: "middle", marginRight: 6, color: "var(--teal)" }} />
-            <strong>Certificaciones:</strong> IA aplicada a Negocios (Certiplus) ·
-            SAP Business One Cero a Experto · Java Básico a Avanzado ·
-            Diseño Web & Front-End · Finanzas y Negocios Internacionales — Fundación Universitaria Monserrate (2023) ·
-            Tecnólogo en Negocios Internacionales (SENA 2016).
+            <strong>Educación Académica & Certificaciones:</strong> Finanzas y Negocios Internacionales — Fundación Universitaria Unimonserrate (Graduado 2023) ·
+            Tecnólogo en Negocios Internacionales — SENA (Graduado 2016) ·
+            IA aplicada a Negocios (Certiplus) ·
+            SAP Business One: Cero a Experto ·
+            Programación en Java (Básico a Avanzado) ·
+            Diseño Web Profesional.
           </p>
         </div>
       </section>

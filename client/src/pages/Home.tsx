@@ -396,7 +396,13 @@ export default function Home() {
     phone?: string;
     linkedInUrl?: string;
     bioSummary?: string;
-  } | null>(null);
+  } | null>(() => {
+    try {
+      const saved = localStorage.getItem("cristhian_dyn_profile");
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return null;
+  });
 
   useEffect(() => {
     fetch("/api/profile")

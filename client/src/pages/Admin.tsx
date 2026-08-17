@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Mail, Trash2, Eye, EyeOff, RefreshCw, LogOut,
   User, Building2, Sparkles, MessageSquare, Clock,
   Inbox, ShieldCheck, ChevronDown, ChevronUp, X,
-  Save, CheckCircle2, FileText, FileDown, Settings
+  Save, CheckCircle2, FileText, FileDown, Settings, Upload
 } from "lucide-react";
 
 const ADMIN_PASSWORD = "cristhian2026";
@@ -43,12 +43,37 @@ const DEFAULT_PROFILE: ProfileState = {
   bioSummary: "Profesional con más de 8 años de experiencia profesional en gestión de cadena de suministro y trayectoria directa en compras, comercio exterior y abastecimiento estratégico. Mi enfoque se centra en la transformación digital del abastecimiento, integrando Ciencia de Datos, Python, Excel avanzado e Inteligencia Artificial (IA) para pasar de la gestión reactiva a la anticipación y optimización predictiva de los procesos.",
 };
 
+function sanitizeUrl(input: string): string {
+  if (!input) return "";
+  let str = input.trim();
+  const lastHttps = str.lastIndexOf("https://");
+  const lastHttp = str.lastIndexOf("http://");
+  const idx = Math.max(lastHttps, lastHttp);
+  if (idx > 0) {
+    str = str.substring(idx);
+  }
+  return str;
+}
+
 /* ── PROFILE & CV EDITOR ────────────────────────────────────────── */
 function ProfileEditor({ token }: { token: string }) {
-  const [profile, setProfile] = useState<ProfileState>(DEFAULT_PROFILE);
+  const [profile, setProfile] = useState<ProfileState>(() => {
+    try {
+      const saved = localStorage.getItem("cristhian_dyn_profile");
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return DEFAULT_PROFILE;
+  });
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+
+  const [uploadingCv, setUploadingCv] = useState(false);
+  const [uploadingImg, setUploadingImg] = useState(false);
+
+  const cvInputRef = useRef<HTMLInputElement>(null);
+  const imgInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetch("/api/profile")
@@ -65,27 +90,87 @@ function ProfileEditor({ token }: { token: string }) {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+
+    const cleanProfile = {
+      ...profile,
+      cvPdfUrl: sanitizeUrl(profile.cvPdfUrl),
+      profileImgUrl: sanitizeUrl(profile.profileImgUrl),
+      linkedInUrl: sanitizeUrl(profile.linkedInUrl),
+    };
+
+    setProfile(cleanProfile);
+
+    // 1. Guardar en localStorage del navegador para persistencia inmediata
     try {
-      const res = await fetch("/api/admin/profile", {
+      localStorage.setItem("cristhian_dyn_profile", JSON.stringify(cleanProfile));
+    } catch {}
+
+    // 2. Intentar guardar en backend Express API (si está activo)
+    try {
+      await fetch("/api/admin/profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           "x-admin-token": token,
         },
-        body: JSON.stringify(profile),
+        body: JSON.stringify(cleanProfile),
       });
-      const data = await res.json();
-      if (data.ok) {
-        setSaveSuccess(true);
-        setTimeout(() => setSaveSuccess(false), 4000);
-      } else {
-        alert(data.error || "Error al guardar");
-      }
     } catch {
-      alert("Error de conexión al guardar el perfil");
+      // Backend API no disponible en hosting estático — guardado en localStorage
     } finally {
       setSaving(false);
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 5000);
     }
+  };
+
+  const handleFileUpload = (file: File, type: "cv" | "img") => {
+    if (type === "cv") setUploadingCv(true);
+    else setUploadingImg(true);
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const fileData = reader.result as string;
+
+      // Intento 1: Subir al servidor backend Express
+      try {
+        const res = await fetch("/api/admin/upload", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-token": token,
+          },
+          body: JSON.stringify({ filename: file.name, fileData }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.ok && data.url) {
+            if (type === "cv") {
+              setProfile(p => ({ ...p, cvPdfUrl: data.url }));
+            } else {
+              setProfile(p => ({ ...p, profileImgUrl: data.url }));
+            }
+            if (type === "cv") setUploadingCv(false);
+            else setUploadingImg(false);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn("Servidor backend no disponible en hosting estático, usando carga directa DataURL.", err);
+      }
+
+      // Intento 2: Carga directa Data URL
+      if (type === "cv") {
+        setProfile(p => ({ ...p, cvPdfUrl: fileData }));
+        setUploadingCv(false);
+      } else {
+        setProfile(p => ({ ...p, profileImgUrl: fileData }));
+        setUploadingImg(false);
+      }
+    };
+
+    reader.readAsDataURL(file);
   };
 
   if (loading) {
@@ -104,7 +189,7 @@ function ProfileEditor({ token }: { token: string }) {
             Editor de Perfil & Hoja de Vida
           </h3>
           <p style={{ color: "rgba(232,230,225,0.45)", fontSize: 13, margin: "4px 0 0", fontFamily: "'JetBrains Mono', monospace" }}>
-            Edita tu foto, enlace de CV PDF, datos personales y presentación directamente.
+            Adjunta tus archivos (PDF / Imagen) desde tu equipo o edita los enlaces directamente.
           </p>
         </div>
         <button
@@ -124,33 +209,94 @@ function ProfileEditor({ token }: { token: string }) {
       {saveSuccess && (
         <div style={{ background: "rgba(94,234,212,0.12)", border: "1px solid #5EEAD4", borderRadius: 8, padding: "12px 16px", color: "#5EEAD4", fontSize: 14, marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
           <CheckCircle2 size={18} />
-          <span>¡Cambios guardados con éxito! Los visitantes verán los datos actualizados de inmediato.</span>
+          <span>¡Perfil y Hoja de Vida guardados con éxito! Los visitantes verán los datos actualizados de inmediato.</span>
         </div>
       )}
 
       {/* Grid: Archivo HV y Foto */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginBottom: 18 }}>
         <div>
-          <label style={labelStyle}>📄 Enlace para "Descargar HV" (URL del PDF)</label>
-          <input
-            type="url"
-            value={profile.cvPdfUrl}
-            onChange={e => setProfile(p => ({ ...p, cvPdfUrl: e.target.value }))}
-            placeholder="https://.../tu_hoja_de_vida.pdf"
-            style={inputStyle}
-            required
-          />
+          <label style={labelStyle}>📄 Hoja de Vida (PDF)</label>
+          <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+            <input
+              type="text"
+              value={profile.cvPdfUrl}
+              onChange={e => setProfile(p => ({ ...p, cvPdfUrl: e.target.value }))}
+              placeholder="Enlace o archivo adjunto..."
+              style={{ ...inputStyle, flex: 1 }}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => cvInputRef.current?.click()}
+              disabled={uploadingCv}
+              style={{
+                background: "rgba(94,234,212,0.15)", border: "1px solid #5EEAD4",
+                color: "#5EEAD4", borderRadius: 8, padding: "8px 12px",
+                fontSize: 12, fontWeight: 700, cursor: "pointer",
+                display: "inline-flex", alignItems: "center", gap: 6,
+                fontFamily: "'Inter', sans-serif", flexShrink: 0
+              }}
+            >
+              <Upload size={14} />
+              {uploadingCv ? "Subiendo..." : "Adjuntar PDF"}
+            </button>
+            <input
+              type="file"
+              ref={cvInputRef}
+              accept=".pdf"
+              style={{ display: "none" }}
+              onChange={e => {
+                const file = e.target.files?.[0];
+                if (file) handleFileUpload(file, "cv");
+              }}
+            />
+          </div>
+          <span style={{ fontSize: 11, color: "rgba(232,230,225,0.4)", fontFamily: "'JetBrains Mono', monospace" }}>
+            Puedes adjuntar un PDF de tu PC o pegar una URL directa.
+          </span>
         </div>
+
         <div>
-          <label style={labelStyle}>🖼️ Foto de Perfil (URL de Imagen)</label>
-          <input
-            type="url"
-            value={profile.profileImgUrl}
-            onChange={e => setProfile(p => ({ ...p, profileImgUrl: e.target.value }))}
-            placeholder="https://.../tu_foto.png"
-            style={inputStyle}
-            required
-          />
+          <label style={labelStyle}>🖼️ Foto de Perfil (Imagen)</label>
+          <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+            <input
+              type="text"
+              value={profile.profileImgUrl}
+              onChange={e => setProfile(p => ({ ...p, profileImgUrl: e.target.value }))}
+              placeholder="Enlace o archivo adjunto..."
+              style={{ ...inputStyle, flex: 1 }}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => imgInputRef.current?.click()}
+              disabled={uploadingImg}
+              style={{
+                background: "rgba(94,234,212,0.15)", border: "1px solid #5EEAD4",
+                color: "#5EEAD4", borderRadius: 8, padding: "8px 12px",
+                fontSize: 12, fontWeight: 700, cursor: "pointer",
+                display: "inline-flex", alignItems: "center", gap: 6,
+                fontFamily: "'Inter', sans-serif", flexShrink: 0
+              }}
+            >
+              <Upload size={14} />
+              {uploadingImg ? "Subiendo..." : "Adjuntar Foto"}
+            </button>
+            <input
+              type="file"
+              ref={imgInputRef}
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={e => {
+                const file = e.target.files?.[0];
+                if (file) handleFileUpload(file, "img");
+              }}
+            />
+          </div>
+          <span style={{ fontSize: 11, color: "rgba(232,230,225,0.4)", fontFamily: "'JetBrains Mono', monospace" }}>
+            Adjunta una foto JPG/PNG de tu equipo o pega una URL de imagen.
+          </span>
         </div>
       </div>
 

@@ -62,7 +62,8 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
 
-  app.use(express.json());
+  app.use(express.json({ limit: "25mb" }));
+  app.use(express.urlencoded({ limit: "25mb", extended: true }));
 
   // ── API: receive contact form submissions ──────────────────────
   app.post("/api/contact", (req, res) => {
@@ -161,13 +162,55 @@ async function startServer() {
     return res.json({ ok: true });
   });
 
-  // ── Static SPA ─────────────────────────────────────────────────
+  // ── Static SPA & Uploads ───────────────────────────────────────
   const staticPath =
     process.env.NODE_ENV === "production"
       ? path.resolve(__dirname, "public")
       : path.resolve(__dirname, "..", "dist", "public");
 
+  const uploadsDir = path.join(staticPath, "uploads");
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+  }
+
+  app.use("/uploads", express.static(uploadsDir));
   app.use(express.static(staticPath));
+
+  // ── API: admin upload file (PDF / Image) ───────────────────────
+  app.post("/api/admin/upload", (req, res) => {
+    const token = req.headers["x-admin-token"] || req.query.token;
+    if (token !== ADMIN_PASSWORD) {
+      return res.status(401).json({ ok: false, error: "No autorizado" });
+    }
+    const { filename, fileData } = req.body;
+    if (!filename || !fileData) {
+      return res.status(400).json({ ok: false, error: "Faltan datos del archivo" });
+    }
+
+    try {
+      const matches = fileData.match(/^data:(.+);base64,(.+)$/);
+      if (!matches) {
+        return res.status(400).json({ ok: false, error: "Formato de archivo no válido" });
+      }
+
+      const base64Data = matches[2];
+      const buffer = Buffer.from(base64Data, "base64");
+
+      const cleanName = String(filename).replace(/[^a-zA-Z0-9._-]/g, "_");
+      const uniqueName = `${Date.now()}_${cleanName}`;
+      const filePath = path.join(uploadsDir, uniqueName);
+
+      fs.writeFileSync(filePath, buffer);
+
+      const publicUrl = `/uploads/${uniqueName}`;
+      console.log(`[ADMIN UPLOAD] Archivo subido y guardado: ${publicUrl}`);
+
+      return res.json({ ok: true, url: publicUrl });
+    } catch (err: any) {
+      console.error("[ADMIN UPLOAD ERROR]", err);
+      return res.status(500).json({ ok: false, error: "Error al guardar el archivo en el servidor" });
+    }
+  });
 
   // Client-side routing — serve index.html for all non-API routes
   app.get("*", (_req, res) => {
@@ -179,6 +222,7 @@ async function startServer() {
     console.log(`Server running on http://localhost:${port}/`);
     console.log(`Admin panel → http://localhost:${port}/admin`);
     console.log(`Messages stored in: ${MESSAGES_FILE}`);
+    console.log(`Uploads stored in: ${uploadsDir}`);
   });
 }
 

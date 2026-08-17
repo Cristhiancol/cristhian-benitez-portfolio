@@ -14,6 +14,7 @@ const __dirname = path.dirname(__filename);
    In production on Manus the file lives in /dist/messages.json
    ────────────────────────────────────────────────────────────────── */
 const MESSAGES_FILE = path.resolve(__dirname, "messages.json");
+const PROFILE_FILE = path.resolve(__dirname, "profile.json");
 const ADMIN_PASSWORD = "cristhian2026"; // ← Change this to something private
 
 interface ContactMessage {
@@ -40,6 +41,21 @@ function loadMessages(): ContactMessage[] {
 
 function saveMessages(msgs: ContactMessage[]): void {
   fs.writeFileSync(MESSAGES_FILE, JSON.stringify(msgs, null, 2), "utf-8");
+}
+
+function loadProfile(): any {
+  try {
+    if (fs.existsSync(PROFILE_FILE)) {
+      return JSON.parse(fs.readFileSync(PROFILE_FILE, "utf-8"));
+    }
+  } catch {
+    // fallback
+  }
+  return null;
+}
+
+function saveProfile(data: any): void {
+  fs.writeFileSync(PROFILE_FILE, JSON.stringify(data, null, 2), "utf-8");
 }
 
 async function startServer() {
@@ -121,6 +137,27 @@ async function startServer() {
     }
     const msgs = loadMessages().filter((m) => m.id !== req.params.id);
     saveMessages(msgs);
+    return res.json({ ok: true });
+  });
+
+  // ── API: public profile ────────────────────────────────────────
+  app.get("/api/profile", (_req, res) => {
+    const profile = loadProfile();
+    return res.json({ ok: true, profile });
+  });
+
+  // ── API: admin update profile ─────────────────────────────────
+  app.put("/api/admin/profile", (req, res) => {
+    const token = req.headers["x-admin-token"] || req.query.token;
+    if (token !== ADMIN_PASSWORD) {
+      return res.status(401).json({ ok: false, error: "No autorizado" });
+    }
+    const profileData = req.body;
+    if (!profileData || typeof profileData !== "object") {
+      return res.status(400).json({ ok: false, error: "Datos inválidos" });
+    }
+    saveProfile(profileData);
+    console.log("[ADMIN PROFILE] Perfil y Hoja de Vida actualizados exitosamente.");
     return res.json({ ok: true });
   });
 

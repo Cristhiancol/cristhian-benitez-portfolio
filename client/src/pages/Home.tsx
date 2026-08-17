@@ -4,7 +4,7 @@
  * Design: SVG icons, no emojis, premium visual language
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Mail, Phone, Linkedin, Github, BookOpen, MapPin,
   Download, MessageSquare, ArrowRight, BrainCircuit,
@@ -386,6 +386,32 @@ function ContactForm() {
 /* ── MAIN ─────────────────────────────────────────────────────── */
 export default function Home() {
   const { addNotification } = useNotification();
+  const [dynProfile, setDynProfile] = useState<{
+    cvPdfUrl?: string;
+    profileImgUrl?: string;
+    fullName?: string;
+    title?: string;
+    location?: string;
+    email?: string;
+    phone?: string;
+    linkedInUrl?: string;
+    bioSummary?: string;
+  } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/profile")
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok && data.profile) {
+          setDynProfile(data.profile);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const cvPdfUrl = dynProfile?.cvPdfUrl || CV_PDF;
+  const profileImgUrl = dynProfile?.profileImgUrl || PROFILE_IMG;
+  const fullName = dynProfile?.fullName || "Cristhian Hernando Benítez Rodríguez";
 
   return (
     <>
@@ -419,7 +445,7 @@ export default function Home() {
             <div>
               <p className="hero-label fade-up fade-up-1">
                 <span className="dot" aria-hidden="true" />
-                DISPONIBLE · BOGOTÁ, COLOMBIA · PROCUREMENT DATA-DRIVEN
+                DISPONIBLE · {dynProfile?.location ? dynProfile.location.toUpperCase() : "BOGOTÁ, COLOMBIA"} · PROCUREMENT DATA-DRIVEN
               </p>
 
               <h1 className="hero-title fade-up fade-up-2">
@@ -451,7 +477,7 @@ export default function Home() {
                   <ArrowRight size={16} />
                 </a>
                 <a
-                  href={CV_PDF}
+                  href={cvPdfUrl}
                   download="Cristhian_Benitez_CV.pdf"
                   onClick={() => addNotification({ type: "success", title: "Descarga iniciada", message: "La hoja de vida se está descargando.", duration: 3000 })}
                   className="btn btn-ghost"
@@ -470,12 +496,12 @@ export default function Home() {
             <div className="hero-photo-col">
               <div className="hero-photo-card fade-up fade-up-3">
                 <img
-                  src={PROFILE_IMG}
-                  alt="Cristhian Hernando Benitez Rodriguez — Procurement Data-Driven"
+                  src={profileImgUrl}
+                  alt={`${fullName} — Procurement Data-Driven`}
                 />
                 <div className="photo-badge">
                   <div>
-                    <div className="photo-badge-name">Cristhian Benitez R.</div>
+                    <div className="photo-badge-name">{fullName.split(" ")[0]} {fullName.split(" ")[2] || fullName.split(" ")[1] || "Benítez"}</div>
                     <div className="photo-badge-role">Gestor de Compras · Data Analyst</div>
                   </div>
                   <div className="photo-badge-status">

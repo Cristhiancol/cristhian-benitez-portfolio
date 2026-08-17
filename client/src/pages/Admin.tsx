@@ -1,14 +1,9 @@
-/*
- * Admin Panel — Cristhian Benitez Portfolio
- * Acceso: /admin   Contraseña: cristhian2026
- * Solo tú tienes acceso a esta página.
- */
-
 import { useState, useEffect, useCallback } from "react";
 import {
   Mail, Trash2, Eye, EyeOff, RefreshCw, LogOut,
   User, Building2, Sparkles, MessageSquare, Clock,
-  Inbox, ShieldCheck, ChevronDown, ChevronUp, X
+  Inbox, ShieldCheck, ChevronDown, ChevronUp, X,
+  Save, CheckCircle2, FileText, FileDown, Settings
 } from "lucide-react";
 
 const ADMIN_PASSWORD = "cristhian2026";
@@ -23,6 +18,252 @@ interface Message {
   receivedAt: string;
   read: boolean;
 }
+
+interface ProfileState {
+  cvPdfUrl: string;
+  profileImgUrl: string;
+  fullName: string;
+  title: string;
+  location: string;
+  email: string;
+  phone: string;
+  linkedInUrl: string;
+  bioSummary: string;
+}
+
+const DEFAULT_PROFILE: ProfileState = {
+  cvPdfUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663355008483/43PzwajDwL6ynT3xAyRcit/CristhianHernandoBenitezRodriguez-Hojadevida_61fcabf4.pdf",
+  profileImgUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663355008483/43PzwajDwL6ynT3xAyRcit/cristhian-profile-photo_0a53abcf.png",
+  fullName: "Cristhian Hernando Benítez Rodríguez",
+  title: "Profesional en Finanzas y Negocios Internacionales | Experto en Abastecimiento Estratégico y Aplicación de Inteligencia Artificial",
+  location: "Bogotá, D.C., Colombia",
+  email: "cristianbenitez50@hotmail.com",
+  phone: "+57 301 374 8901",
+  linkedInUrl: "https://www.linkedin.com/in/cristhian-hernando-benitez-rodriguez/",
+  bioSummary: "Profesional con más de 8 años de experiencia profesional en gestión de cadena de suministro y trayectoria directa en compras, comercio exterior y abastecimiento estratégico. Mi enfoque se centra en la transformación digital del abastecimiento, integrando Ciencia de Datos, Python, Excel avanzado e Inteligencia Artificial (IA) para pasar de la gestión reactiva a la anticipación y optimización predictiva de los procesos.",
+};
+
+/* ── PROFILE & CV EDITOR ────────────────────────────────────────── */
+function ProfileEditor({ token }: { token: string }) {
+  const [profile, setProfile] = useState<ProfileState>(DEFAULT_PROFILE);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/profile")
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok && data.profile) {
+          setProfile(prev => ({ ...prev, ...data.profile }));
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    try {
+      const res = await fetch("/api/admin/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-token": token,
+        },
+        body: JSON.stringify(profile),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        setSaveSuccess(true);
+        setTimeout(() => setSaveSuccess(false), 4000);
+      } else {
+        alert(data.error || "Error al guardar");
+      }
+    } catch {
+      alert("Error de conexión al guardar el perfil");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: "center", padding: 60, color: "rgba(232,230,225,0.4)", fontFamily: "'JetBrains Mono', monospace" }}>
+        Cargando configuración de perfil…
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSave} style={{ background: "#121D21", border: "1px solid rgba(232,230,225,0.10)", borderRadius: 16, padding: "28px 32px" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24, paddingBottom: 16, borderBottom: "1px solid rgba(232,230,225,0.08)" }}>
+        <div>
+          <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 20, color: "#E8E6E1", margin: 0 }}>
+            Editor de Perfil & Hoja de Vida
+          </h3>
+          <p style={{ color: "rgba(232,230,225,0.45)", fontSize: 13, margin: "4px 0 0", fontFamily: "'JetBrains Mono', monospace" }}>
+            Edita tu foto, enlace de CV PDF, datos personales y presentación directamente.
+          </p>
+        </div>
+        <button
+          type="submit"
+          disabled={saving}
+          style={{
+            background: "#5EEAD4", color: "#08201C", border: "none", borderRadius: 8,
+            padding: "10px 20px", fontWeight: 700, fontSize: 14, cursor: "pointer",
+            display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "'Inter', sans-serif"
+          }}
+        >
+          <Save size={16} />
+          {saving ? "Guardando…" : "Guardar Cambios"}
+        </button>
+      </div>
+
+      {saveSuccess && (
+        <div style={{ background: "rgba(94,234,212,0.12)", border: "1px solid #5EEAD4", borderRadius: 8, padding: "12px 16px", color: "#5EEAD4", fontSize: 14, marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
+          <CheckCircle2 size={18} />
+          <span>¡Cambios guardados con éxito! Los visitantes verán los datos actualizados de inmediato.</span>
+        </div>
+      )}
+
+      {/* Grid: Archivo HV y Foto */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginBottom: 18 }}>
+        <div>
+          <label style={labelStyle}>📄 Enlace para "Descargar HV" (URL del PDF)</label>
+          <input
+            type="url"
+            value={profile.cvPdfUrl}
+            onChange={e => setProfile(p => ({ ...p, cvPdfUrl: e.target.value }))}
+            placeholder="https://.../tu_hoja_de_vida.pdf"
+            style={inputStyle}
+            required
+          />
+        </div>
+        <div>
+          <label style={labelStyle}>🖼️ Foto de Perfil (URL de Imagen)</label>
+          <input
+            type="url"
+            value={profile.profileImgUrl}
+            onChange={e => setProfile(p => ({ ...p, profileImgUrl: e.target.value }))}
+            placeholder="https://.../tu_foto.png"
+            style={inputStyle}
+            required
+          />
+        </div>
+      </div>
+
+      {/* Grid: Datos Personales */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginBottom: 18 }}>
+        <div>
+          <label style={labelStyle}>👤 Nombre Completo</label>
+          <input
+            type="text"
+            value={profile.fullName}
+            onChange={e => setProfile(p => ({ ...p, fullName: e.target.value }))}
+            style={inputStyle}
+            required
+          />
+        </div>
+        <div>
+          <label style={labelStyle}>💼 Título / Headline Profesional</label>
+          <input
+            type="text"
+            value={profile.title}
+            onChange={e => setProfile(p => ({ ...p, title: e.target.value }))}
+            style={inputStyle}
+            required
+          />
+        </div>
+      </div>
+
+      {/* Grid: Contacto */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, marginBottom: 18 }}>
+        <div>
+          <label style={labelStyle}>✉️ Email Directo</label>
+          <input
+            type="email"
+            value={profile.email}
+            onChange={e => setProfile(p => ({ ...p, email: e.target.value }))}
+            style={inputStyle}
+            required
+          />
+        </div>
+        <div>
+          <label style={labelStyle}>📱 Teléfono / WhatsApp</label>
+          <input
+            type="text"
+            value={profile.phone}
+            onChange={e => setProfile(p => ({ ...p, phone: e.target.value }))}
+            style={inputStyle}
+            required
+          />
+        </div>
+        <div>
+          <label style={labelStyle}>📍 Ubicación</label>
+          <input
+            type="text"
+            value={profile.location}
+            onChange={e => setProfile(p => ({ ...p, location: e.target.value }))}
+            style={inputStyle}
+            required
+          />
+        </div>
+      </div>
+
+      {/* LinkedIn URL */}
+      <div style={{ marginBottom: 18 }}>
+        <label style={labelStyle}>🔗 Enlace de LinkedIn</label>
+        <input
+          type="url"
+          value={profile.linkedInUrl}
+          onChange={e => setProfile(p => ({ ...p, linkedInUrl: e.target.value }))}
+          style={inputStyle}
+          required
+        />
+      </div>
+
+      {/* Resumen / Bio */}
+      <div style={{ marginBottom: 24 }}>
+        <label style={labelStyle}>📝 Resumen Profesional / Bio</label>
+        <textarea
+          rows={5}
+          value={profile.bioSummary}
+          onChange={e => setProfile(p => ({ ...p, bioSummary: e.target.value }))}
+          style={{ ...inputStyle, resize: "vertical" }}
+          required
+        />
+      </div>
+
+      <div style={{ textAlign: "right" }}>
+        <button
+          type="submit"
+          disabled={saving}
+          style={{
+            background: "#5EEAD4", color: "#08201C", border: "none", borderRadius: 8,
+            padding: "12px 24px", fontWeight: 700, fontSize: 14, cursor: "pointer",
+            display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "'Inter', sans-serif"
+          }}
+        >
+          <Save size={16} />
+          {saving ? "Guardando…" : "Guardar Cambios del Perfil"}
+        </button>
+      </div>
+    </form>
+  );
+}
+
+const labelStyle: React.CSSProperties = {
+  display: "block", fontSize: 11, letterSpacing: "0.06em", color: "rgba(232,230,225,0.5)",
+  fontFamily: "'JetBrains Mono', monospace", marginBottom: 6, textTransform: "uppercase"
+};
+
+const inputStyle: React.CSSProperties = {
+  width: "100%", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(232,230,225,0.15)",
+  borderRadius: 8, padding: "10px 12px", color: "#E8E6E1", fontSize: 14, outline: "none",
+  boxSizing: "border-box", fontFamily: "'Inter', sans-serif"
+};
 
 /* ── LOGIN ──────────────────────────────────────────────────────── */
 function Login({ onLogin }: { onLogin: (pw: string) => void }) {
@@ -273,6 +514,7 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | "unread">("unread");
+  const [activeTab, setActiveTab] = useState<"messages" | "profile">("messages");
 
   const fetchMessages = useCallback(async () => {
     setLoading(true);
@@ -337,69 +579,110 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
 
       {/* Content */}
       <div style={{ maxWidth: 860, margin: "0 auto", padding: "32px 24px" }}>
-        {/* Stats */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginBottom: 28 }}>
-          {[
-            { label: "Total recibidos", val: messages.length, icon: <Inbox size={18} />, color: "#5EEAD4" },
-            { label: "Sin leer",        val: unread,           icon: <MessageSquare size={18} />, color: unread > 0 ? "#F5A623" : "#5EEAD4" },
-            { label: "Leídos",          val: messages.length - unread, icon: <Eye size={18} />, color: "#5EEAD4" },
-          ].map((s, i) => (
-            <div key={i} style={{ background: "#121D21", border: "1px solid rgba(232,230,225,0.10)", borderRadius: 12, padding: "18px 20px" }}>
-              <div style={{ color: s.color, marginBottom: 8 }}>{s.icon}</div>
-              <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 28, fontWeight: 700, color: s.color, lineHeight: 1 }}>
-                {s.val}
-              </div>
-              <div style={{ fontSize: 12, color: "rgba(232,230,225,0.4)", marginTop: 4 }}>{s.label}</div>
+        {/* Main Tab Navigation */}
+        <div style={{ display: "flex", gap: 12, marginBottom: 24, borderBottom: "1px solid rgba(232,230,225,0.10)", paddingBottom: 12 }}>
+          <button
+            onClick={() => setActiveTab("messages")}
+            style={{
+              display: "flex", alignItems: "center", gap: 8,
+              padding: "10px 18px", borderRadius: 8, border: "1px solid",
+              borderColor: activeTab === "messages" ? "#5EEAD4" : "rgba(232,230,225,0.12)",
+              background: activeTab === "messages" ? "rgba(94,234,212,0.10)" : "transparent",
+              color: activeTab === "messages" ? "#5EEAD4" : "rgba(232,230,225,0.5)",
+              fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 14, cursor: "pointer",
+            }}
+          >
+            <Inbox size={16} />
+            Mensajes de Contacto ({messages.length})
+          </button>
+
+          <button
+            onClick={() => setActiveTab("profile")}
+            style={{
+              display: "flex", alignItems: "center", gap: 8,
+              padding: "10px 18px", borderRadius: 8, border: "1px solid",
+              borderColor: activeTab === "profile" ? "#5EEAD4" : "rgba(232,230,225,0.12)",
+              background: activeTab === "profile" ? "rgba(94,234,212,0.10)" : "transparent",
+              color: activeTab === "profile" ? "#5EEAD4" : "rgba(232,230,225,0.5)",
+              fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 14, cursor: "pointer",
+            }}
+          >
+            <Settings size={16} />
+            Editar Perfil & Hoja de Vida
+          </button>
+        </div>
+
+        {/* Tab 1: Messages */}
+        {activeTab === "messages" && (
+          <>
+            {/* Stats */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginBottom: 28 }}>
+              {[
+                { label: "Total recibidos", val: messages.length, icon: <Inbox size={18} />, color: "#5EEAD4" },
+                { label: "Sin leer",        val: unread,           icon: <MessageSquare size={18} />, color: unread > 0 ? "#F5A623" : "#5EEAD4" },
+                { label: "Leídos",          val: messages.length - unread, icon: <Eye size={18} />, color: "#5EEAD4" },
+              ].map((s, i) => (
+                <div key={i} style={{ background: "#121D21", border: "1px solid rgba(232,230,225,0.10)", borderRadius: 12, padding: "18px 20px" }}>
+                  <div style={{ color: s.color, marginBottom: 8 }}>{s.icon}</div>
+                  <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 28, fontWeight: 700, color: s.color, lineHeight: 1 }}>
+                    {s.val}
+                  </div>
+                  <div style={{ fontSize: 12, color: "rgba(232,230,225,0.4)", marginTop: 4 }}>{s.label}</div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* Filter tabs */}
-        <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
-          {(["unread", "all"] as const).map(f => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              style={{
-                padding: "8px 16px", borderRadius: 8, border: "1px solid",
-                borderColor: filter === f ? "#5EEAD4" : "rgba(232,230,225,0.12)",
-                background: filter === f ? "rgba(94,234,212,0.10)" : "transparent",
-                color: filter === f ? "#5EEAD4" : "rgba(232,230,225,0.5)",
-                fontFamily: "'JetBrains Mono', monospace", fontSize: 12, cursor: "pointer",
-                letterSpacing: "0.04em",
-              }}
-            >
-              {f === "unread" ? `Sin leer (${unread})` : `Todos (${messages.length})`}
-            </button>
-          ))}
-        </div>
+            {/* Filter tabs */}
+            <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
+              {(["unread", "all"] as const).map(f => (
+                <button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  style={{
+                    padding: "8px 16px", borderRadius: 8, border: "1px solid",
+                    borderColor: filter === f ? "#5EEAD4" : "rgba(232,230,225,0.12)",
+                    background: filter === f ? "rgba(94,234,212,0.10)" : "transparent",
+                    color: filter === f ? "#5EEAD4" : "rgba(232,230,225,0.5)",
+                    fontFamily: "'JetBrains Mono', monospace", fontSize: 12, cursor: "pointer",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  {f === "unread" ? `Sin leer (${unread})` : `Todos (${messages.length})`}
+                </button>
+              ))}
+            </div>
 
-        {/* Messages */}
-        {loading ? (
-          <div style={{ textAlign: "center", padding: 60, color: "rgba(232,230,225,0.3)", fontFamily: "'JetBrains Mono', monospace", fontSize: 13 }}>
-            Cargando mensajes…
-          </div>
-        ) : displayed.length === 0 ? (
-          <div style={{
-            textAlign: "center", padding: "60px 20px",
-            background: "#121D21", border: "1px solid rgba(232,230,225,0.10)", borderRadius: 16,
-          }}>
-            <Inbox size={40} color="rgba(232,230,225,0.2)" style={{ margin: "0 auto 16px" }} />
-            <p style={{ color: "rgba(232,230,225,0.4)", fontFamily: "'JetBrains Mono', monospace", fontSize: 13 }}>
-              {filter === "unread" ? "No hay mensajes sin leer" : "Aún no hay mensajes"}
-            </p>
-          </div>
-        ) : (
-          displayed.map(msg => (
-            <MessageCard
-              key={msg.id}
-              msg={msg}
-              token={token}
-              onRead={(id) => setMessages(ms => ms.map(m => m.id === id ? { ...m, read: true } : m))}
-              onDelete={(id) => setMessages(ms => ms.filter(m => m.id !== id))}
-            />
-          ))
+            {/* Messages */}
+            {loading ? (
+              <div style={{ textAlign: "center", padding: 60, color: "rgba(232,230,225,0.3)", fontFamily: "'JetBrains Mono', monospace", fontSize: 13 }}>
+                Cargando mensajes…
+              </div>
+            ) : displayed.length === 0 ? (
+              <div style={{
+                textAlign: "center", padding: "60px 20px",
+                background: "#121D21", border: "1px solid rgba(232,230,225,0.10)", borderRadius: 16,
+              }}>
+                <Inbox size={40} color="rgba(232,230,225,0.2)" style={{ margin: "0 auto 16px" }} />
+                <p style={{ color: "rgba(232,230,225,0.4)", fontFamily: "'JetBrains Mono', monospace", fontSize: 13 }}>
+                  {filter === "unread" ? "No hay mensajes sin leer" : "Aún no hay mensajes"}
+                </p>
+              </div>
+            ) : (
+              displayed.map(msg => (
+                <MessageCard
+                  key={msg.id}
+                  msg={msg}
+                  token={token}
+                  onRead={(id) => setMessages(ms => ms.map(m => m.id === id ? { ...m, read: true } : m))}
+                  onDelete={(id) => setMessages(ms => ms.filter(m => m.filter(m => m.id !== id)) as any)}
+                />
+              ))
+            )}
+          </>
         )}
+
+        {/* Tab 2: Profile & CV Editor */}
+        {activeTab === "profile" && <ProfileEditor token={token} />}
       </div>
     </div>
   );

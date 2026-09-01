@@ -917,6 +917,70 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .btn-ghost { border: 1px solid var(--line-strong); color: var(--text); background: transparent; }
 .btn-ghost:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
 
+.btn-recruiter {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(16, 185, 129, 0.15));
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  color: #00f0ff;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+}
+.btn-recruiter:hover {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(16, 185, 129, 0.25));
+  border-color: #00f0ff;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--teal);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.filter-btn.active {
+  background: rgba(94, 234, 212, 0.12);
+  border-color: var(--teal);
+  color: var(--teal);
+  font-weight: 600;
+  box-shadow: 0 0 16px rgba(94, 234, 212, 0.15);
+}
+
+.filter-count {
+  font-size: 10.5px;
+  padding: 1px 6px;
+  border-radius: 20px;
+  background: var(--line);
+  color: var(--text-faint);
+}
+
+.filter-btn.active .filter-count {
+  background: var(--teal);
+  color: #08201C;
+  font-weight: 700;
+}
+
 /* ============================================
    FOOTER
    ============================================ */

@@ -12,9 +12,15 @@ import {
   ShieldCheck, Cpu, Database, Code2, Boxes,
   CheckCircle2, Briefcase, Clock, ChevronRight,
   Send, User, Building2, Sparkles, Zap, Layers,
-  FileText, CircleDot,
+  FileText, CircleDot, Dna, MessageCircle, Filter,
 } from "lucide-react";
 import { useNotification } from "@/contexts/NotificationContext";
+import RecruiterPitchModal from "@/components/RecruiterPitchModal";
+import {
+  filterProjectsByCategory,
+  generateWhatsAppLink,
+  type ProjectItem,
+} from "@/lib/recruiterHelper";
 
 /* ── CONSTANTS ──────────────────────────────────────────────────── */
 const CV_PDF =
@@ -112,7 +118,7 @@ const experience = [
   },
 ];
 
-const projects = [
+const projects: (Omit<ProjectItem, "icon"> & { icon: React.ReactNode })[] = [
   {
     id: "PRJ-001",
     status: "status-live",
@@ -129,6 +135,7 @@ const projects = [
       "Alertas automáticas de reorden predictivo",
     ],
     stack: ["Python", "Gemini AI", "Pandas", "Scikit-learn"],
+    categories: ["data_ai", "supply_chain"],
   },
   {
     id: "PRJ-002",
@@ -146,6 +153,7 @@ const projects = [
       "Sustentación sólida en comités de gasto",
     ],
     stack: ["Python", "Pandas", "Scikit-learn", "Power BI", "SQL"],
+    categories: ["data_ai", "supply_chain"],
   },
   {
     id: "PRJ-003",
@@ -163,6 +171,7 @@ const projects = [
       "Alertas de stock y KPIs dinámicos",
     ],
     stack: ["React", "TypeScript", "Node.js", "Gemini AI", "Google Drive API"],
+    categories: ["data_ai", "supply_chain", "fullstack"],
   },
   {
     id: "PRJ-004",
@@ -180,6 +189,7 @@ const projects = [
       "Optimización del tiempo de respuesta del área",
     ],
     stack: ["Excel / VBA", "Macros", "Power Query", "Dashboards"],
+    categories: ["supply_chain"],
   },
   {
     id: "PRJ-005",
@@ -197,7 +207,34 @@ const projects = [
       "100% cumplimiento de requerimientos DIAN",
     ],
     stack: ["SIESA ERP", "Excel Avanzado", "Regulación DIAN", "SAP"],
+    categories: ["supply_chain"],
   },
+  {
+    id: "PRJ-006",
+    status: "status-live",
+    statusLabel: "ACTIVO / BIOTECH",
+    icon: <Dna size={20} />,
+    title: "Human Protein Atlas — Pipeline de Datos & Expresión Tisular",
+    from: "HPA REST API",
+    to: "EXPLORER ANALÍTICO",
+    description:
+      "Pipeline bioinformático y analítico para extracción, cruce estadístico y visualización de niveles de expresión proteica (IHC) y transcriptómica en tejidos humanos.",
+    results: [
+      "+15,000 genes mapeados y analizados",
+      "Correlación cruzada entre ARN-seq e Inmunohistoquímica",
+      "Filtrado multiorgánico y subcellular localization",
+    ],
+    stack: ["Python", "HPA API", "Pandas", "TypeScript", "Recharts"],
+    categories: ["data_ai", "biotech", "fullstack"],
+  },
+];
+
+const projectCategories = [
+  { id: "all", label: "Todos" },
+  { id: "data_ai", label: "Data Science & IA" },
+  { id: "supply_chain", label: "Supply Chain & ERP" },
+  { id: "biotech", label: "Biotech & Big Data" },
+  { id: "fullstack", label: "Full Stack & Dashboards" },
 ];
 
 const toolGroups = [
@@ -225,7 +262,7 @@ const toolGroups = [
 
 const contactLinks = [
   { icon: <Mail size={20} />,      label: "Email Directo",       value: "cristianbenitez50@hotmail.com", href: "mailto:cristianbenitez50@hotmail.com" },
-  { icon: <Phone size={20} />,     label: "Teléfono / WhatsApp", value: "(+57) 301 374 8901",            href: "tel:+573013748901" },
+  { icon: <Phone size={20} />,     label: "Teléfono / WhatsApp", value: "(+57) 301 374 8901",            href: generateWhatsAppLink() },
   { icon: <Linkedin size={20} />,  label: "LinkedIn",            value: "Cristhian Hernando Benítez Rodríguez", href: "https://www.linkedin.com/in/cristhian-hernando-benitez-rodriguez/" },
   { icon: <Github size={20} />,    label: "GitHub",              value: "Cristhiancol",                  href: "https://github.com/Cristhiancol/cristhian-benitez-portfolio" },
   { icon: <BookOpen size={20} />,  label: "Notion CV",           value: "Portafolio completo",           href: "https://rare-plume-e37.notion.site/Cristhian-Hernando-Benitez-Rodriguez-Portafolio-Profesional-337952d8da288166b76ce48b450aa0fc" },
@@ -409,6 +446,8 @@ function ContactForm() {
 /* ── MAIN ─────────────────────────────────────────────────────── */
 export default function Home() {
   const { addNotification } = useNotification();
+  const [isRecruiterModalOpen, setIsRecruiterModalOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("all");
   const [dynProfile, setDynProfile] = useState<{
     cvPdfUrl?: string;
     profileImgUrl?: string;
@@ -442,9 +481,21 @@ export default function Home() {
   const profileImgUrl = dynProfile?.profileImgUrl || PROFILE_IMG;
   const fullName = dynProfile?.fullName || "Cristhian Hernando Benítez Rodríguez";
 
+  const filteredProjects = filterProjectsByCategory(
+    projects as unknown as ProjectItem[],
+    activeCategory
+  );
+
   return (
     <>
       <div className="grain" aria-hidden="true" />
+
+      {/* Recruiter Pitch Modal */}
+      <RecruiterPitchModal
+        isOpen={isRecruiterModalOpen}
+        onClose={() => setIsRecruiterModalOpen(false)}
+        cvPdfUrl={cvPdfUrl}
+      />
 
       {/* ── NAV ─────────────────────────────────────────────── */}
       <nav className="topnav" aria-label="Navegación principal">
@@ -457,6 +508,13 @@ export default function Home() {
             <a href="#experiencia">Experiencia</a>
             <a href="#proyectos">Proyectos</a>
             <a href="#herramientas">Stack</a>
+            <button
+              onClick={() => setIsRecruiterModalOpen(true)}
+              className="px-3 py-1 text-xs font-semibold rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/40 hover:bg-cyan-500/20 transition-all cursor-pointer flex items-center gap-1.5"
+            >
+              <Briefcase size={12} />
+              Pitch Reclutadores
+            </button>
             <a href="#contacto" className="nav-cta">
               <Mail size={13} style={{ display: "inline", verticalAlign: "middle", marginRight: 6 }} />
               Contacto
@@ -501,9 +559,26 @@ export default function Home() {
               </div>
 
               <div className="hero-actions fade-up fade-up-5">
+                <button
+                  onClick={() => setIsRecruiterModalOpen(true)}
+                  className="btn btn-recruiter cursor-pointer"
+                >
+                  <Sparkles size={16} />
+                  Pitch Reclutadores (1-Clic)
+                </button>
                 <a href="#proyectos" className="btn btn-primary">
                   Ver proyectos
                   <ArrowRight size={16} />
+                </a>
+                <a
+                  href={generateWhatsAppLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-ghost"
+                  style={{ borderColor: "rgba(16, 185, 129, 0.4)", color: "#10b981" }}
+                >
+                  <MessageCircle size={15} />
+                  WhatsApp Directo
                 </a>
                 <a
                   href={cvPdfUrl}
@@ -513,10 +588,6 @@ export default function Home() {
                 >
                   <Download size={15} />
                   Descargar HV
-                </a>
-                <a href="#contacto" className="btn btn-ghost">
-                  <MessageSquare size={15} />
-                  Contáctame
                 </a>
               </div>
             </div>
@@ -662,20 +733,55 @@ export default function Home() {
       {/* ── PROYECTOS ───────────────────────────────────────── */}
       <section id="proyectos" className="section">
         <div className="wrap">
-          <span className="eyebrow">// proyectos destacados</span>
-          <h2 className="section-title">Iniciativas con Impacto Medible</h2>
-          <p className="section-sub">
-            Problemas reales de Supply Chain resueltos con analítica, Python y automatización.
-          </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <span className="eyebrow">// proyectos destacados</span>
+              <h2 className="section-title">Iniciativas con Impacto Medible</h2>
+              <p className="section-sub mb-0">
+                Soluciones de alto impacto en Supply Chain, Data Science y Biotech Analytics.
+              </p>
+            </div>
+            <button
+              onClick={() => setIsRecruiterModalOpen(true)}
+              className="btn btn-recruiter text-xs self-start md:self-auto cursor-pointer"
+            >
+              <Sparkles size={14} />
+              Ficha para Reclutadores
+            </button>
+          </div>
+
+          {/* Filtros dinámicos de categoría */}
+          <div className="filter-tabs" role="tablist" aria-label="Filtrar proyectos">
+            {projectCategories.map((cat) => {
+              const count = projects.filter(
+                (p) => cat.id === "all" || p.categories.includes(cat.id)
+              ).length;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`filter-btn ${activeCategory === cat.id ? "active" : ""}`}
+                  role="tab"
+                  aria-selected={activeCategory === cat.id}
+                >
+                  <Filter size={12} />
+                  <span>{cat.label}</span>
+                  <span className="filter-count">{count}</span>
+                </button>
+              );
+            })}
+          </div>
 
           <div className="cargo-list">
-            {projects.map((p, i) => (
-              <div className="cargo-card" key={i}>
+            {filteredProjects.map((p, i) => (
+              <div className="cargo-card" key={p.id || i}>
                 <div className="cargo-head">
                   <span className="cargo-id">{p.id}</span>
                   <span className={`cargo-status ${p.status}`}>{p.statusLabel}</span>
                 </div>
-                <div style={{ color: "var(--teal)", marginBottom: 14 }}>{p.icon}</div>
+                <div style={{ color: "var(--teal)", marginBottom: 14 }}>
+                  {projects.find((orig) => orig.id === p.id)?.icon || <Boxes size={20} />}
+                </div>
                 <h3>{p.title}</h3>
                 <div className="cargo-route">
                   <span>{p.from}</span>

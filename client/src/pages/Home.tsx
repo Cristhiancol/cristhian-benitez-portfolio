@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import { useNotification } from "@/contexts/NotificationContext";
 import RecruiterPitchModal from "@/components/RecruiterPitchModal";
+import Card3DTilt from "@/components/Card3DTilt";
+import SupplyChainGlobe3D from "@/components/SupplyChainGlobe3D";
 import {
   filterProjectsByCategory,
   generateWhatsAppLink,
@@ -467,6 +469,8 @@ export default function Home() {
     activeCategory
   );
 
+  const [heroVisualMode, setHeroVisualMode] = useState<"photo" | "hub3d">("photo");
+
   return (
     <>
       <div className="grain" aria-hidden="true" />
@@ -487,6 +491,7 @@ export default function Home() {
           <div className="nav-links">
             <a href="#sobre-mi">Sobre mí</a>
             <a href="#experiencia">Experiencia</a>
+            <a href="#red-global-3d">Logística 3D</a>
             <a href="#proyectos">Proyectos</a>
             <a href="#herramientas">Stack</a>
             <button
@@ -573,24 +578,63 @@ export default function Home() {
               </div>
             </div>
 
-            {/* RIGHT — photo */}
+            {/* RIGHT — photo or 3D Hub */}
             <div className="hero-photo-col">
-              <div className="hero-photo-card fade-up fade-up-3">
-                <img
-                  src={profileImgUrl}
-                  alt={`${fullName} — Procurement Data-Driven`}
-                />
-                <div className="photo-badge">
-                  <div>
-                    <div className="photo-badge-name">{fullName.split(" ")[0]} {fullName.split(" ")[2] || fullName.split(" ")[1] || "Benítez"}</div>
-                    <div className="photo-badge-role">Gestor de Compras · Data Analyst</div>
-                  </div>
-                  <div className="photo-badge-status">
-                    <CircleDot size={12} />
-                    Disponible
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <button
+                  onClick={() => setHeroVisualMode("photo")}
+                  className={`px-3 py-1 text-xs font-mono rounded-lg transition-all cursor-pointer ${
+                    heroVisualMode === "photo"
+                      ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/40"
+                      : "bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-slate-800"
+                  }`}
+                >
+                  Foto Perfil
+                </button>
+                <button
+                  onClick={() => setHeroVisualMode("hub3d")}
+                  className={`px-3 py-1 text-xs font-mono rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
+                    heroVisualMode === "hub3d"
+                      ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                      : "bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-slate-800"
+                  }`}
+                >
+                  <Sparkles size={11} />
+                  Hub 3D IA & Supply
+                </button>
+              </div>
+
+              <Card3DTilt maxRotation={8} glareOpacity={0.25}>
+                <div className="hero-photo-card fade-up fade-up-3 relative overflow-hidden">
+                  <img
+                    src={heroVisualMode === "photo" ? profileImgUrl : "/supply_chain_3d_hero.jpg"}
+                    alt={
+                      heroVisualMode === "photo"
+                        ? `${fullName} — Procurement Data-Driven`
+                        : "AI Supply Chain & Data Analytics 3D Hub"
+                    }
+                    className="transition-all duration-500 object-cover w-full h-full"
+                  />
+                  <div className="photo-badge">
+                    <div>
+                      <div className="photo-badge-name">
+                        {heroVisualMode === "photo"
+                          ? `${fullName.split(" ")[0]} ${fullName.split(" ")[2] || fullName.split(" ")[1] || "Benítez"}`
+                          : "AI Supply Hub 3D"}
+                      </div>
+                      <div className="photo-badge-role">
+                        {heroVisualMode === "photo"
+                          ? "Gestor de Compras · Data Analyst"
+                          : "Gemini AI · Python · Predicción"}
+                      </div>
+                    </div>
+                    <div className="photo-badge-status">
+                      <CircleDot size={12} />
+                      {heroVisualMode === "photo" ? "Disponible" : "En Tiempo Real"}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Card3DTilt>
             </div>
 
           </div>
@@ -711,6 +755,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── RED GLOBAL 3D ───────────────────────────────────── */}
+      <section
+        id="red-global-3d"
+        className="section"
+        style={{
+          background:
+            "radial-gradient(ellipse 900px 500px at 50% 50%, rgba(0,240,255,0.04), transparent 75%)",
+        }}
+      >
+        <div className="wrap">
+          <div className="mb-8">
+            <span className="eyebrow">// cadena de suministro global</span>
+            <h2 className="section-title">Logística Internacional & Flota 3D</h2>
+            <p className="section-sub mb-0">
+              Interacción en tiempo real con los nodos de importación, régimen aduanero UAP y gestión de abastecimiento estratégico.
+            </p>
+          </div>
+          <SupplyChainGlobe3D />
+        </div>
+      </section>
+
       {/* ── PROYECTOS ───────────────────────────────────────── */}
       <section id="proyectos" className="section">
         <div className="wrap">
@@ -755,32 +820,34 @@ export default function Home() {
 
           <div className="cargo-list">
             {filteredProjects.map((p, i) => (
-              <div className="cargo-card" key={p.id || i}>
-                <div className="cargo-head">
-                  <span className="cargo-id">{p.id}</span>
-                  <span className={`cargo-status ${p.status}`}>{p.statusLabel}</span>
+              <Card3DTilt key={p.id || i} maxRotation={6} glareOpacity={0.18}>
+                <div className="cargo-card h-full">
+                  <div className="cargo-head">
+                    <span className="cargo-id">{p.id}</span>
+                    <span className={`cargo-status ${p.status}`}>{p.statusLabel}</span>
+                  </div>
+                  <div style={{ color: "var(--teal)", marginBottom: 14 }}>
+                    {projects.find((orig) => orig.id === p.id)?.icon || <Boxes size={20} />}
+                  </div>
+                  <h3>{p.title}</h3>
+                  <div className="cargo-route">
+                    <span>{p.from}</span>
+                    <span className="r-arrow"><ArrowRight size={11} /></span>
+                    <span>{p.to}</span>
+                  </div>
+                  <p>{p.description}</p>
+                  <div className="cargo-results">
+                    {p.results.map((r, j) => (
+                      <span key={j}>{r}</span>
+                    ))}
+                  </div>
+                  <div className="cargo-stack">
+                    {p.stack.map((s, j) => (
+                      <span key={j}>{s}</span>
+                    ))}
+                  </div>
                 </div>
-                <div style={{ color: "var(--teal)", marginBottom: 14 }}>
-                  {projects.find((orig) => orig.id === p.id)?.icon || <Boxes size={20} />}
-                </div>
-                <h3>{p.title}</h3>
-                <div className="cargo-route">
-                  <span>{p.from}</span>
-                  <span className="r-arrow"><ArrowRight size={11} /></span>
-                  <span>{p.to}</span>
-                </div>
-                <p>{p.description}</p>
-                <div className="cargo-results">
-                  {p.results.map((r, j) => (
-                    <span key={j}>{r}</span>
-                  ))}
-                </div>
-                <div className="cargo-stack">
-                  {p.stack.map((s, j) => (
-                    <span key={j}>{s}</span>
-                  ))}
-                </div>
-              </div>
+              </Card3DTilt>
             ))}
           </div>
         </div>

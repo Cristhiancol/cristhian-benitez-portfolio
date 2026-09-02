@@ -54,13 +54,13 @@ describe("recruiterHelper utilities", () => {
         id: "PRJ-2",
         status: "active",
         statusLabel: "LIVE",
-        title: "Biotech Pipeline",
+        title: "Asset Tracker",
         from: "A",
         to: "B",
         description: "Desc",
-        results: ["15k genes"],
-        stack: ["Python", "HPA"],
-        categories: ["data_ai", "biotech"],
+        results: ["100% sync"],
+        stack: ["React", "TypeScript"],
+        categories: ["data_ai", "fullstack"],
       },
       {
         id: "PRJ-3",
@@ -87,8 +87,8 @@ describe("recruiterHelper utilities", () => {
       expect(filtered.map((p) => p.id)).toEqual(["PRJ-1", "PRJ-2"]);
     });
 
-    it("filters correctly by biotech", () => {
-      const filtered = filterProjectsByCategory(mockProjects, "biotech");
+    it("filters correctly by fullstack", () => {
+      const filtered = filterProjectsByCategory(mockProjects, "fullstack");
       expect(filtered).toHaveLength(1);
       expect(filtered[0].id).toBe("PRJ-2");
     });

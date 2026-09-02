@@ -209,31 +209,12 @@ const projects: (Omit<ProjectItem, "icon"> & { icon: React.ReactNode })[] = [
     stack: ["SIESA ERP", "Excel Avanzado", "Regulación DIAN", "SAP"],
     categories: ["supply_chain"],
   },
-  {
-    id: "PRJ-006",
-    status: "status-live",
-    statusLabel: "ACTIVO / BIOTECH",
-    icon: <Dna size={20} />,
-    title: "Human Protein Atlas — Pipeline de Datos & Expresión Tisular",
-    from: "HPA REST API",
-    to: "EXPLORER ANALÍTICO",
-    description:
-      "Pipeline bioinformático y analítico para extracción, cruce estadístico y visualización de niveles de expresión proteica (IHC) y transcriptómica en tejidos humanos.",
-    results: [
-      "+15,000 genes mapeados y analizados",
-      "Correlación cruzada entre ARN-seq e Inmunohistoquímica",
-      "Filtrado multiorgánico y subcellular localization",
-    ],
-    stack: ["Python", "HPA API", "Pandas", "TypeScript", "Recharts"],
-    categories: ["data_ai", "biotech", "fullstack"],
-  },
 ];
 
 const projectCategories = [
   { id: "all", label: "Todos" },
   { id: "data_ai", label: "Data Science & IA" },
   { id: "supply_chain", label: "Supply Chain & ERP" },
-  { id: "biotech", label: "Biotech & Big Data" },
   { id: "fullstack", label: "Full Stack & Dashboards" },
 ];
 
@@ -738,7 +719,7 @@ export default function Home() {
               <span className="eyebrow">// proyectos destacados</span>
               <h2 className="section-title">Iniciativas con Impacto Medible</h2>
               <p className="section-sub mb-0">
-                Soluciones de alto impacto en Supply Chain, Data Science y Biotech Analytics.
+                Soluciones de alto impacto en Supply Chain, Data Science e Inteligencia Artificial.
               </p>
             </div>
             <button

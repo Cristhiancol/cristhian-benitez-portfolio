@@ -18,6 +18,10 @@ import { useNotification } from "@/contexts/NotificationContext";
 import RecruiterPitchModal from "@/components/RecruiterPitchModal";
 import Card3DTilt from "@/components/Card3DTilt";
 import SupplyChainGlobe3D from "@/components/SupplyChainGlobe3D";
+import AuroraBackground from "@/components/AuroraBackground";
+import MagneticButton from "@/components/MagneticButton";
+import ScrollReveal from "@/components/ScrollReveal";
+import AnimatedText from "@/components/AnimatedText";
 import {
   filterProjectsByCategory,
   generateWhatsAppLink,
@@ -474,6 +478,7 @@ export default function Home() {
   return (
     <>
       <div className="grain" aria-hidden="true" />
+      <AuroraBackground />
 
       {/* Recruiter Pitch Modal */}
       <RecruiterPitchModal
@@ -525,7 +530,7 @@ export default function Home() {
                 Llevo Compras de{" "}
                 <span className="strike">reportar el pasado</span>
                 <br />
-                a <span className="accent">predecir el futuro</span>
+                a <span className="accent gradient-text">predecir el futuro</span>
               </h1>
 
               <p className="hero-sub fade-up fade-up-3">
@@ -545,36 +550,43 @@ export default function Home() {
               </div>
 
               <div className="hero-actions fade-up fade-up-5">
-                <button
+                <MagneticButton
                   onClick={() => setIsRecruiterModalOpen(true)}
                   className="btn btn-recruiter cursor-pointer"
+                  magnetStrength={8}
                 >
                   <Sparkles size={16} />
                   Pitch Reclutadores (1-Clic)
-                </button>
-                <a href="#proyectos" className="btn btn-primary">
+                </MagneticButton>
+                <MagneticButton
+                  href="#proyectos"
+                  className="btn btn-primary"
+                  magnetStrength={6}
+                >
                   Ver proyectos
                   <ArrowRight size={16} />
-                </a>
-                <a
+                </MagneticButton>
+                <MagneticButton
                   href={generateWhatsAppLink()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-ghost"
                   style={{ borderColor: "rgba(16, 185, 129, 0.4)", color: "#10b981" }}
+                  magnetStrength={6}
                 >
                   <MessageCircle size={15} />
                   WhatsApp Directo
-                </a>
-                <a
+                </MagneticButton>
+                <MagneticButton
                   href={cvPdfUrl}
                   download="Cristhian_Benitez_CV.pdf"
-                  onClick={() => addNotification({ type: "success", title: "Descarga iniciada", message: "La hoja de vida se está descargando.", duration: 3000 })}
                   className="btn btn-ghost"
+                  magnetStrength={6}
+                  onClick={() => addNotification({ type: "success", title: "Descarga iniciada", message: "La hoja de vida se está descargando.", duration: 3000 })}
                 >
                   <Download size={15} />
                   Descargar HV
-                </a>
+                </MagneticButton>
               </div>
             </div>
 
@@ -653,14 +665,44 @@ export default function Home() {
         </div>
       </header>
 
+      {/* ── MARQUEE TICKER ──────────────────────────────────── */}
+      <div className="marquee-strip" aria-hidden="true">
+        <div className="marquee-inner">
+          {[...Array(2)].map((_, rep) => (
+            <span key={rep} className="inline-flex gap-12" style={{ paddingRight: 48 }}>
+              <span className="marquee-item"><strong>Python</strong> · Pandas · Scikit-Learn</span>
+              <span className="marquee-dot" />
+              <span className="marquee-item"><strong>SAP</strong> (MM, B1) · SIESA</span>
+              <span className="marquee-dot" />
+              <span className="marquee-item"><strong>7-11%</strong> Ahorro en Compras</span>
+              <span className="marquee-dot" />
+              <span className="marquee-item"><strong>260</strong> Buses bajo Suministro</span>
+              <span className="marquee-dot" />
+              <span className="marquee-item"><strong>SQL</strong> · Power BI · Tableau</span>
+              <span className="marquee-dot" />
+              <span className="marquee-item"><strong>IA Predictiva</strong> · Gemini AI</span>
+              <span className="marquee-dot" />
+              <span className="marquee-item"><strong>100%</strong> Cumplimiento DIAN</span>
+              <span className="marquee-dot" />
+              <span className="marquee-item">Comercio Exterior · <strong>Régimen UAP</strong></span>
+              <span className="marquee-dot" />
+              <span className="marquee-item"><strong>92%</strong> Precisión Modelo IA</span>
+              <span className="marquee-dot" />
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* ── SOBRE MÍ — BENTO ────────────────────────────────── */}
       <section id="sobre-mi" className="section">
         <div className="wrap">
-          <span className="eyebrow">// sobre mí</span>
-          <h2 className="section-title">El perfil que no cabe en un CV</h2>
-          <p className="section-sub">
-            Vine de Compras, no del mundo tech — y eso es exactamente lo que me hace diferente.
-          </p>
+          <ScrollReveal>
+            <span className="eyebrow">// sobre mí</span>
+            <h2 className="section-title">El perfil que no cabe en un CV</h2>
+            <p className="section-sub">
+              Vine de Compras, no del mundo tech — y eso es exactamente lo que me hace diferente.
+            </p>
+          </ScrollReveal>
 
           <div className="bento">
             {/* Historia */}
@@ -725,11 +767,13 @@ export default function Home() {
       {/* ── EXPERIENCIA ─────────────────────────────────────── */}
       <section id="experiencia" className="section section-alt">
         <div className="wrap">
-          <span className="eyebrow">// trayectoria profesional</span>
-          <h2 className="section-title">De Aduanas a Data-Driven Procurement</h2>
-          <p className="section-sub">
-            Cada etapa me acercó más a combinar operación real con analítica de datos.
-          </p>
+          <ScrollReveal>
+            <span className="eyebrow">// trayectoria profesional</span>
+            <h2 className="section-title">De Aduanas a Data-Driven Procurement</h2>
+            <p className="section-sub">
+              Cada etapa me acercó más a combinar operación real con analítica de datos.
+            </p>
+          </ScrollReveal>
 
           <div className="route">
             {experience.map((exp, i) => (
@@ -765,13 +809,15 @@ export default function Home() {
         }}
       >
         <div className="wrap">
-          <div className="mb-8">
-            <span className="eyebrow">// cadena de suministro global</span>
-            <h2 className="section-title">Logística Internacional & Flota 3D</h2>
-            <p className="section-sub mb-0">
-              Interacción en tiempo real con los nodos de importación, régimen aduanero UAP y gestión de abastecimiento estratégico.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="mb-8">
+              <span className="eyebrow">// cadena de suministro global</span>
+              <h2 className="section-title">Logística Internacional & Flota 3D</h2>
+              <p className="section-sub mb-0">
+                Interacción en tiempo real con los nodos de importación, régimen aduanero UAP y gestión de abastecimiento estratégico.
+              </p>
+            </div>
+          </ScrollReveal>
           <SupplyChainGlobe3D />
         </div>
       </section>

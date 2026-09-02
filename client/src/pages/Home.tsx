@@ -22,6 +22,7 @@ import AuroraBackground from "@/components/AuroraBackground";
 import MagneticButton from "@/components/MagneticButton";
 import ScrollReveal from "@/components/ScrollReveal";
 import AnimatedText from "@/components/AnimatedText";
+import CustomCursor from "@/components/CustomCursor";
 import {
   filterProjectsByCategory,
   generateWhatsAppLink,
@@ -477,6 +478,7 @@ export default function Home() {
 
   return (
     <>
+      <CustomCursor />
       <div className="grain" aria-hidden="true" />
       <AuroraBackground />
 
@@ -617,7 +619,12 @@ export default function Home() {
               </div>
 
               <Card3DTilt maxRotation={8} glareOpacity={0.25}>
-                <div className="hero-photo-card fade-up fade-up-3 relative overflow-hidden">
+                <div
+                  className="hero-photo-card fade-up fade-up-3 relative overflow-hidden cursor-pointer"
+                  data-cursor="pointer"
+                  data-cursor-text={heroVisualMode === "photo" ? "VER 3D ✨" : "PERFIL 👤"}
+                  onClick={() => setHeroVisualMode(heroVisualMode === "photo" ? "hub3d" : "photo")}
+                >
                   <img
                     src={heroVisualMode === "photo" ? profileImgUrl : "/supply_chain_3d_hero.jpg"}
                     alt={

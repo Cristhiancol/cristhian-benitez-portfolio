@@ -1,6 +1,7 @@
-# 💼 Cristhian Benitez - Portafolio Profesional
+# 💼 Cristhian Benitez — Procurement Data-Driven & AI Portfolio
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-cristhianpf--43pzwajd.manus.space-00f0ff?style=for-the-badge)](https://cristhianpf-43pzwajd.manus.space)
+[![Portfolio](https://img.shields.io/badge/Portafolio_Web-EN_VIVO-00f0ff?style=for-the-badge&logo=googlechrome&logoColor=090d16)](https://cristhianpf-43pzwajd.manus.space)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-+57_301_374_8901-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/573013748901?text=Hola%20Cristhian,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Cristhian%20Benitez-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/cristhian-hernando-benitez-rodriguez/)
 [![Email](https://img.shields.io/badge/Email-cristianbenitez50%40hotmail.com-EA4335?style=for-the-badge&logo=gmail)](mailto:cristianbenitez50@hotmail.com)
 
@@ -8,41 +9,39 @@
 
 ## 🎯 Acerca de Mí
 
-Profesional en **Finanzas y Negocios Internacionales** con **+5 años de experiencia** especializado en:
+Profesional en **Finanzas y Negocios Internacionales** con **+8 años de experiencia** especializado en:
 
-- 📊 **Gestión Estratégica de Abastecimiento** (Supply Chain Management)
-- 💰 **Análisis de Costos** e Inteligencia de Negocios
-- 🔧 **Optimización de Procesos** y Automatización
-- 📈 **Ciencia de Datos** aplicada a Logística
-- 🌍 **Comercio Exterior** y Aduanas
+- 📊 **Gestión Estratégica de Abastecimiento & Compras** (Flota de 260 buses)
+- 🤖 **Inteligencia Artificial Aplicada** (Modelos predictivos en Python & Gemini AI)
+- 💰 **Análisis de Costos & Negociación de Alta Criticidad** (Contratos Terpel & Combustibles)
+- 🌍 **Comercio Exterior & Régimen Aduanero UAP** (Cero sanciones DIAN)
+- 📈 **Ciencia de Datos & Business Intelligence** (Python, SQL, Power BI, Excel VBA)
 
 ### 🏆 Resultados Comprobados
 
-| Métrica | Resultado | Contexto |
-|---------|-----------|---------|
-| 💰 Ahorros Anuales | **11%** | Lubricantes y repuestos vehiculares |
-| ⚡ Reducción de Tiempos | **20%** | Respuesta a requerimientos comerciales |
-| 📦 Optimización de Stock | **30%** | Verificaciones con Excel avanzado |
-| 🚚 Reducción de Gastos | **40%** | Agencia de aduanas (Proyecto UAP) |
-| 📉 Reducción de Entrega | **60%** | Tiempos en importaciones internacionales |
-| ✅ Cumplimiento DIAN | **100%** | Sin sanciones ni multas |
-| 🤖 Automatización | **100%** | Acta de inspección virtual |
+| Métrica | Resultado | Contexto Operativo & Financiero |
+|:---|:---:|:---|
+| 💰 **Ahorros Recurrentes** | **7% – 11%** | Lubricantes y repuestos vehiculares |
+| 🚌 **Flota Gestionada** | **260 Buses** | Suministro e infraestructura continua |
+| 🚚 **Reducción de Gastos** | **40%** | Agencia de aduanas (Proyecto UAP) |
+| 📉 **Reducción Lead Time** | **60%** | Tiempos de importación de repuestos críticos |
+| ✅ **Cumplimiento DIAN** | **100%** | Régimen aduanero sin sanciones ni multas |
+| 🎯 **Precisión Modelo IA** | **92%** | Modelos supervisados de predicción de precios y stock |
 
 ---
 
-## 🚀 Portafolio Web
+## 🚀 Portafolio Web Interactivo 3D
 
-Este repositorio contiene el código fuente de mi **portafolio web interactivo** con diseño **Neon Data Terminal** (Cyberpunk).
+Portafolio web de última generación con estética **Dark Tech Glassmorphism**, experiencias 3D interactivas y arquitectura modular.
 
-### ✨ Características
+### ✨ Características Principales
 
-- 🎨 **Diseño Moderno**: Interfaz cyberpunk con neón cian, verde y dorado
-- 📱 **Responsive**: Optimizado para desktop, tablet y móvil
-- ⚡ **Animaciones Fluidas**: Transiciones y efectos visuales al scroll
-- 📊 **Contadores Animados**: Métricas de impacto con animaciones
-- 🎯 **Timeline Interactivo**: Experiencia laboral con visualización clara
-- 🔍 **SEO Optimizado**: Meta tags y estructura semántica
-- ♿ **Accesible**: Cumple con estándares WCAG
+- 🌐 **Globo 3D Interactivo de Supply Chain**: Proyección esférica 3D en Canvas con rutas comerciales internacionales (Bogotá, Miami, Houston, Rotterdam, Shanghai, Frankfurt) y paquetes de datos animados en tiempo real.
+- 🎴 **Tarjetas 3D Tilt & Glare**: Perspectiva 3D matemática con reflejo especular dinámico que sigue el cursor del ratón.
+- 🎯 **Cursor Contextual Fluido**: Cursor de alta precisión con física elástica (lerp) y morphing automático para 3D, proyectos y botones.
+- 🌌 **Fondo de Partículas Aurora**: Constelaciones interactivas con repulsión magnética al cursor.
+- 💼 **Modal de Pitch para Reclutadores (1-Clic)**: Ficha ejecutiva para ATS con copia rápida y contacto directo a WhatsApp.
+- 🔍 **Filtros Dinámicos de Proyectos**: Filtrado reactivo por especialidad (Data & IA, Supply Chain, Automatización Full Stack).
 
 ### 🛠️ Stack Tecnológico
 

@@ -4,30 +4,45 @@
    TOKENS
    ============================================ */
 :root {
-  --bg: #0B1215;
-  --bg-alt: #0F1A1D;
-  --bg-card: #121D21;
-  --bg-glass: rgba(18, 29, 33, 0.7);
-  --line: rgba(232, 230, 225, 0.10);
-  --line-strong: rgba(232, 230, 225, 0.18);
+  --bg: #080e12;
+  --bg-alt: #0d1619;
+  --bg-card: #111a1e;
+  --bg-glass: rgba(17, 26, 30, 0.72);
+  --line: rgba(0, 240, 255, 0.08);
+  --line-strong: rgba(0, 240, 255, 0.15);
 
   --text: #E8E6E1;
   --text-dim: rgba(232, 230, 225, 0.62);
   --text-faint: rgba(232, 230, 225, 0.38);
 
-  --teal: #5EEAD4;
-  --teal-dim: rgba(94, 234, 212, 0.14);
-  --teal-glow: rgba(94, 234, 212, 0.25);
+  /* PRIMARY ACCENT — Cyan */
+  --cyan: #00f0ff;
+  --cyan-dim: rgba(0, 240, 255, 0.12);
+  --cyan-glow: rgba(0, 240, 255, 0.25);
+  /* Legacy alias for backward compatibility */
+  --teal: #00f0ff;
+  --teal-dim: rgba(0, 240, 255, 0.12);
+  --teal-glow: rgba(0, 240, 255, 0.25);
+
+  /* SECONDARY ACCENT — Emerald */
+  --emerald: #10b981;
+  --emerald-dim: rgba(16, 185, 129, 0.12);
+
+  /* TERTIARY — Amber */
   --amber: #F5A623;
   --amber-dim: rgba(245, 166, 35, 0.14);
+
+  /* PURPLE — for certifications/education */
+  --violet: #8b5cf6;
+  --violet-dim: rgba(139, 92, 246, 0.12);
 
   --font-display: 'Space Grotesk', 'Inter', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --wrap: 1140px;
-  --radius: 12px;
-  --radius-sm: 7px;
+  --wrap: 1160px;
+  --radius: 14px;
+  --radius-sm: 8px;
 }
 
 * { box-sizing: border-box; }
@@ -128,8 +143,80 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .nav-cta:hover { background: var(--teal-dim) !important; }
 
+/* Hamburger toggle button */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s;
+}
+.nav-hamburger:hover { background: rgba(0,240,255,0.06); }
+
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-dim);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s, background 0.2s;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--cyan); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--cyan); }
+
+/* Mobile overlay menu */
+.nav-mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: 64px;
+  background: rgba(8, 14, 18, 0.96);
+  backdrop-filter: blur(20px);
+  z-index: 99;
+  padding: 32px 28px;
+  flex-direction: column;
+  gap: 8px;
+  animation: slideDown 0.25s ease;
+}
+.nav-mobile-overlay.open { display: flex; }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.nav-mobile-overlay a {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-dim);
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-mobile-overlay a:hover {
+  color: var(--cyan);
+  background: var(--cyan-dim);
+  border-color: rgba(0,240,255,0.2);
+}
+.nav-mobile-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 8px 0;
+}
+
 @media (max-width: 700px) {
   .nav-links a:not(.nav-cta) { display: none; }
+  .nav-hamburger { display: flex; }
 }
 
 /* ============================================
@@ -144,8 +231,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 1200px 700px at 70% 40%, rgba(94, 234, 212, 0.07), transparent 65%),
-    radial-gradient(ellipse 600px 400px at 10% 80%, rgba(245, 166, 35, 0.04), transparent 60%);
+    radial-gradient(ellipse 900px 600px at 72% 35%, rgba(0, 240, 255, 0.055), transparent 60%),
+    radial-gradient(ellipse 600px 400px at 15% 75%, rgba(16, 185, 129, 0.04), transparent 65%),
+    radial-gradient(ellipse 400px 300px at 90% 85%, rgba(139, 92, 246, 0.03), transparent 60%);
 }
 
 /* Decorative grid lines */
@@ -154,18 +242,25 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(94,234,212,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(94,234,212,0.04) 1px, transparent 1px);
-  background-size: 60px 60px;
+    linear-gradient(rgba(0,240,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,240,255,0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
   pointer-events: none;
 }
 
 .hero-layout {
   display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 64px;
+  grid-template-columns: 1fr minmax(360px, 440px);
+  gap: 56px;
   align-items: center;
   padding: 80px 0 64px;
+}
+
+@media (max-width: 1100px) {
+  .hero-layout {
+    grid-template-columns: 1fr minmax(320px, 400px);
+    gap: 40px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -606,7 +701,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   gap: 20px;
 }
 
-@media (max-width: 880px) { .cargo-list { grid-template-columns: 1fr; } }
+@media (max-width: 960px) { .cargo-list { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (max-width: 560px) { .cargo-list { grid-template-columns: 1fr; } }
 
 /* cargo-card base + hover — see enhanced glassmorphism version below */
 
@@ -686,12 +782,25 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transform: translateY(-1px);
 }
 
+/* Category-specific tool chip colors */
+.tool-chip-cyan  { border-color: rgba(0,240,255,0.25) !important; color: var(--cyan) !important; background: rgba(0,240,255,0.07) !important; }
+.tool-chip-cyan:hover  { background: rgba(0,240,255,0.14) !important; border-color: var(--cyan) !important; }
+
+.tool-chip-emerald { border-color: rgba(16,185,129,0.25) !important; color: var(--emerald) !important; background: rgba(16,185,129,0.07) !important; }
+.tool-chip-emerald:hover { background: rgba(16,185,129,0.14) !important; border-color: var(--emerald) !important; }
+
+.tool-chip-amber { border-color: rgba(245,166,35,0.25) !important; color: var(--amber) !important; background: rgba(245,166,35,0.07) !important; }
+.tool-chip-amber:hover { background: rgba(245,166,35,0.14) !important; border-color: var(--amber) !important; }
+
+.tool-chip-violet { border-color: rgba(139,92,246,0.25) !important; color: var(--violet) !important; background: rgba(139,92,246,0.07) !important; }
+.tool-chip-violet:hover { background: rgba(139,92,246,0.14) !important; border-color: var(--violet) !important; }
+
 .tool-note {
   color: var(--text-dim); font-size: 14.5px;
   border-top: 1px solid var(--line);
   padding-top: 24px; line-height: 1.7;
 }
-.tool-note strong { color: var(--teal); }
+.tool-note strong { color: var(--cyan); }
 
 /* ============================================
    CONTACT — FORM + LINKS
@@ -1188,11 +1297,260 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    FOCUS & UTILITY
    ============================================ */
 a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--teal);
+  outline: 2px solid var(--cyan);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
+/* ============================================
+   SCROLLSPY — Nav active link highlight
+   ============================================ */
+.nav-links a.nav-active {
+  color: var(--cyan);
+  background: var(--cyan-dim);
+}
+.nav-links a.nav-active::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: var(--cyan);
+  border-radius: 2px;
+  margin-top: -2px;
+  animation: fadeInUp 0.2s ease;
+}
+
+/* ============================================
+   AVAILABILITY BADGE — Hero above-the-fold
+   ============================================ */
+.hero-avail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 10px;
+  border-radius: 100px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--emerald);
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.hero-avail-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--emerald);
+  flex-shrink: 0;
+  animation: avail-pulse 2s infinite;
+}
+
+@keyframes avail-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.6); }
+  70%  { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+
+/* ============================================
+   KPI COUNTER — Animated number roll-up
+   ============================================ */
+.manifest-num[data-count] {
+  display: inline-block;
+  transition: color 0.3s;
+}
+
+.manifest-item:hover .manifest-num {
+  color: #00f0ff;
+  text-shadow: 0 0 20px rgba(0,240,255,0.4);
+}
+
+/* ============================================
+   EXPERIENCE TIMELINE — Enhanced visual weight
+   ============================================ */
+.route {
+  position: relative;
+  border-left: 2px solid rgba(0,240,255,0.2);
+  margin-left: 8px;
+}
+
+.route-stop::before {
+  content: '';
+  position: absolute;
+  left: -10px; top: 4px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--bg-alt);
+  border: 2px solid var(--cyan);
+  box-shadow:
+    0 0 0 4px rgba(0,240,255,0.08),
+    0 0 16px rgba(0,240,255,0.2);
+}
+
+.route-stop:first-child::before {
+  background: var(--cyan-dim);
+  border-color: var(--cyan);
+  box-shadow:
+    0 0 0 4px rgba(0,240,255,0.12),
+    0 0 24px rgba(0,240,255,0.3);
+}
+
+.route-stop h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 3px;
+  color: var(--text);
+}
+
+.route-date { color: var(--cyan); }
+
+/* Currently active role callout */
+.route-stop:first-child .route-tag {
+  border-color: rgba(16,185,129,0.4);
+  color: var(--emerald);
+  background: rgba(16,185,129,0.08);
+}
+
+/* ============================================
+   SECTION DIVIDER — Visual separator between sections
+   ============================================ */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0,240,255,0.3) 30%,
+    rgba(16,185,129,0.2) 60%,
+    transparent 100%
+  );
+  margin: 0;
+}
+
+/* ============================================
+   CERTIFICATIONS SECTION
+   ============================================ */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.cert-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.cert-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--violet), var(--cyan));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.cert-card:hover {
+  border-color: rgba(139,92,246,0.3);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 20px rgba(139,92,246,0.08);
+}
+.cert-card:hover::before { opacity: 1; }
+
+.cert-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+  background: var(--violet-dim);
+  border: 1px solid rgba(139,92,246,0.2);
+}
+
+.cert-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 3px;
+  line-height: 1.3;
+}
+
+.cert-issuer {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--violet);
+  letter-spacing: 0.04em;
+}
+
+.cert-year {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  margin-top: 2px;
+}
+
+/* ============================================
+   FORM VALIDATION — Inline feedback
+   ============================================ */
+.form-field input.field-error,
+.form-field textarea.field-error,
+.form-field select.field-error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.12);
+}
+
+.form-field input.field-ok,
+.form-field textarea.field-ok {
+  border-color: var(--emerald);
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
+}
+
+.field-hint {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  margin-top: 5px;
+  transition: color 0.2s;
+}
+.field-hint.error { color: #ef4444; }
+.field-hint.ok    { color: var(--emerald); }
+
+/* ============================================
+   ENHANCED EXPERIENCE CARD CARD HOVER
+   ============================================ */
+.route-stop {
+  position: relative;
+  padding: 0 0 52px 44px;
+  transition: none;
+}
+
+.route-stop-inner {
+  background: rgba(17,26,30,0.6);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(8px);
+}
+
+.route-stop-inner:hover {
+  border-color: rgba(0,240,255,0.12);
+  box-shadow:
+    0 0 0 1px rgba(0,240,255,0.04),
+    0 12px 40px rgba(0,0,0,0.3);
+}
+
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
-

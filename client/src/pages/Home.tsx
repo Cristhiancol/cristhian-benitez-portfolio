@@ -377,11 +377,33 @@ function ContactForm() {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
         <div className="form-field">
           <label htmlFor="cf-name"><User size={10} style={{ verticalAlign: "middle", marginRight: 4 }} />Nombre *</label>
-          <input id="cf-name" type="text" placeholder="Tu nombre completo" required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+          <input
+            id="cf-name" type="text" placeholder="Tu nombre completo" required
+            value={form.name}
+            className={form.name.length > 0 ? (form.name.length >= 2 ? "field-ok" : "field-error") : ""}
+            onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+          />
+          {form.name.length > 0 && form.name.length < 2 && (
+            <span className="field-hint error">Ingresa tu nombre completo</span>
+          )}
+          {form.name.length >= 2 && (
+            <span className="field-hint ok">✓ Nombre válido</span>
+          )}
         </div>
         <div className="form-field">
           <label htmlFor="cf-email"><Mail size={10} style={{ verticalAlign: "middle", marginRight: 4 }} />Email *</label>
-          <input id="cf-email" type="email" placeholder="tu@empresa.com" required value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
+          <input
+            id="cf-email" type="email" placeholder="tu@empresa.com" required
+            value={form.email}
+            className={form.email.length > 0 ? (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) ? "field-ok" : "field-error") : ""}
+            onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+          />
+          {form.email.length > 0 && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) && (
+            <span className="field-hint error">Email inválido</span>
+          )}
+          {form.email.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) && (
+            <span className="field-hint ok">✓ Email válido</span>
+          )}
         </div>
       </div>
 
@@ -402,7 +424,15 @@ function ContactForm() {
 
       <div className="form-field">
         <label htmlFor="cf-msg"><FileText size={10} style={{ verticalAlign: "middle", marginRight: 4 }} />Mensaje *</label>
-        <textarea id="cf-msg" placeholder="Cuéntame de qué se trata…" required value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} />
+        <textarea
+          id="cf-msg" placeholder="Cuéntame de qué se trata…" required
+          value={form.message}
+          className={form.message.length > 0 ? (form.message.length >= 10 ? "field-ok" : "field-error") : ""}
+          onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
+        />
+        {form.message.length > 0 && form.message.length < 10 && (
+          <span className="field-hint error">El mensaje debe tener al menos 10 caracteres</span>
+        )}
       </div>
 
       <button
@@ -475,6 +505,52 @@ export default function Home() {
   );
 
   const [heroVisualMode, setHeroVisualMode] = useState<"photo" | "hub3d">("photo");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("inicio");
+
+  // Scrollspy — highlight nav link based on visible section
+  useEffect(() => {
+    const sections = ["inicio", "sobre-mi", "experiencia", "red-global-3d", "proyectos", "herramientas", "contacto"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { threshold: 0.3, rootMargin: "-64px 0px 0px 0px" }
+    );
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  // KPI counter animation
+  useEffect(() => {
+    const items = document.querySelectorAll<HTMLElement>(".manifest-num[data-count]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          const target = parseInt(el.dataset.count || "0", 10);
+          const duration = 1400;
+          const step = Math.ceil(target / (duration / 16));
+          let current = 0;
+          const timer = setInterval(() => {
+            current = Math.min(current + step, target);
+            el.textContent = String(current);
+            if (current >= target) clearInterval(timer);
+          }, 16);
+          observer.unobserve(el);
+        });
+      },
+      { threshold: 0.6 }
+    );
+    items.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -496,11 +572,9 @@ export default function Home() {
             cristhian<span className="brand-dot">.</span>benitez
           </a>
           <div className="nav-links">
-            <a href="#sobre-mi">Sobre mí</a>
-            <a href="#experiencia">Experiencia</a>
-            <a href="#red-global-3d">Logística 3D</a>
-            <a href="#proyectos">Proyectos</a>
-            <a href="#herramientas">Stack</a>
+            {[["#sobre-mi","Sobre mí","sobre-mi"],["#experiencia","Experiencia","experiencia"],["#red-global-3d","Logística 3D","red-global-3d"],["#proyectos","Proyectos","proyectos"],["#herramientas","Stack","herramientas"]].map(([href, label, id]) => (
+              <a key={href} href={href} className={activeSection === id ? "nav-active" : ""}>{label}</a>
+            ))}
             <button
               onClick={() => setIsRecruiterModalOpen(true)}
               className="px-3 py-1 text-xs font-semibold rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/40 hover:bg-cyan-500/20 transition-all cursor-pointer flex items-center gap-1.5"
@@ -508,11 +582,28 @@ export default function Home() {
               <Briefcase size={12} />
               Pitch Reclutadores
             </button>
-            <a href="#contacto" className="nav-cta">
+            <a href="#contacto" className={`nav-cta${activeSection === "contacto" ? " nav-active" : ""}`}>
               <Mail size={13} style={{ display: "inline", verticalAlign: "middle", marginRight: 6 }} />
               Contacto
             </a>
           </div>
+          {/* Hamburger button — mobile only */}
+          <button
+            className={`nav-hamburger${mobileMenuOpen ? " open" : ""}`}
+            aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={mobileMenuOpen}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <span /><span /><span />
+          </button>
+        </div>
+        {/* Mobile overlay */}
+        <div className={`nav-mobile-overlay${mobileMenuOpen ? " open" : ""}`} role="dialog" aria-modal="true">
+          {[["#inicio","🏠 Inicio"],["#sobre-mi","👤 Sobre mí"],["#experiencia","💼 Experiencia"],["#red-global-3d","🌐 Logística 3D"],["#proyectos","🗂 Proyectos"],["#herramientas","🛠 Stack"]].map(([href, label]) => (
+            <a key={href} href={href} onClick={() => setMobileMenuOpen(false)}>{label}</a>
+          ))}
+          <div className="nav-mobile-divider" />
+          <a href="#contacto" onClick={() => setMobileMenuOpen(false)}>✉️ Contacto</a>
         </div>
       </nav>
 
@@ -523,9 +614,15 @@ export default function Home() {
 
             {/* LEFT */}
             <div>
+              {/* ✅ Availability badge — above the fold */}
+              <div className="hero-avail-badge fade-up fade-up-1">
+                <span className="hero-avail-dot" aria-hidden="true" />
+                Disponible para nuevas oportunidades · Bogotá, Colombia
+              </div>
+
               <p className="hero-label fade-up fade-up-1">
                 <span className="dot" aria-hidden="true" />
-                DISPONIBLE · {dynProfile?.location ? dynProfile.location.toUpperCase() : "BOGOTÁ, COLOMBIA"} · PROCUREMENT DATA-DRIVEN
+                PROCUREMENT DATA-DRIVEN · +8 AÑOS DE EXPERIENCIA
               </p>
 
               <h1 className="hero-title fade-up fade-up-2">
@@ -659,18 +756,21 @@ export default function Home() {
           </div>
         </div>
 
-        {/* KPIs */}
+        {/* KPIs — animated counters */}
         <div className="manifest-strip">
           <div className="wrap manifest-grid">
             {kpis.map((k, i) => (
               <div className="manifest-item" key={i}>
-                <span className="manifest-num">{k.num}<small>{k.unit}</small></span>
+                <span className="manifest-num" data-count={k.num}>{k.num}<small>{k.unit}</small></span>
                 <span className="manifest-label">{k.label}</span>
               </div>
             ))}
           </div>
         </div>
       </header>
+
+      {/* Section Divider */}
+      <div className="section-divider" aria-hidden="true" />
 
       {/* ── MARQUEE TICKER ──────────────────────────────────── */}
       <div className="marquee-strip" aria-hidden="true">
@@ -916,40 +1016,61 @@ export default function Home() {
           </p>
 
           <div className="tool-groups">
-            {toolGroups.map((tg, i) => (
-              <div className="tool-group" key={i}>
-                <h4>
-                  <span style={{ color: "var(--teal)", display: "flex", alignItems: "center", gap: 6 }}>
-                    {tg.icon}
-                    {tg.group}
-                  </span>
-                </h4>
-                <div className="tool-tags">
-                  {tg.items.map((item, j) => (
-                    <span key={j}>{item}</span>
-                  ))}
+            {toolGroups.map((tg, i) => {
+              // Map each group index to a chip color class
+              const chipColors = ["tool-chip-cyan", "tool-chip-emerald", "tool-chip-cyan", "tool-chip-violet"];
+              const chipClass = chipColors[i % chipColors.length];
+              const headColors = ["var(--cyan)", "var(--emerald)", "var(--cyan)", "var(--violet)"];
+              return (
+                <div className="tool-group" key={i}>
+                  <h4>
+                    <span style={{ color: headColors[i], display: "flex", alignItems: "center", gap: 6 }}>
+                      {tg.icon}
+                      {tg.group}
+                    </span>
+                  </h4>
+                  <div className="tool-tags">
+                    {tg.items.map((item, j) => (
+                      <span key={j} className={chipClass}>{item}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
-          <p className="tool-note">
-            <Award size={13} style={{ display: "inline", verticalAlign: "middle", marginRight: 6, color: "var(--teal)" }} />
-            <strong>Educación Académica & Certificaciones:</strong> Finanzas y Negocios Internacionales — Fundación Universitaria Unimonserrate (Graduado 2023) ·
-            Tecnólogo en Negocios Internacionales — SENA (Graduado 2016) ·
-            IA aplicada a Negocios (Certiplus) ·
-            SAP Business One: Cero a Experto ·
-            Programación en Java (Básico a Avanzado) ·
-            Diseño Web Profesional.
-          </p>
+          {/* Certifications */}
+          <div style={{ marginTop: 48 }}>
+            <span className="eyebrow" style={{ marginBottom: 20, display: "block" }}>// formación & certificaciones</span>
+            <div className="cert-grid">
+              {[
+                { icon: "🎓", title: "Finanzas y Negocios Internacionales", issuer: "F.U. Unimonserrate", year: "2023" },
+                { icon: "📜", title: "Tecnólogo en Negocios Internacionales", issuer: "SENA", year: "2016" },
+                { icon: "🤖", title: "IA Aplicada a Negocios", issuer: "Certiplus", year: "2024" },
+                { icon: "⚙️", title: "SAP Business One: Cero a Experto", issuer: "Udemy / SAP", year: "2023" },
+                { icon: "☕", title: "Programación en Java (Básico a Avanzado)", issuer: "Udemy", year: "2022" },
+                { icon: "🌐", title: "Diseño Web Profesional", issuer: "Udemy", year: "2023" },
+              ].map((cert, i) => (
+                <div className="cert-card" key={i}>
+                  <div className="cert-icon" aria-hidden="true">{cert.icon}</div>
+                  <div>
+                    <div className="cert-title">{cert.title}</div>
+                    <div className="cert-issuer">{cert.issuer}</div>
+                    <div className="cert-year">{cert.year}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ── CONTACTO ────────────────────────────────────────── */}
+      <div className="section-divider" aria-hidden="true" />
       <section
         id="contacto"
         className="section"
-        style={{ background: "radial-gradient(ellipse 800px 500px at 50% 100%, rgba(94,234,212,0.05), transparent 70%)" }}
+        style={{ background: "radial-gradient(ellipse 800px 500px at 50% 100%, rgba(0,240,255,0.04), transparent 70%)" }}
       >
         <div className="wrap">
           <span className="eyebrow">// contacto</span>

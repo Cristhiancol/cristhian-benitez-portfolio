@@ -68,28 +68,41 @@ Backend (Opcional):
 
 ---
 
+### 🚀 Proyectos Destacados (Verificados en Producción)
+
+| ID | Proyecto | Tecnologías Clave | Impacto Operativo & Resultados |
+|:---:|:---|:---|:---|
+| **PRJ-001** | **StockFlow — Sistema de IA para Inventarios** | Python · Gemini AI · Pandas · Scikit-Learn | Prevención proactiva de desabastecimiento en flota crítica (1.8% riesgo de quiebre de stock). |
+| **PRJ-002** | **Análisis Predictivo de Costos Logísticos** | Python · Pandas · Power BI · SQL | Modelos con 92% de precisión para anticipar variaciones de precio en insumos y fletes. |
+| **PRJ-003** | **Asset Tracker — Dashboard IA & Drive** | React · TypeScript · Gemini AI · Drive API | Sincronización continua de inventario con Google Drive y alertas dinámicas de reorden. |
+| **PRJ-004** | **Proyecto SMART — Control de OC y Stock** | Excel VBA · Macros · Power Query · SIESA | Control integral para 260 buses articulados; 7% al 11% de ahorro en insumos anuales. |
+| **PRJ-005** | **Proyecto UAP — Logística Aduanera (DIAN)** | SIESA ERP · SAP · Regulación Aduanera | 40% reducción en gastos de agencia, 60% disminución en tiempos de entrega y 100% DIAN. |
+
+---
+
 ## 📂 Estructura del Proyecto
 
 ```
 cristhian-benitez-portfolio/
+├── .agents/
+│   └── skills/                 # 20 Habilidades nativas (animación, 3D, dashboards, accesibilidad)
 ├── client/
 │   ├── public/
-│   │   ├── favicon.ico
-│   │   └── robots.txt
+│   │   ├── favicon.svg         # Monograma CB en SVG
+│   │   └── manifest.webmanifest# Soporte PWA
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Navbar.tsx
-│   │   │   ├── ParticlesBackground.tsx
-│   │   │   ├── AnimatedCounter.tsx
-│   │   │   ├── TimelineItem.tsx
-│   │   │   ├── SkillBar.tsx
-│   │   │   └── TypewriterText.tsx
-│   │   ├── hooks/
-│   │   │   └── useReveal.ts
+│   │   │   ├── ProcurementMetricsDashboard.tsx  # Simulador interactivo de ROI
+│   │   │   ├── InteractiveMonogram3D.tsx        # Monograma 3D con física de inclinación
+│   │   │   ├── ExecutiveDeckModal.tsx           # Pitch deck de 60s en 4 diapositivas
+│   │   │   ├── SupplyChainWorkflowModal.tsx     # Diagrama de arquitectura y pipeline
+│   │   │   ├── SupplyChainGlobe3D.tsx           # Globo terráqueo 3D de rutas comerciales
+│   │   │   ├── Card3DTilt.tsx                   # Tarjetas 3D con brillo dinámico
+│   │   │   ├── CustomCursor.tsx                 # Cursor contextual elástico
+│   │   │   ├── ScrollProgressBar.tsx            # Barra superior de progreso de scroll
+│   │   │   └── AuroraBackground.tsx             # Fondo animado de constelaciones
 │   │   ├── pages/
 │   │   │   └── Home.tsx
-│   │   ├── App.tsx
-│   │   ├── main.tsx
 │   │   └── index.css
 │   └── index.html
 ├── server/
@@ -199,7 +212,7 @@ Responsable de inspección de carga, gestión de inventario y coordinación con 
 
 ### Requisitos Previos
 - Node.js 18+
-- pnpm (gestor de paquetes)
+- npm
 
 ### Instalación
 
@@ -209,26 +222,32 @@ git clone https://github.com/Cristhiancol/cristhian-benitez-portfolio.git
 cd cristhian-benitez-portfolio
 
 # Instalar dependencias
-pnpm install
+npm install
 
 # Ejecutar en desarrollo
-pnpm run dev
+npm run dev
+
+# Ejecutar pruebas unitarias (Vitest)
+npm run test
+
+# Verificar tipos TypeScript
+npm run check
 
 # Construir para producción
-pnpm run build
+npm run build
 
 # Vista previa de producción
-pnpm run preview
+npm run preview
 ```
 
 ### Scripts Disponibles
 
 ```bash
-pnpm run dev      # Inicia servidor de desarrollo
-pnpm run build    # Construye para producción
-pnpm run preview  # Vista previa de build
-pnpm run check    # Verifica tipos TypeScript
-pnpm run format   # Formatea código con Prettier
+npm run dev      # Inicia servidor de desarrollo
+npm run test     # Ejecuta las 24 pruebas unitarias (Vitest)
+npm run check    # Verifica tipos con tsc --noEmit
+npm run build    # Compila para producción (Vite + esbuild)
+npm run preview  # Previsualiza la versión compilada
 ```
 
 ---
@@ -269,14 +288,6 @@ Este proyecto está bajo la licencia **MIT**. Siéntete libre de usar, modificar
 
 ---
 
-## 📊 Estadísticas del Repositorio
+**Última actualización**: Septiembre 2026
 
-![GitHub Stars](https://img.shields.io/github/stars/Cristhiancol/cristhian-benitez-portfolio?style=flat-square)
-![GitHub Forks](https://img.shields.io/github/forks/Cristhiancol/cristhian-benitez-portfolio?style=flat-square)
-![GitHub Issues](https://img.shields.io/github/issues/Cristhiancol/cristhian-benitez-portfolio?style=flat-square)
-
----
-
-**Última actualización**: Abril 2026
-
-*Hecho con ❤️ por Cristhian Benitez*
+*Diseñado y desarrollado por Cristhian Benítez · Procurement Data-Driven & AI*

@@ -13,6 +13,7 @@ import {
   CheckCircle2, Briefcase, Clock, ChevronRight,
   Send, User, Building2, Sparkles, Zap, Layers,
   FileText, CircleDot, Dna, MessageCircle, Filter,
+  Network, Sliders, Play,
 } from "lucide-react";
 import { useNotification } from "@/contexts/NotificationContext";
 import RecruiterPitchModal from "@/components/RecruiterPitchModal";
@@ -23,6 +24,11 @@ import MagneticButton from "@/components/MagneticButton";
 import ScrollReveal from "@/components/ScrollReveal";
 import AnimatedText from "@/components/AnimatedText";
 import CustomCursor from "@/components/CustomCursor";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
+import InteractiveMonogram3D from "@/components/InteractiveMonogram3D";
+import ProcurementMetricsDashboard from "@/components/ProcurementMetricsDashboard";
+import SupplyChainWorkflowModal from "@/components/SupplyChainWorkflowModal";
+import ExecutiveDeckModal from "@/components/ExecutiveDeckModal";
 import {
   filterProjectsByCategory,
   generateWhatsAppLink,
@@ -507,17 +513,28 @@ export default function Home() {
   const [heroVisualMode, setHeroVisualMode] = useState<"photo" | "hub3d">("photo");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("inicio");
+  const [isWorkflowModalOpen, setIsWorkflowModalOpen] = useState(false);
+  const [isDeckModalOpen, setIsDeckModalOpen] = useState(false);
 
   // Scrollspy — highlight nav link based on visible section
   useEffect(() => {
-    const sections = ["inicio", "sobre-mi", "experiencia", "red-global-3d", "proyectos", "herramientas", "contacto"];
+    const sections = [
+      "inicio",
+      "sobre-mi",
+      "experiencia",
+      "red-global-3d",
+      "simulador-roi",
+      "proyectos",
+      "herramientas",
+      "contacto",
+    ];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) setActiveSection(entry.target.id);
         });
       },
-      { threshold: 0.3, rootMargin: "-64px 0px 0px 0px" }
+      { threshold: 0.25, rootMargin: "-64px 0px 0px 0px" }
     );
     sections.forEach((id) => {
       const el = document.getElementById(id);
@@ -554,6 +571,17 @@ export default function Home() {
 
   return (
     <>
+      {/* Skill: gsap-plugins & cut-the-curve — Top Scroll Progress Bar */}
+      <ScrollProgressBar />
+
+      {/* Skill: accessibility — Skip to Content Link */}
+      <a
+        href="#contenido-principal"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[300] focus:px-4 focus:py-2 focus:bg-[#00f0ff] focus:text-[#080e12] focus:font-bold focus:rounded-lg shadow-xl"
+      >
+        Saltar al contenido principal
+      </a>
+
       <CustomCursor />
       <div className="grain" aria-hidden="true" />
       <AuroraBackground />
@@ -565,16 +593,56 @@ export default function Home() {
         cvPdfUrl={cvPdfUrl}
       />
 
+      {/* Executive Deck Modal (Marp-slide skill) */}
+      <ExecutiveDeckModal
+        isOpen={isDeckModalOpen}
+        onClose={() => setIsDeckModalOpen(false)}
+        cvPdfUrl={cvPdfUrl}
+      />
+
+      {/* Supply Chain Workflow Modal (Json-canvas & Mermaid skill) */}
+      <SupplyChainWorkflowModal
+        isOpen={isWorkflowModalOpen}
+        onClose={() => setIsWorkflowModalOpen(false)}
+      />
+
       {/* ── NAV ─────────────────────────────────────────────── */}
       <nav className="topnav" aria-label="Navegación principal">
         <div className="wrap topnav-inner">
-          <a href="#inicio" className="brand">
-            cristhian<span className="brand-dot">.</span>benitez
+          {/* Skill: muapi-3d-logo-animation — 3D Holographic Monogram */}
+          <a href="#inicio" className="flex items-center" aria-label="Inicio">
+            <InteractiveMonogram3D size={38} showText={true} />
           </a>
+
           <div className="nav-links">
-            {[["#sobre-mi","Sobre mí","sobre-mi"],["#experiencia","Experiencia","experiencia"],["#red-global-3d","Logística 3D","red-global-3d"],["#proyectos","Proyectos","proyectos"],["#herramientas","Stack","herramientas"]].map(([href, label, id]) => (
-              <a key={href} href={href} className={activeSection === id ? "nav-active" : ""}>{label}</a>
+            {[
+              ["#sobre-mi", "Sobre mí", "sobre-mi"],
+              ["#experiencia", "Experiencia", "experiencia"],
+              ["#red-global-3d", "Logística 3D", "red-global-3d"],
+              ["#simulador-roi", "Simulador ROI", "simulador-roi"],
+              ["#proyectos", "Proyectos", "proyectos"],
+              ["#herramientas", "Stack", "herramientas"],
+            ].map(([href, label, id]) => (
+              <a
+                key={href}
+                href={href}
+                className={activeSection === id ? "nav-active" : ""}
+              >
+                {label}
+              </a>
             ))}
+
+            {/* Executive Deck Button */}
+            <button
+              onClick={() => setIsDeckModalOpen(true)}
+              className="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/40 hover:bg-emerald-500/20 transition-all cursor-pointer flex items-center gap-1.5"
+              title="Ver presentación ejecutiva de 60 segundos"
+            >
+              <BookOpen size={12} />
+              Deck Ejecutivo
+            </button>
+
+            {/* Recruiter Pitch Button */}
             <button
               onClick={() => setIsRecruiterModalOpen(true)}
               className="px-3 py-1 text-xs font-semibold rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/40 hover:bg-cyan-500/20 transition-all cursor-pointer flex items-center gap-1.5"
@@ -582,11 +650,16 @@ export default function Home() {
               <Briefcase size={12} />
               Pitch Reclutadores
             </button>
-            <a href="#contacto" className={`nav-cta${activeSection === "contacto" ? " nav-active" : ""}`}>
+
+            <a
+              href="#contacto"
+              className={`nav-cta${activeSection === "contacto" ? " nav-active" : ""}`}
+            >
               <Mail size={13} style={{ display: "inline", verticalAlign: "middle", marginRight: 6 }} />
               Contacto
             </a>
           </div>
+
           {/* Hamburger button — mobile only */}
           <button
             className={`nav-hamburger${mobileMenuOpen ? " open" : ""}`}
@@ -597,13 +670,51 @@ export default function Home() {
             <span /><span /><span />
           </button>
         </div>
+
         {/* Mobile overlay */}
-        <div className={`nav-mobile-overlay${mobileMenuOpen ? " open" : ""}`} role="dialog" aria-modal="true">
-          {[["#inicio","🏠 Inicio"],["#sobre-mi","👤 Sobre mí"],["#experiencia","💼 Experiencia"],["#red-global-3d","🌐 Logística 3D"],["#proyectos","🗂 Proyectos"],["#herramientas","🛠 Stack"]].map(([href, label]) => (
-            <a key={href} href={href} onClick={() => setMobileMenuOpen(false)}>{label}</a>
+        <div
+          className={`nav-mobile-overlay${mobileMenuOpen ? " open" : ""}`}
+          role="dialog"
+          aria-modal="true"
+        >
+          {[
+            ["#inicio", "🏠 Inicio"],
+            ["#sobre-mi", "👤 Sobre mí"],
+            ["#experiencia", "💼 Experiencia"],
+            ["#red-global-3d", "🌐 Logística 3D"],
+            ["#simulador-roi", "📊 Simulador ROI"],
+            ["#proyectos", "🗂 Proyectos"],
+            ["#herramientas", "🛠 Stack"],
+          ].map(([href, label]) => (
+            <a key={href} href={href} onClick={() => setMobileMenuOpen(false)}>
+              {label}
+            </a>
           ))}
           <div className="nav-mobile-divider" />
-          <a href="#contacto" onClick={() => setMobileMenuOpen(false)}>✉️ Contacto</a>
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setIsDeckModalOpen(true);
+            }}
+            className="text-left font-semibold text-emerald-400 p-2.5 rounded-lg bg-emerald-500/10 flex items-center gap-2"
+          >
+            <BookOpen size={16} />
+            <span>📑 Ver Deck Ejecutivo (60s)</span>
+          </button>
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setIsRecruiterModalOpen(true);
+            }}
+            className="text-left font-semibold text-cyan-400 p-2.5 rounded-lg bg-cyan-500/10 flex items-center gap-2 mt-1"
+          >
+            <Briefcase size={16} />
+            <span>💼 Pitch para Reclutadores</span>
+          </button>
+          <div className="nav-mobile-divider" />
+          <a href="#contacto" onClick={() => setMobileMenuOpen(false)}>
+            ✉️ Contacto Directo
+          </a>
         </div>
       </nav>
 
@@ -650,19 +761,28 @@ export default function Home() {
 
               <div className="hero-actions fade-up fade-up-5">
                 <MagneticButton
-                  onClick={() => setIsRecruiterModalOpen(true)}
+                  onClick={() => setIsDeckModalOpen(true)}
                   className="btn btn-recruiter cursor-pointer"
                   magnetStrength={8}
                 >
-                  <Sparkles size={16} />
-                  Pitch Reclutadores (1-Clic)
+                  <BookOpen size={16} />
+                  Deck Ejecutivo (60s)
                 </MagneticButton>
                 <MagneticButton
-                  href="#proyectos"
+                  onClick={() => setIsRecruiterModalOpen(true)}
+                  className="btn btn-ghost cursor-pointer"
+                  style={{ borderColor: "rgba(0, 240, 255, 0.4)", color: "#00f0ff" }}
+                  magnetStrength={6}
+                >
+                  <Sparkles size={16} />
+                  Ficha Reclutadores
+                </MagneticButton>
+                <MagneticButton
+                  href="#simulador-roi"
                   className="btn btn-primary"
                   magnetStrength={6}
                 >
-                  Ver proyectos
+                  Simulador ROI
                   <ArrowRight size={16} />
                 </MagneticButton>
                 <MagneticButton
@@ -772,8 +892,10 @@ export default function Home() {
       {/* Section Divider */}
       <div className="section-divider" aria-hidden="true" />
 
-      {/* ── MARQUEE TICKER ──────────────────────────────────── */}
-      <div className="marquee-strip" aria-hidden="true">
+      {/* Semantic Main landmark for Accessibility (WCAG 2.2) */}
+      <main id="contenido-principal">
+        {/* ── MARQUEE TICKER ──────────────────────────────────── */}
+        <div className="marquee-strip" aria-hidden="true">
         <div className="marquee-inner">
           {[...Array(2)].map((_, rep) => (
             <span key={rep} className="inline-flex gap-12" style={{ paddingRight: 48 }}>
@@ -926,8 +1048,48 @@ export default function Home() {
             </div>
           </ScrollReveal>
           <SupplyChainGlobe3D />
+
+          {/* Skill: json-canvas & mermaid-visualizer — Trigger to explore pipeline */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-slate-900/80 via-[#111a1e] to-slate-900/80 border border-cyan-500/20 backdrop-blur-md">
+            <div className="flex items-center gap-3 text-xs sm:text-sm font-mono text-[rgba(232,230,225,0.8)]">
+              <Network size={20} className="text-cyan-400 shrink-0" />
+              <span>¿Quieres ver el diagrama técnico y arquitectura de datos del <strong>Proyecto SMART + IA</strong>?</span>
+            </div>
+            <button
+              onClick={() => setIsWorkflowModalOpen(true)}
+              className="w-full sm:w-auto px-4 py-2.5 text-xs font-mono font-bold rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/30 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,240,255,0.15)]"
+            >
+              <Sliders size={14} />
+              <span>Ver Pipeline & Arquitectura (5 Fases)</span>
+            </button>
+          </div>
         </div>
       </section>
+
+      {/* Section Divider */}
+      <div className="section-divider" aria-hidden="true" />
+
+      {/* ── SIMULADOR ROI & MÉTRICAS (Skills: build-dashboard & playground) ── */}
+      <section
+        id="simulador-roi"
+        className="section section-alt relative overflow-hidden"
+      >
+        <div className="wrap">
+          <ScrollReveal>
+            <div className="mb-8">
+              <span className="eyebrow">// interactivo · supply chain roi</span>
+              <h2 className="section-title">Simulador de Ahorro & Impacto</h2>
+              <p className="section-sub mb-0">
+                Ajusta las variables operativas de flota y presupuesto para evaluar cuantitativamente los resultados que genero en abastecimiento.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ProcurementMetricsDashboard />
+        </div>
+      </section>
+
+      {/* Section Divider */}
+      <div className="section-divider" aria-hidden="true" />
 
       {/* ── PROYECTOS ───────────────────────────────────────── */}
       <section id="proyectos" className="section">
@@ -1123,6 +1285,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* ── FOOTER ──────────────────────────────────────────── */}
       <footer className="footer" style={{ borderTop: "1px solid var(--line)" }}>

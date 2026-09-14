@@ -34,14 +34,20 @@ Profesional en **Finanzas y Negocios Internacionales** con **+8 años de experie
 
 Portafolio web de última generación con estética **Dark Tech Glassmorphism**, experiencias 3D interactivas y arquitectura modular.
 
-### ✨ Características Principales
+### ✨ Características Principales & 20 Habilidades Integradas
 
+- 📊 **Simulador Interactivo de ROI en Abastecimiento**: Calculadora en tiempo real con sliders de flota (50-500 buses) y presupuesto mensual para proyectar ahorros ($ COP / %), reducción de quiebres de stock y cumplimiento aduanero.
+- 💎 **Monograma Holográfico 3D "CB"**: Logotipo tridimensional interactivo con física de inclinación al cursor, anillos orbitales y reflejos especulares dinámicos.
+- 📑 **Deck Ejecutivo (60s Pitch Mode)**: Visor de diapositivas directivas en 4 láminas para reclutadores y VPs con resumen, métricas, proyectos y contacto rápido.
 - 🌐 **Globo 3D Interactivo de Supply Chain**: Proyección esférica 3D en Canvas con rutas comerciales internacionales (Bogotá, Miami, Houston, Rotterdam, Shanghai, Frankfurt) y paquetes de datos animados en tiempo real.
+- 🔄 **Diagrama de Flujo & Arquitectura SMART**: Visualizador interactivo de las 5 fases de compras y esquema técnico de integración ERP (SIESA/SAP) con modelos Python y Gemini AI.
+- 📏 **Barra de Lectura Fluida (Scroll Progress)**: Indicador superior en gradiente cian-esmeralda sincronizado con el scroll.
 - 🎴 **Tarjetas 3D Tilt & Glare**: Perspectiva 3D matemática con reflejo especular dinámico que sigue el cursor del ratón.
 - 🎯 **Cursor Contextual Fluido**: Cursor de alta precisión con física elástica (lerp) y morphing automático para 3D, proyectos y botones.
 - 🌌 **Fondo de Partículas Aurora**: Constelaciones interactivas con repulsión magnética al cursor.
 - 💼 **Modal de Pitch para Reclutadores (1-Clic)**: Ficha ejecutiva para ATS con copia rápida y contacto directo a WhatsApp.
 - 🔍 **Filtros Dinámicos de Proyectos**: Filtrado reactivo por especialidad (Data & IA, Supply Chain, Automatización Full Stack).
+- ♿ **Accesibilidad WCAG 2.2 AA**: Enlace directo para lectores de pantalla ("saltar al contenido"), contraste tipográfico calibrado y navegación completa por teclado.
 
 ### 🛠️ Stack Tecnológico
 

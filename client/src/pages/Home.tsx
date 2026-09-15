@@ -737,17 +737,14 @@ export default function Home() {
               </p>
 
               <h1 className="hero-title fade-up fade-up-2">
-                Llevo Compras de{" "}
-                <span className="strike">reportar el pasado</span>
-                <br />
-                a <span className="accent gradient-text">predecir el futuro</span>
+                Conecto Compras y Logística con{" "}
+                <span className="accent gradient-text">datos, negociación y código</span>
               </h1>
 
               <p className="hero-sub fade-up fade-up-3">
-                Gestor de abastecimiento con <strong>+8 años</strong> combinando
-                negociación estratégica, <span className="accent">Python</span> e{" "}
-                <span className="accent-amber">IA aplicada</span> a Supply Chain
-                — desde aforos aduaneros hasta dashboards predictivos.
+                Gestor de abastecimiento con <strong>+8 años de trayectoria</strong> vinculando
+                comercio exterior, aforos aduaneros (UAP) y modelos analíticos en <span className="accent">Python</span> para
+                generar ahorros tangibles y control de inventarios en tiempo real.
               </p>
 
               <div className="hero-tags fade-up fade-up-4">
@@ -811,26 +808,28 @@ export default function Home() {
 
             {/* RIGHT — photo or 3D Hub */}
             <div className="hero-photo-col">
-              <div className="flex items-center justify-center gap-2 mb-3">
+              <div className="hero-mode-switcher">
                 <button
                   onClick={() => setHeroVisualMode("photo")}
-                  className={`px-3 py-1 text-xs font-mono rounded-lg transition-all cursor-pointer ${
+                  className={`px-3.5 py-1.5 text-xs font-mono rounded-full transition-all cursor-pointer ${
                     heroVisualMode === "photo"
-                      ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/40"
-                      : "bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-slate-800"
+                      ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-[0_0_12px_rgba(0,240,255,0.2)]"
+                      : "bg-slate-900/80 text-slate-400 hover:text-slate-200 border border-slate-800"
                   }`}
+                  aria-pressed={heroVisualMode === "photo"}
                 >
                   Foto Perfil
                 </button>
                 <button
                   onClick={() => setHeroVisualMode("hub3d")}
-                  className={`px-3 py-1 text-xs font-mono rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
+                  className={`px-3.5 py-1.5 text-xs font-mono rounded-full transition-all cursor-pointer flex items-center gap-1.5 ${
                     heroVisualMode === "hub3d"
-                      ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
-                      : "bg-slate-900/60 text-slate-400 hover:text-slate-200 border border-slate-800"
+                      ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 shadow-[0_0_12px_rgba(16,185,129,0.2)]"
+                      : "bg-slate-900/80 text-slate-400 hover:text-slate-200 border border-slate-800"
                   }`}
+                  aria-pressed={heroVisualMode === "hub3d"}
                 >
-                  <Sparkles size={11} />
+                  <Sparkles size={12} />
                   Hub 3D IA & Supply
                 </button>
               </div>

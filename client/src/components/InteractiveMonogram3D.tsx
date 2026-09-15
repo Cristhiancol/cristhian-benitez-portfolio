@@ -103,11 +103,11 @@ export default function InteractiveMonogram3D({
       </div>
 
       {showText && (
-        <div className="flex flex-col text-left leading-none">
-          <span className="font-mono font-bold text-[15px] tracking-tight text-[#E8E6E1] group-hover:text-[#00f0ff] transition-colors">
+        <div className="flex flex-col text-left leading-none whitespace-nowrap">
+          <span className="font-mono font-bold text-[14px] sm:text-[15px] tracking-tight text-[#E8E6E1] group-hover:text-[#00f0ff] transition-colors">
             cristhian<span className="text-[#00f0ff]">.</span>benitez
           </span>
-          <span className="font-mono text-[10px] text-[rgba(232,230,225,0.45)] tracking-widest uppercase mt-0.5">
+          <span className="font-mono text-[9.5px] sm:text-[10px] text-[rgba(232,230,225,0.45)] tracking-widest uppercase mt-0.5">
             Procurement & IA
           </span>
         </div>

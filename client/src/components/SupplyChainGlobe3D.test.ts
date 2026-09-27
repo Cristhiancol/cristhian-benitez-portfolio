@@ -7,7 +7,7 @@ describe("3D Components Configuration and Logic", () => {
       "Miami (Hub Aéreo & Repuestos)",
       "Houston (Industrial / Insumos)",
       "Rotterdam (Puerto Marítimo Europa)",
-      "Shanghai (Suministro Global)",
+      "Reino Unido (Inyectores Delphi)",
       "Frankfurt (Logística Técnica)",
     ];
     expect(nodes).toHaveLength(6);

@@ -36,43 +36,43 @@ import {
 } from "@/lib/recruiterHelper";
 
 /* ── CONSTANTS ──────────────────────────────────────────────────── */
-const CV_PDF =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663355008483/43PzwajDwL6ynT3xAyRcit/CristhianHernandoBenitezRodriguez-Hojadevida_61fcabf4.pdf";
+const CV_PDF = "/docs/Cristhian_Benitez_Rodriguez_HV_Planeador_Controller_Mantenimiento.pdf";
 const PROFILE_IMG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663355008483/43PzwajDwL6ynT3xAyRcit/cristhian-profile-photo_0a53abcf.png";
 
 /* ── DATA ───────────────────────────────────────────────────────── */
 const heroTags = [
-  { icon: <Code2 size={13} />, label: "Python · Pandas · Scikit-Learn" },
+  { icon: <Code2 size={13} />, label: "Python · Pandas · Excel VBA" },
   { icon: <BarChart3 size={13} />, label: "SQL · Power BI · Tableau" },
   { icon: <Package size={13} />, label: "SAP (MM, B1) · SIESA" },
-  { icon: <TrendingUp size={13} />, label: "Abastecimiento Estratégico" },
-  { icon: <BrainCircuit size={13} />, label: "IA Predictiva (Gemini AI)" },
-  { icon: <Globe size={13} />, label: "Comercio Exterior & SLAs" },
+  { icon: <TrendingUp size={13} />, label: "Planeación de materiales para flota" },
+  { icon: <BrainCircuit size={13} />, label: "Control de inventarios · IA aplicada" },
+  { icon: <Globe size={13} />, label: "Continuidad del suministro a mantenimiento" },
 ];
 
 const kpis = [
-  { num: "11", unit: "%", label: "Ahorros constantes en compras" },
-  { num: "260", unit: "",  label: "Buses bajo suministro e infraestructura" },
+  { num: "11", unit: "%", label: "Ahorros anuales en insumos (rango 7–11 %)" },
+  { num: "260", unit: "",  label: "Buses articulados abastecidos para mantenimiento" },
   { num: "40", unit: "%",  label: "Reducción costos aduaneros" },
   { num: "60", unit: "%",  label: "Disminución tiempos de entrega" },
-  { num: "100", unit: "%", label: "Cumplimiento DIAN sin sanciones" },
+  { num: "1828", unit: "", label: "Referencias de repuestos en Asset Tracker" },
 ];
 
 const quickInfo = [
   { icon: <MapPin size={16} />,    label: "Ubicación",    value: "Bogotá, D.C., Colombia" },
   { icon: <Clock size={16} />,     label: "Experiencia",  value: "+8 años en Compras, Comercio Exterior & Abastecimiento" },
   { icon: <TrendingUp size={16} />,label: "Ahorros",      value: "Del 7% al 11% en adquisición de bienes y servicios" },
-  { icon: <Globe size={16} />,     label: "Especialidad", value: "Abastecimiento Estratégico, Contratación & SLAs" },
+  { icon: <Globe size={16} />,     label: "Especialidad", value: "Abastecimiento de flota, inventarios de repuestos y flujo de solicitudes en SIESA" },
   { icon: <Database size={16} />,  label: "Stack Data",   value: "Python (Pandas) · SQL · Excel Avanzado (VBA) · Power BI" },
   { icon: <Award size={16} />,     label: "Formación",    value: "Finanzas & Negocios Int. — F.U. Unimonserrate (2023)" },
 ];
 
 const highlights = [
-  { text: <>Lideré la gestión estratégica de repuestos e infraestructura para <strong>260 buses</strong>, administrando contratos complejos de lubricantes (Terpel), combustible y reparaciones técnicas.</> },
+  { text: <>Gestiono las solicitudes de repuestos de <strong>260 buses articulados</strong> a partir de los cronogramas de mantenimiento, en coordinación con la planeación de mantenimiento, inventarios, proveedores y operación.</> },
   { text: <>Diseñé e implementé el <strong>Proyecto SMART</strong> para control y seguimiento integral de órdenes de compra, stock y facturación.</> },
-  { text: <>Implementé <strong>análisis predictivos de inventarios con IA</strong> (Gemini AI) y modelos en Python (Pandas/Scikit-learn) para prevenir desabastecimientos.</> },
-  { text: <>Lideré el proyecto <strong>UAP</strong> de comercio exterior que redujo gastos aduaneros en un 40% y tiempos de entrega en un 60% con 100% cumplimiento DIAN.</> },
+  { text: <>Construí <strong>Asset Tracker</strong>, tablero de control para 1.828 referencias de repuestos con alertas de stock, sincronización con Google Drive y apoyo de IA para ítems clase A.</> },
+  { text: <>Lidero la negociación internacional de <strong>1.560 inyectores Delphi</strong> para la flota, con validación de muestra junto a Mantenimiento y documentación pública en GitHub.</> },
+  { text: <>En Helicentro lideré el proyecto <strong>UAP</strong>: 40 % menos en costos de agencia de aduanas y 60 % menos en tiempos de entrega, con cumplimiento DIAN.</> },
 ];
 
 const experience = [
@@ -82,11 +82,12 @@ const experience = [
     role: "Gestor de Compras",
     org: "Somos Bogotá Usme S.A.S.",
     summary:
-      "Liderazgo estratégico en el suministro de repuestos e infraestructura para una flota de 260 buses. Gestión integral de contratos de alta complejidad para infraestructura y servicios (Terpel, mantenimiento de estaciones de combustible, reparaciones técnicas de culatas y cajas de dirección, suministro y seguimiento de combustible). Desarrollo de KPIs, cuadros comparativos e inventarios predictivos con IA.",
+      "Abastecimiento de repuestos, lubricantes, herramientas y servicios para 260 buses articulados del SITP. Genero solicitudes de repuestos según los cronogramas de mantenimiento, en coordinación con la persona responsable de planeación de mantenimiento, y tramito en SIESA solicitudes de herramientas, repuestos, servicios, fumigaciones y otros requerimientos operativos. Administro contratos de lubricantes (Terpel), estaciones de combustible, reparación de culatas y cajas de dirección.",
     results: [
       "Ahorros constantes del <strong>7 % al 11 %</strong> mediante negociación estratégica y optimización de esquemas de contratación",
       "Proyecto <strong>SMART</strong>: Control y seguimiento integral de órdenes de compra, fluctuaciones, stock y facturación",
-      "Análisis predictivo de inventarios mediante herramientas de <strong>IA</strong> para mantener stock óptimo y prevenir desabastecimientos",
+      "Seguimiento de stock, consumos y pendientes para asegurar la <strong>continuidad del suministro</strong> al taller",
+      "Negociación internacional de <strong>1.560 inyectores Delphi</strong>: reducción de costos proyectada cercana a COP 1.350 millones (en curso)",
       "Elaboración de cuadros comparativos y sustentación de informes ejecutivos ante instancias de gasto",
     ],
   },
@@ -135,19 +136,19 @@ const projects: (Omit<ProjectItem, "icon"> & { icon: React.ReactNode })[] = [
   {
     id: "PRJ-001",
     status: "status-live",
-    statusLabel: "ACTIVO / IA",
+    statusLabel: "EN DESARROLLO",
     icon: <BrainCircuit size={20} />,
-    title: "StockFlow — Sistema de IA para Inventarios",
+    title: "StockFlow — Inventario con datos de mantenimiento (en desarrollo)",
     from: "STOCK REACTIVO",
     to: "PREDICCIÓN IA",
     description:
-      "Sistema inteligente con IA (Gemini AI) para optimización de inventarios y prevención proactiva de desabastecimiento en operaciones críticas.",
+      "Sistema de inventario en construcción que importará datos de MainSaver y generará alertas de reorden. Hitos y avance publicados en GitHub.",
     results: [
-      "Mantenimiento de niveles óptimos de stock",
-      "Prevención de desabastecimientos críticos",
-      "Alertas automáticas de reorden predictivo",
+      "Importador de datos de mantenimiento (en progreso)",
+      "Sistema de alertas (planeado)",
+      "Repositorio: github.com/Cristhiancol/StockFlow",
     ],
-    stack: ["Python", "Gemini AI", "Pandas", "Scikit-learn"],
+    stack: ["Python", "Pandas", "Gemini AI"],
     categories: ["data_ai", "supply_chain"],
   },
   {
@@ -155,17 +156,17 @@ const projects: (Omit<ProjectItem, "icon"> & { icon: React.ReactNode })[] = [
     status: "status-live",
     statusLabel: "EN USO",
     icon: <BarChart3 size={20} />,
-    title: "Análisis Predictivo de Costos Logísticos",
-    from: "DATOS HISTÓRICOS",
-    to: "92% PRECISIÓN",
+    title: "Importación de Inyectores Delphi para la Flota",
+    from: "VALIDACIÓN TÉCNICA",
+    to: "CONTRATO Y COSTEO",
     description:
-      "Modelos en Python para anticipar variaciones de precio en insumos, fletes y servicios antes de que afecten el presupuesto.",
+      "Negociación internacional de 1.560 inyectores Delphi/PHINIA (referencia Volvo 20569291) con proveedor del Reino Unido, coordinada con Mantenimiento.",
     results: [
-      "Modelos con 92% de precisión predictiva",
-      "Mitigación de variaciones presupuestales",
-      "Sustentación sólida en comités de gasto",
+      "Muestra validada en un bus de la flota con Mantenimiento",
+      "Costeo EXW/FCA y contrato bilingüe (ISA)",
+      "Repositorio: github.com/Cristhiancol/importacion-inyectores-agng-somos-bogota-usme",
     ],
-    stack: ["Python", "Pandas", "Scikit-learn", "Power BI", "SQL"],
+    stack: ["Excel", "Python", "Contratación internacional", "Incoterms"],
     categories: ["data_ai", "supply_chain"],
   },
   {
@@ -177,13 +178,13 @@ const projects: (Omit<ProjectItem, "icon"> & { icon: React.ReactNode })[] = [
     from: "GOOGLE DRIVE",
     to: "DASHBOARD IA",
     description:
-      "Dashboard interactivo de inventario y cadena de suministro con IA y sincronización automática con archivos en Google Drive.",
+      "Tablero de control de inventario de repuestos para la flota: 1.828 referencias, distinción entre repuestos nuevos y reparados (sufijo -R) y sincronización con Google Drive. Repositorio privado; demostración a solicitud.",
     results: [
       "Sincronización automatizada con Google Drive",
       "Monitoreo continuo de activos e insumos",
       "Alertas de stock y KPIs dinámicos",
     ],
-    stack: ["React", "TypeScript", "Node.js", "Gemini AI", "Google Drive API"],
+    stack: ["Next.js", "TypeScript", "tRPC", "MySQL", "Gemini AI", "Google Drive API"],
     categories: ["data_ai", "supply_chain", "fullstack"],
   },
   {
@@ -197,8 +198,8 @@ const projects: (Omit<ProjectItem, "icon"> & { icon: React.ReactNode })[] = [
     description:
       "Sistema de control y seguimiento de órdenes de compra, stock y facturación para la operación de 260 buses articulados.",
     results: [
-      "Ahorros del 7% al 11% en insumos anuales",
-      "Monitoreo de fluctuaciones y facturación",
+      "Control de órdenes de compra abiertas",
+      "Seguimiento de stock y facturación de combustible",
       "Optimización del tiempo de respuesta del área",
     ],
     stack: ["Excel / VBA", "Macros", "Power Query", "Dashboards"],
@@ -257,7 +258,7 @@ const toolGroups = [
 const contactLinks = [
   { icon: <Mail size={20} />,      label: "Email Directo",       value: "cristianbenitez50@hotmail.com", href: "mailto:cristianbenitez50@hotmail.com" },
   { icon: <Phone size={20} />,     label: "Teléfono / WhatsApp", value: "(+57) 301 374 8901",            href: generateWhatsAppLink() },
-  { icon: <Linkedin size={20} />,  label: "LinkedIn",            value: "Cristhian Hernando Benítez Rodríguez", href: "https://www.linkedin.com/in/cristhian-hernando-benitez-rodriguez/" },
+  { icon: <Linkedin size={20} />,  label: "LinkedIn",            value: "Cristhian Hernando Benitez Rodriguez", href: "https://www.linkedin.com/in/cristhian-hernando-benitez-rodriguez/" },
   { icon: <Github size={20} />,    label: "GitHub",              value: "Cristhiancol",                  href: "https://github.com/Cristhiancol/cristhian-benitez-portfolio" },
   { icon: <BookOpen size={20} />,  label: "Notion CV",           value: "Portafolio completo",           href: "https://rare-plume-e37.notion.site/Cristhian-Hernando-Benitez-Rodriguez-Portafolio-Profesional-337952d8da288166b76ce48b450aa0fc" },
   { icon: <MapPin size={20} />,    label: "Ubicación",           value: "Bogotá, D.C., Colombia",        href: null },
@@ -351,7 +352,7 @@ function ContactForm() {
       } catch (fallbackError) {
         console.error("Error en ambos métodos de envío:", fallbackError);
         setStatus("error");
-        addNotification({ type: "error", title: "Error al enviar", message: "Intenta de nuevo o escríbenos a cristiancoli50@gmail.com", duration: 6000 });
+        addNotification({ type: "error", title: "Error al enviar", message: "Intenta de nuevo o escríbeme a cristianbenitez50@hotmail.com", duration: 6000 });
       }
     }
   };
@@ -453,8 +454,8 @@ function ContactForm() {
       {status === "error" && (
         <p style={{ color: "var(--amber)", fontSize: 13, marginTop: 10, textAlign: "center" }}>
           No se pudo enviar. Escríbenos a{" "}
-          <a href="mailto:cristiancoli50@gmail.com" style={{ color: "var(--teal)" }}>
-            cristiancoli50@gmail.com
+          <a href="mailto:cristianbenitez50@hotmail.com" style={{ color: "var(--teal)" }}>
+            cristianbenitez50@hotmail.com
           </a>
         </p>
       )}
@@ -503,7 +504,7 @@ export default function Home() {
 
   const cvPdfUrl = dynProfile?.cvPdfUrl || CV_PDF;
   const profileImgUrl = dynProfile?.profileImgUrl || PROFILE_IMG;
-  const fullName = dynProfile?.fullName || "Cristhian Hernando Benítez Rodríguez";
+  const fullName = dynProfile?.fullName || "Cristhian Hernando Benitez Rodriguez";
 
   const filteredProjects = filterProjectsByCategory(
     projects as unknown as ProjectItem[],
@@ -737,14 +738,14 @@ export default function Home() {
               </p>
 
               <h1 className="hero-title fade-up fade-up-2">
-                Conecto Compras y Logística con{" "}
-                <span className="accent gradient-text">datos, negociación y código</span>
+                Repuestos a tiempo para el mantenimiento,{" "}
+                <span className="accent gradient-text">con datos y control de inventario</span>
               </h1>
 
               <p className="hero-sub fade-up fade-up-3">
-                Gestor de abastecimiento con <strong>+8 años de trayectoria</strong> vinculando
-                comercio exterior, aforos aduaneros (UAP) y modelos analíticos en <span className="accent">Python</span> para
-                generar ahorros tangibles y control de inventarios en tiempo real.
+                Profesional de abastecimiento con <strong>+8 años de trayectoria</strong>. Planeo materiales y repuestos
+                para una flota de 260 buses articulados, controlo inventarios y coordino mantenimiento, compras y proveedores,
+                apoyado en Excel avanzado, <span className="accent">Python</span> e IA.
               </p>
 
               <div className="hero-tags fade-up fade-up-4">
@@ -854,12 +855,12 @@ export default function Home() {
                     <div>
                       <div className="photo-badge-name">
                         {heroVisualMode === "photo"
-                          ? `${fullName.split(" ")[0]} ${fullName.split(" ")[2] || fullName.split(" ")[1] || "Benítez"}`
+                          ? `${fullName.split(" ")[0]} ${fullName.split(" ")[2] || fullName.split(" ")[1] || "Benitez"}`
                           : "AI Supply Hub 3D"}
                       </div>
                       <div className="photo-badge-role">
                         {heroVisualMode === "photo"
-                          ? "Gestor de Compras · Data Analyst"
+                          ? "Gestor de Compras · Abastecimiento de flota"
                           : "Gemini AI · Python · Predicción"}
                       </div>
                     </div>
@@ -914,7 +915,7 @@ export default function Home() {
               <span className="marquee-dot" />
               <span className="marquee-item">Comercio Exterior · <strong>Régimen UAP</strong></span>
               <span className="marquee-dot" />
-              <span className="marquee-item"><strong>92%</strong> Precisión Modelo IA</span>
+              <span className="marquee-item"><strong>SIESA</strong> · Solicitudes por cronograma de mantenimiento</span>
               <span className="marquee-dot" />
             </span>
           ))}

@@ -35,7 +35,7 @@ interface ProfileState {
 const DEFAULT_PROFILE: ProfileState = {
   cvPdfUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663355008483/43PzwajDwL6ynT3xAyRcit/CristhianHernandoBenitezRodriguez-Hojadevida_61fcabf4.pdf",
   profileImgUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663355008483/43PzwajDwL6ynT3xAyRcit/cristhian-profile-photo_0a53abcf.png",
-  fullName: "Cristhian Hernando Benítez Rodríguez",
+  fullName: "Cristhian Hernando Benitez Rodriguez",
   title: "Profesional en Finanzas y Negocios Internacionales | Experto en Abastecimiento Estratégico y Aplicación de Inteligencia Artificial",
   location: "Bogotá, D.C., Colombia",
   email: "cristianbenitez50@hotmail.com",

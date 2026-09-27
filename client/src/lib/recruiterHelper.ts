@@ -22,25 +22,25 @@ export function generateWhatsAppLink(customMessage?: string): string {
 }
 
 export function generateAtsSummary(): string {
-  return `CRISTHIAN HERNANDO BENÍTEZ RODRÍGUEZ
-Profesional en Finanzas y Negocios Internacionales | Especialista en Abastecimiento Estratégico, Análisis de Datos & IA
+  return `CRISTHIAN HERNANDO BENITEZ RODRIGUEZ
+Profesional de Abastecimiento, Inventarios y Planeación de Materiales para Flota
 Ubicación: Bogotá, D.C., Colombia
 Contacto: (+57) 301 374 8901 | cristianbenitez50@hotmail.com
 LinkedIn: ${RECRUITER_LINKEDIN}
 
 RESUMEN PROFESIONAL:
-+8 años de experiencia liderando compras estratégicas, comercio exterior y optimización de cadena de suministro para flotas de hasta 260 buses e industrias críticas. Especialista en la implementación de modelos predictivos de inventarios con Python, SQL y Gemini AI.
++8 años en compras, inventarios y comercio exterior. Gestiono solicitudes de repuestos según cronogramas de mantenimiento para 260 buses articulados, con flujo de solicitudes en SIESA y control de inventario apoyado en Excel avanzado, Python e IA.
 
 LOGROS CLAVE CUANTIFICADOS:
 • 7% a 11% de ahorro recurrente en adquisición de bienes, insumos y servicios técnicos.
 • 40% de reducción en costos de agenciamiento aduanero mediante régimen UAP.
 • 60% de disminución en tiempos de entrega de mercancías internacionales.
-• 92% de precisión en modelos predictivos de costos logísticos y fluctuaciones.
+• Asset Tracker: control de 1.828 referencias de repuestos con alertas de stock.
 • 100% de cumplimiento normativo ante la DIAN sin sanciones.
 
 STACK TÉCNICO:
 • Datos & IA: Python (Pandas, Scikit-learn), SQL, Power BI, Tableau, Gemini AI.
-• Gestión & ERP: SAP (MM, Business One), SIESA ERP, Neo System, Excel Avanzado (VBA).
+• Gestión & ERP: SIESA ERP, SAP Business One, Excel Avanzado (VBA).
 • Desarrollo: React 19, TypeScript, Node.js, REST APIs.`;
 }
 

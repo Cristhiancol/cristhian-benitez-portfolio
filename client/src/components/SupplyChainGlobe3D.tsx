@@ -16,7 +16,7 @@ const NODES: NodePoint[] = [
     lat: 4.711,
     lng: -74.0721,
     type: "hub",
-    description: "Gestión 260 buses, contratos Terpel e inventarios predictivos IA",
+    description: "Abastecimiento de 260 buses, contratos Terpel y control de inventario de repuestos",
     metric: "7-11% Ahorro",
   },
   {
@@ -44,12 +44,12 @@ const NODES: NodePoint[] = [
     metric: "-40% Costo Aduana",
   },
   {
-    name: "Shanghai (Suministro Global)",
-    lat: 31.2304,
-    lng: 121.4737,
+    name: "Reino Unido (Inyectores Delphi)",
+    lat: 51.5072,
+    lng: -0.1276,
     type: "port",
-    description: "Adquisición de componentes electrónicos y sensores de telemetría",
-    metric: "92% Precisión IA",
+    description: "Negociación internacional de inyectores para los motores de la flota",
+    metric: "1.560 unidades en negociación",
   },
   {
     name: "Frankfurt (Logística Técnica)",
@@ -65,7 +65,7 @@ const ROUTES: [number, number][] = [
   [0, 1], // Bogotá <-> Miami
   [0, 2], // Bogotá <-> Houston
   [0, 3], // Bogotá <-> Rotterdam
-  [0, 4], // Bogotá <-> Shanghai
+  [0, 4], // Bogotá <-> Reino Unido
   [0, 5], // Bogotá <-> Frankfurt
 ];
 

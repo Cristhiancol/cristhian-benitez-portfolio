@@ -26,7 +26,6 @@ Profesional en **Finanzas y Negocios Internacionales** con **+8 años de experie
 | 🚚 **Reducción de Gastos** | **40%** | Agencia de aduanas (Proyecto UAP) |
 | 📉 **Reducción Lead Time** | **60%** | Tiempos de importación de repuestos críticos |
 | ✅ **Cumplimiento DIAN** | **100%** | Régimen aduanero sin sanciones ni multas |
-| 🎯 **Precisión Modelo IA** | **92%** | Modelos supervisados de predicción de precios y stock |
 
 ---
 
@@ -39,7 +38,7 @@ Portafolio web de última generación con estética **Dark Tech Glassmorphism**,
 - 📊 **Simulador Interactivo de ROI en Abastecimiento**: Calculadora en tiempo real con sliders de flota (50-500 buses) y presupuesto mensual para proyectar ahorros ($ COP / %), reducción de quiebres de stock y cumplimiento aduanero (`build-dashboard`, `playground`).
 - 💎 **Monograma Holográfico 3D "CB"**: Logotipo tridimensional interactivo con física de inclinación al cursor, anillos orbitales y reflejos especulares dinámicos (`muapi-3d-logo-animation`).
 - 📑 **Deck Ejecutivo (60s Pitch Mode)**: Visor de diapositivas directivas en 4 láminas para reclutadores y VPs con resumen, métricas, proyectos y contacto rápido (`marp-slide`, `beautiful-article`).
-- 🌐 **Globo 3D Interactivo de Supply Chain**: Proyección esférica 3D en Canvas con rutas comerciales internacionales (Bogotá, Miami, Houston, Rotterdam, Shanghai, Frankfurt) y paquetes de datos animados en tiempo real (`legacy-circuit-mockups`).
+- 🌐 **Globo 3D Interactivo de Supply Chain**: Proyección esférica 3D en Canvas con rutas comerciales internacionales (Bogotá, Miami, Houston, Rotterdam, Reino Unido, Frankfurt) y paquetes de datos animados en tiempo real (`legacy-circuit-mockups`).
 - 🔄 **Diagrama de Flujo & Arquitectura SMART**: Visualizador interactivo de las 5 fases de compras y esquema técnico de integración ERP (SIESA/SAP) con modelos Python y Gemini AI (`json-canvas`, `mermaid-visualizer`).
 - 📏 **Barra de Lectura Fluida (Scroll Progress)**: Indicador superior en gradiente cian-esmeralda sincronizado con el scroll (`gsap-plugins`).
 - 📱 **Ingeniería de Diseño Web Responsiva & Móvil**: Cero desbordes horizontales, diseño anti-colisión en tarjetas de visualización, navegación móvil con botones táctiles de 44×44px y adaptación para pantallas de 320px a 4K (`web-design-engineer`, `web-design-reviewer`).
@@ -73,8 +72,8 @@ Backend (Opcional):
 
 | ID | Proyecto | Tecnologías Clave | Impacto Operativo & Resultados |
 |:---:|:---|:---|:---|
-| **PRJ-001** | **StockFlow — Sistema de IA para Inventarios** | Python · Gemini AI · Pandas · Scikit-Learn | Prevención proactiva de desabastecimiento en flota crítica (1.8% riesgo de quiebre de stock). |
-| **PRJ-002** | **Análisis Predictivo de Costos Logísticos** | Python · Pandas · Power BI · SQL | Modelos con 92% de precisión para anticipar variaciones de precio en insumos y fletes. |
+| **PRJ-001** | **StockFlow — Inventario con datos de mantenimiento** | Python · Pandas | En desarrollo: importador de datos MainSaver y alertas de reorden. |
+| **PRJ-002** | **Importación de Inyectores Delphi** | Excel · Python · Contratación internacional | 1.560 inyectores para la flota; validación de muestra con Mantenimiento. [Repositorio](https://github.com/Cristhiancol/importacion-inyectores-agng-somos-bogota-usme) |
 | **PRJ-003** | **Asset Tracker — Dashboard IA & Drive** | React · TypeScript · Gemini AI · Drive API | Sincronización continua de inventario con Google Drive y alertas dinámicas de reorden. |
 | **PRJ-004** | **Proyecto SMART — Control de OC y Stock** | Excel VBA · Macros · Power Query · SIESA | Control integral para 260 buses articulados; 7% al 11% de ahorro en insumos anuales. |
 | **PRJ-005** | **Proyecto UAP — Logística Aduanera (DIAN)** | SIESA ERP · SAP · Regulación Aduanera | 40% reducción en gastos de agencia, 60% disminución en tiempos de entrega y 100% DIAN. |
@@ -291,4 +290,4 @@ Este proyecto está bajo la licencia **MIT**. Siéntete libre de usar, modificar
 
 **Última actualización**: Septiembre 2026
 
-*Diseñado y desarrollado por Cristhian Benítez · Procurement Data-Driven & AI*
+*Diseñado y desarrollado por Cristhian Benitez · Abastecimiento, inventarios y planeación de materiales para flota*

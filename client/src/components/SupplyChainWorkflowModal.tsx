@@ -35,11 +35,11 @@ export default function SupplyChainWorkflowModal({ isOpen, onClose }: Props) {
     },
     {
       id: "AI",
-      stage: "03. Predicción StockFlow (IA)",
+      stage: "03. Control de inventario (Asset Tracker)",
       tool: "Gemini AI · Pandas",
       time: "Tiempo Real",
       detail: "Cálculo de punto de reorden y probabilidad de desabastecimiento anticipado basado en kilometraje de flota y consumo estacional.",
-      impact: "1.8% riesgo de quiebre de stock",
+      impact: "Alertas de stock para referencias críticas",
     },
     {
       id: "ERP",
@@ -78,7 +78,7 @@ export default function SupplyChainWorkflowModal({ isOpen, onClose }: Props) {
                 Flujo Operativo & Arquitectura de Abastecimiento
               </h3>
               <p className="text-xs font-mono text-cyan-400">
-                Supply Chain Data Pipeline · Metodología Cristhian Benítez
+                Supply Chain Data Pipeline · Metodología Cristhian Benitez
               </p>
             </div>
           </div>
@@ -176,7 +176,7 @@ export default function SupplyChainWorkflowModal({ isOpen, onClose }: Props) {
               <div className="bg-black/50 p-6 rounded-2xl border border-emerald-500/20 font-mono text-xs text-[rgba(232,230,225,0.85)] space-y-4">
                 <div className="text-emerald-400 font-bold text-sm flex items-center gap-2">
                   <Cpu size={16} />
-                  <span>Arquitectura Técnica: Proyecto SMART + StockFlow IA</span>
+                  <span>Arquitectura Técnica: Proyecto SMART + Asset Tracker</span>
                 </div>
 
                 {/* ASCII / Blueprint Schema */}
@@ -218,7 +218,7 @@ export default function SupplyChainWorkflowModal({ isOpen, onClose }: Props) {
 
         {/* Footer */}
         <div className="p-4 px-6 border-t border-white/10 bg-black/40 flex items-center justify-between text-xs font-mono">
-          <span className="text-[rgba(232,230,225,0.4)]">Diseñado e implementado por Cristhian Benítez</span>
+          <span className="text-[rgba(232,230,225,0.4)]">Diseñado e implementado por Cristhian Benitez</span>
           <button
             onClick={onClose}
             className="px-4 py-2 rounded-lg bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 transition-colors font-bold cursor-pointer"

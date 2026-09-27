@@ -26,12 +26,14 @@ describe("recruiterHelper utilities", () => {
   describe("generateAtsSummary", () => {
     it("includes key metrics, phone number, and contact info", () => {
       const summary = generateAtsSummary();
-      expect(summary).toContain("CRISTHIAN HERNANDO BENÍTEZ RODRÍGUEZ");
+      expect(summary).toContain("CRISTHIAN HERNANDO BENITEZ RODRIGUEZ");
       expect(summary).toContain("301 374 8901");
       expect(summary).toContain("cristianbenitez50@hotmail.com");
       expect(summary).toContain("7% a 11% de ahorro");
       expect(summary).toContain("260 buses");
-      expect(summary).toContain("92% de precisión");
+      expect(summary).toContain("1.828 referencias");
+      expect(summary).toContain("SIESA");
+      expect(summary).not.toContain("92%");
       expect(summary).toContain("Python");
     });
   });

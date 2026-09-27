@@ -18,7 +18,7 @@ export default function ExecutiveDeckModal({ isOpen, onClose, cvPdfUrl }: Props)
   const slides = [
     {
       tag: "DIAPOSITIVA 01 / 04 · RESUMEN EJECUTIVO",
-      title: "Cristhian Hernando Benítez Rodríguez",
+      title: "Cristhian Hernando Benitez Rodriguez",
       subtitle: "Gestor de Compras · Abastecimiento Estratégico & Data-Driven",
       content: (
         <div className="space-y-4 text-sm text-[rgba(232,230,225,0.85)] leading-relaxed">
@@ -82,8 +82,8 @@ export default function ExecutiveDeckModal({ isOpen, onClose, cvPdfUrl }: Props)
               <Cpu size={16} />
             </div>
             <div className="text-xs">
-              <div className="font-bold text-white">PRJ-001: StockFlow — Inteligencia Artificial para Inventarios</div>
-              <div className="text-[rgba(232,230,225,0.7)] mt-0.5">Modelos con Gemini AI y Python (Pandas/Scikit-learn) para predecir agotamientos de stock con 92% de exactitud.</div>
+              <div className="font-bold text-white">Asset Tracker — Control de inventario de repuestos</div>
+              <div className="text-[rgba(232,230,225,0.7)] mt-0.5">Tablero para 1.828 referencias con alertas de stock, sincronización con Google Drive y apoyo de IA para ítems clase A.</div>
             </div>
           </div>
           <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">

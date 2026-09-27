@@ -115,9 +115,9 @@ export default function RecruiterPitchModal({
               </p>
             </div>
             <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-center">
-              <span className="text-xl font-black text-blue-400">92%</span>
+              <span className="text-xl font-black text-blue-400">1.828</span>
               <p className="text-[11px] text-slate-400 uppercase tracking-wider mt-1">
-                Precisión IA
+                Referencias controladas
               </p>
             </div>
             <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-center">

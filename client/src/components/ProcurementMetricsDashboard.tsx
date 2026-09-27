@@ -223,7 +223,7 @@ export default function ProcurementMetricsDashboard() {
               {calculations.stockoutRisk}%
             </div>
             <div className="text-xs text-[rgba(232,230,225,0.7)] mt-1">
-              Reducción del <span className="text-emerald-400 font-bold">-92%</span> en eventos de paro de flota por repuestos críticos.
+              Escenario simulado con los valores del control. <span className="text-emerald-400 font-bold">No corresponde a un resultado medido.</span>
             </div>
             {/* Visual Bar */}
             <div className="w-full bg-slate-800/80 h-1.5 rounded-full mt-4 overflow-hidden">

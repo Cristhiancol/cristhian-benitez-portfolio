@@ -8,12 +8,14 @@ import { NotificationProvider } from "./contexts/NotificationContext";
 import { NotificationContainer } from "./components/NotificationContainer";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
+import Propuesta90 from "./pages/Propuesta90";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/admin"} component={Admin} />
+      <Route path={"/propuesta-90-dias"} component={Propuesta90} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

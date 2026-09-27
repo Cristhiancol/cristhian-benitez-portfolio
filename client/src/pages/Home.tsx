@@ -13,7 +13,7 @@ import {
   CheckCircle2, Briefcase, Clock, ChevronRight,
   Send, User, Building2, Sparkles, Zap, Layers,
   FileText, CircleDot, Dna, MessageCircle, Filter,
-  Network, Sliders, Play,
+  Network, Sliders, Play, Target,
 } from "lucide-react";
 import { useNotification } from "@/contexts/NotificationContext";
 import RecruiterPitchModal from "@/components/RecruiterPitchModal";
@@ -55,7 +55,7 @@ const kpis = [
   { num: "260", unit: "",  label: "Buses articulados abastecidos para mantenimiento" },
   { num: "40", unit: "%",  label: "Reducción costos aduaneros" },
   { num: "60", unit: "%",  label: "Disminución tiempos de entrega" },
-  { num: "1828", unit: "", label: "Referencias de repuestos en Asset Tracker" },
+  { num: "1868", unit: "", label: "Referencias de repuestos en Asset Tracker" },
 ];
 
 const quickInfo = [
@@ -70,7 +70,7 @@ const quickInfo = [
 const highlights = [
   { text: <>Gestiono las solicitudes de repuestos de <strong>260 buses articulados</strong> a partir de los cronogramas de mantenimiento, en coordinación con la planeación de mantenimiento, inventarios, proveedores y operación.</> },
   { text: <>Diseñé e implementé el <strong>Proyecto SMART</strong> para control y seguimiento integral de órdenes de compra, stock y facturación.</> },
-  { text: <>Construí <strong>Asset Tracker</strong>, tablero de control para 1.828 referencias de repuestos con alertas de stock, sincronización con Google Drive y apoyo de IA para ítems clase A.</> },
+  { text: <>Construí <strong>Asset Tracker</strong>, tablero de control para 1.868 referencias de repuestos con alertas de stock, sincronización con Google Drive y apoyo de IA para ítems clase A.</> },
   { text: <>Lidero la negociación internacional de <strong>1.560 inyectores Delphi</strong> para la flota, con validación de muestra junto a Mantenimiento y documentación pública en GitHub.</> },
   { text: <>En Helicentro lideré el proyecto <strong>UAP</strong>: 40 % menos en costos de agencia de aduanas y 60 % menos en tiempos de entrega, con cumplimiento DIAN.</> },
 ];
@@ -82,7 +82,7 @@ const experience = [
     role: "Gestor de Compras",
     org: "Somos Bogotá Usme S.A.S.",
     summary:
-      "Abastecimiento de repuestos, lubricantes, herramientas y servicios para 260 buses articulados del SITP. Genero solicitudes de repuestos según los cronogramas de mantenimiento, en coordinación con la persona responsable de planeación de mantenimiento, y tramito en SIESA solicitudes de herramientas, repuestos, servicios, fumigaciones y otros requerimientos operativos. Administro contratos de lubricantes (Terpel), estaciones de combustible, reparación de culatas y cajas de dirección.",
+      "Abastecimiento de repuestos, lubricantes, herramientas y servicios para 260 buses articulados. Genero solicitudes de repuestos según los cronogramas de mantenimiento, en coordinación con la persona responsable de planeación de mantenimiento, y tramito en SIESA solicitudes de herramientas, repuestos, servicios, fumigaciones y otros requerimientos operativos. Administro contratos de lubricantes (Terpel), estaciones de combustible, reparación de culatas y cajas de dirección.",
     results: [
       "Ahorros constantes del <strong>7 % al 11 %</strong> mediante negociación estratégica y optimización de esquemas de contratación",
       "Proyecto <strong>SMART</strong>: Control y seguimiento integral de órdenes de compra, fluctuaciones, stock y facturación",
@@ -178,7 +178,7 @@ const projects: (Omit<ProjectItem, "icon"> & { icon: React.ReactNode })[] = [
     from: "GOOGLE DRIVE",
     to: "DASHBOARD IA",
     description:
-      "Tablero de control de inventario de repuestos para la flota: 1.828 referencias, distinción entre repuestos nuevos y reparados (sufijo -R) y sincronización con Google Drive. Repositorio privado; demostración a solicitud.",
+      "Tablero de control de inventario de repuestos para la flota: 1.868 referencias, distinción entre repuestos nuevos y reparados (sufijo -R) y sincronización con Google Drive. Repositorio privado; demostración a solicitud.",
     results: [
       "Sincronización automatizada con Google Drive",
       "Monitoreo continuo de activos e insumos",
@@ -633,6 +633,12 @@ export default function Home() {
               </a>
             ))}
 
+            {/* Propuesta 90 días — cargo objetivo */}
+            <a href="/propuesta-90-dias" className="nav-p90">
+              <Target size={12} />
+              Propuesta 90 días
+            </a>
+
             {/* Executive Deck Button */}
             <button
               onClick={() => setIsDeckModalOpen(true)}
@@ -692,6 +698,10 @@ export default function Home() {
             </a>
           ))}
           <div className="nav-mobile-divider" />
+          <a href="/propuesta-90-dias" className="nav-p90-mobile">
+            <Target size={16} />
+            <span>Propuesta 90 días — Planeador Controller</span>
+          </a>
           <button
             onClick={() => {
               setMobileMenuOpen(false);
@@ -734,7 +744,7 @@ export default function Home() {
 
               <p className="hero-label fade-up fade-up-1">
                 <span className="dot" aria-hidden="true" />
-                PROCUREMENT DATA-DRIVEN · +8 AÑOS DE EXPERIENCIA
+                ABASTECIMIENTO · PLANEACIÓN DE MATERIALES · CONTROL DE COSTOS DE MANTENIMIENTO
               </p>
 
               <h1 className="hero-title fade-up fade-up-2">
@@ -758,6 +768,15 @@ export default function Home() {
               </div>
 
               <div className="hero-actions fade-up fade-up-5">
+                <MagneticButton
+                  href="/propuesta-90-dias"
+                  className="btn btn-p90"
+                  magnetStrength={8}
+                >
+                  <Target size={16} />
+                  Propuesta 90 días
+                  <ArrowRight size={16} />
+                </MagneticButton>
                 <MagneticButton
                   onClick={() => setIsDeckModalOpen(true)}
                   className="btn btn-recruiter cursor-pointer"
@@ -921,6 +940,35 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* ── PROPUESTA 90 DÍAS — TEASER ───────────────────────── */}
+      <section id="propuesta" className="p90-teaser" aria-labelledby="p90-teaser-title">
+        <div className="wrap">
+          <ScrollReveal>
+            <a href="/propuesta-90-dias" className="p90-teaser-card">
+              <div className="p90-teaser-num" aria-hidden="true">90</div>
+              <div className="p90-teaser-body">
+                <span className="p90-teaser-eyebrow">Propuesta · Planeador Controller de Mantenimiento</span>
+                <h2 id="p90-teaser-title" className="p90-teaser-title">
+                  Del repuesto a tiempo <em>al plan que se cumple.</em>
+                </h2>
+                <p className="p90-teaser-sub">
+                  Mis primeros 90 días: ciclo completo del plan, hoja de ruta por etapas y 8 indicadores de confiabilidad, disponibilidad y costo.
+                </p>
+                <div className="p90-teaser-phases">
+                  <span><b>01</b> Entender y medir</span>
+                  <span><b>02</b> Ordenar y asegurar</span>
+                  <span><b>03</b> Optimizar y controlar</span>
+                </div>
+              </div>
+              <span className="p90-teaser-cta">
+                Ver propuesta
+                <ArrowRight size={18} />
+              </span>
+            </a>
+          </ScrollReveal>
+        </div>
+      </section>
 
       {/* ── SOBRE MÍ — BENTO ────────────────────────────────── */}
       <section id="sobre-mi" className="section">
@@ -1236,10 +1284,10 @@ export default function Home() {
       >
         <div className="wrap">
           <span className="eyebrow">// contacto</span>
-          <h2 className="section-title">¿Hablamos de Procurement e IA?</h2>
+          <h2 className="section-title">¿Hablamos del plan de mantenimiento?</h2>
           <p className="section-sub">
-            Si buscas eficiencia, modelos predictivos o automatización aplicada a tus
-            procesos de abastecimiento — estoy disponible.
+            Abastecimiento, control de costos e indicadores al servicio del plan de
+            mantenimiento de la flota. Conversemos.
           </p>
 
           <div className="contact-grid">
@@ -1291,7 +1339,7 @@ export default function Home() {
       <footer className="footer" style={{ borderTop: "1px solid var(--line)" }}>
         <div className="wrap footer-inner">
           <span className="footer-brand">
-            cristhian<span>.benitez</span> — Procurement Data-Driven
+            cristhian<span>.benitez</span> — Abastecimiento y control para mantenimiento de flota
           </span>
           <div className="footer-links">
             <a href="https://www.linkedin.com/in/cristhian-hernando-benitez-rodriguez/" target="_blank" rel="noopener noreferrer">

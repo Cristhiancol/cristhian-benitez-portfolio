@@ -31,7 +31,7 @@ describe("recruiterHelper utilities", () => {
       expect(summary).toContain("cristianbenitez50@hotmail.com");
       expect(summary).toContain("7% a 11% de ahorro");
       expect(summary).toContain("260 buses");
-      expect(summary).toContain("1.828 referencias");
+      expect(summary).toContain("1.868 referencias");
       expect(summary).toContain("SIESA");
       expect(summary).not.toContain("92%");
       expect(summary).toContain("Python");

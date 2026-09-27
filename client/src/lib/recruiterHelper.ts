@@ -35,7 +35,7 @@ LOGROS CLAVE CUANTIFICADOS:
 • 7% a 11% de ahorro recurrente en adquisición de bienes, insumos y servicios técnicos.
 • 40% de reducción en costos de agenciamiento aduanero mediante régimen UAP.
 • 60% de disminución en tiempos de entrega de mercancías internacionales.
-• Asset Tracker: control de 1.828 referencias de repuestos con alertas de stock.
+• Asset Tracker: control de 1.868 referencias de repuestos con alertas de stock.
 • 100% de cumplimiento normativo ante la DIAN sin sanciones.
 
 STACK TÉCNICO:

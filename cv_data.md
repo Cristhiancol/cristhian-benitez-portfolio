@@ -13,7 +13,7 @@
 - GitHub: https://github.com/Cristhiancol/cristhian-benitez-portfolio/tree/main
 
 ## Perfil
-Profesional en Finanzas y Negocios Internacionales con más de ocho años en compras, inventarios y comercio exterior. Desde 2024 gestiona el abastecimiento de repuestos, lubricantes, herramientas y servicios para 260 buses articulados de Somos Bogotá Usme (SITP), en coordinación con la planeación de mantenimiento. Conoce el flujo de solicitudes en SIESA y aplica Excel avanzado, Python e IA al control de inventario.
+Profesional en Finanzas y Negocios Internacionales con más de ocho años en compras, inventarios y comercio exterior. Desde 2024 gestiona el abastecimiento de repuestos, lubricantes, herramientas y servicios para 260 buses articulados de Somos Bogotá Usme, en coordinación con la planeación de mantenimiento. Conoce el flujo de solicitudes en SIESA y aplica Excel avanzado, Python e IA al control de inventario.
 
 ## Experiencia
 ### Gestor de Compras — Somos Bogotá Usme S.A.S. (Feb. 2024 – Actualidad)
@@ -36,7 +36,7 @@ Profesional en Finanzas y Negocios Internacionales con más de ocho años en com
 - Inventarios en depósito; −20 % tiempos de inspección; +40 % productividad en verificación SAP; acta de inspección virtual automatizada.
 
 ## Proyectos
-- Asset Tracker: 1.828 referencias, alertas de stock, Google Drive, IA para clase A (repositorio privado).
+- Asset Tracker: 1.868 referencias, alertas de stock, Google Drive, IA para clase A (repositorio privado).
 - Importación de inyectores Delphi: https://github.com/Cristhiancol/importacion-inyectores-agng-somos-bogota-usme
 - SMART: Excel/VBA interno.
 - StockFlow: en desarrollo — https://github.com/Cristhiancol/StockFlow
@@ -50,4 +50,4 @@ Profesional en Finanzas y Negocios Internacionales con más de ocho años en com
 SIESA, SAP Business One, Excel avanzado (Power Query, VBA), Power BI, Tableau, SQL, Python (Pandas), Google Drive API, Gemini.
 
 ## Idiomas
-Español nativo · Inglés intermedio (pendiente de confirmar nivel)
+Español nativo · Inglés intermedio — lectura técnica y comunicación escrita con proveedores internacionales

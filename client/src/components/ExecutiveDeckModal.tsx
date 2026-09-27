@@ -83,7 +83,7 @@ export default function ExecutiveDeckModal({ isOpen, onClose, cvPdfUrl }: Props)
             </div>
             <div className="text-xs">
               <div className="font-bold text-white">Asset Tracker — Control de inventario de repuestos</div>
-              <div className="text-[rgba(232,230,225,0.7)] mt-0.5">Tablero para 1.828 referencias con alertas de stock, sincronización con Google Drive y apoyo de IA para ítems clase A.</div>
+              <div className="text-[rgba(232,230,225,0.7)] mt-0.5">Tablero para 1.868 referencias con alertas de stock, sincronización con Google Drive y apoyo de IA para ítems clase A.</div>
             </div>
           </div>
           <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
